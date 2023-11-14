@@ -1,10 +1,12 @@
-CC      = 	g++
-CFLAGS  = 	-Wall -Werror -Wextra -std=c++98
-SRC     =	main.cpp \
-			contactClass.cpp \
-			phonebookClass.cpp
-OBJ     = 	$(SRC:%.cpp=%.o)
-NAME    = 	phonebook
+CC      		= 	g++
+CFLAGS  		= 	-Wall -Werror -Wextra -std=c++98
+CFLAGS_DEBUG 	=	-g -fsanitize=address,undefined
+
+SRC     		=	main.cpp \
+					contactClass.cpp \
+					phoneBookClass.cpp
+OBJ 		    = 	$(SRC:%.cpp=%.o)
+NAME		    = 	phonebook
 
 all: $(NAME)
 
@@ -21,6 +23,9 @@ clean:
 
 fclean: clean
 	/bin/rm -f $(NAME)
+
+
+debug: 
 
 re: fclean all
 

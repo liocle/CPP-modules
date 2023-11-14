@@ -1,71 +1,109 @@
 
 #include <iostream>
 #include <iomanip>
+#include <limits>
 #include "contactClass.hpp"
 #include "phoneBookClass.hpp"
 
 PhoneBook::PhoneBook( void ) {
+	// initialize the phone book array etc
 	std::cout << "PhoneBook initialization..." << std::endl;
 	contactCount = 0;
-	// initialize the phone book array etc
 }
 
 PhoneBook::~PhoneBook( void ) {
-	std::cout << "Contact deletions" << std::endl << "PhoneBook erased" << std::endl;
 	//free contacts, phonebook
+	std::cout << "Contact deletions" << std::endl << "PhoneBook erased" << std::endl;
+}
+
+int	get_line(std::string &str)
+{
+	std::getline(std::cin, str);
+	if (str.empty())
+		return (0);
+	if (std::cin.eof())
+		exit(0);
+	return (1);
 }
 
 void PhoneBook::addContact(void) {
-    if (contactCount < 8) {
         Contact newContact;
         std::string firstName, lastName, nickName, phoneNumber, darkestSecret;
 
-        std::cout << "Enter First Name: ";
-        std::getline(std::cin, firstName);
-        std::cout << "Enter Last Name: ";
-        std::getline(std::cin, lastName);
-        std::cout << "Enter Nickname: ";
-        std::getline(std::cin, nickName);
-        std::cout << "Enter Phone Number: ";
-        std::getline(std::cin, phoneNumber);
-        std::cout << "Enter Darkest Secret: ";
-        std::getline(std::cin, darkestSecret);
+		do {
+			std::cout << "Enter First Name: ";
+		} while (!get_line(firstName));
+		do {
+			std::cout << "Enter Last Name: ";
+		} while (!get_line(lastName));
+		do {
+			std::cout << "Enter Nickname: ";
+		} while (!get_line(nickName));
+		do {
+			std::cout << "Enter Phone Number: ";
+		} while (!get_line(phoneNumber));
+		do {
+			std::cout << "Enter Darkest Secret: ";
+		} while (!get_line(darkestSecret));
 
         newContact.setContactInfo(firstName, lastName, nickName, phoneNumber, darkestSecret);
 
-        contacts[contactCount] = newContact;
+        contacts[contactCount % maxContacts] = newContact;
         contactCount++;
-    } else {
-        // Replace the oldest contact if the array is full
-        std::cout << "PhoneBook is full. Replacing the oldest contact." << std::endl;
-        contacts[contactCount % 8] = Contact();  // Create a new Contact to replace the oldest one
-		contactCount++;
-
-    }
-	std::cout << "Contact count: " << contactCount << std::endl;
 }
 
-void	PhoneBook::searchContact(void) const {
-	if (contactCount > 0) {
-		std::cout << std::endl << std::endl;
-		std::cout << " - - - - - - - - - - - - - - - - - - - - - -  " << std::endl;
-		std::cout << "|" << std::setw(10) << "Index" << "|" << std::setw(10) << "First Name" << "|"
-			<< std::setw(10) << "Last Name" << "|" << std::setw(10) << "Nickname" << "|" << std::endl;
-		std::cout << " - - - - - - - - - - - - - - - - - - - - - -  " << std::endl;
-		for (int i = 0; i < contactCount; i++) {
-			contacts[i].getContactList(i);
-		}
-		std::cout << " - - - - - - - - - - - - - - - - - - - - - -  " << std::endl;
 
-		int index;		
-		std::cout << std::endl << "Enter the index of the contact to display: ";
-		std::cin >> index;
+void	PhoneBook::clearInputBuffer( void ) const {
+	std::cin.clear();
+	while (std::cin.get() != '\n');
+}
 
-		if (index >= 0 && index < contactCount)
+
+void PhoneBook::printContactHeader() const {
+    std::cout << std::endl << std::endl;
+    std::cout << "┌──────────┬──────────┬──────────┬───────────┐" << std::endl;
+    std::cout << "│" << std::setw(10) << "Index" << "│" << std::setw(10) << "First Name" << "│"
+              << std::setw(10) << "Last Name" << "│" << std::setw(10) << "Nickname" << "│" << std::endl;
+    std::cout << "├──────────┼──────────┼──────────┼───────────┤" << std::endl;
+}
+
+
+void PhoneBook::printContacts() const {
+    for (int i = 0; i < maxContacts && i < contactCount; i++) {
+        contacts[i].getContactList(i);
+    }
+}
+
+void PhoneBook::printContactFooter() const {
+    std::cout << "└────────────────────────────────────────────┘" << std::endl;
+}
+
+void PhoneBook::getUserIndex(int &index) const {
+    while (true) {
+        std::cout << std::endl << "Enter the index of the contact to display: ";
+        std::cin >> index;
+
+        if (std::cin.fail() || index < 0 || index >= contactCount || index >= maxContacts) {
+            std::cout << "Invalid index. Please enter a valid index." << std::endl;
+            clearInputBuffer();
+        } else {
+			clearInputBuffer();
+            break;
+        }
+    }
+}
+
+void PhoneBook::searchContact() const {
+    if (contactCount > 0) {
+        printContactHeader();
+        printContacts();
+        printContactFooter();
+
+        int index;
+        getUserIndex(index);
+		if (contactCount > 0 && index < maxContacts)
 			contacts[index].getContactInfo();
-		else
-			std::cout << "Invalid index." << std::endl;
-	} else {
-		std::cout << "No contacts in the phonebook." << std::endl;
-	}
-}	
+    } else {
+        std::cout << "No contact in the phonebook." << std::endl;
+    }
+}
