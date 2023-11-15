@@ -4,6 +4,7 @@
 #include <limits>
 #include "contactClass.hpp"
 #include "phoneBookClass.hpp"
+#include "boxDrawingClass.hpp"
 
 PhoneBook::PhoneBook( void ) {
 	// initialize the phone book array etc
@@ -27,29 +28,53 @@ int	get_line(std::string &str)
 }
 
 void PhoneBook::addContact(void) {
-        Contact newContact;
-        std::string firstName, lastName, nickName, phoneNumber, darkestSecret;
+    Contact newContact;
+    std::string firstName, lastName, nickName, phoneNumber, darkestSecret;
 
-		do {
-			std::cout << "Enter First Name: ";
-		} while (!get_line(firstName));
-		do {
-			std::cout << "Enter Last Name: ";
-		} while (!get_line(lastName));
-		do {
-			std::cout << "Enter Nickname: ";
-		} while (!get_line(nickName));
-		do {
-			std::cout << "Enter Phone Number: ";
-		} while (!get_line(phoneNumber));
-		do {
-			std::cout << "Enter Darkest Secret: ";
-		} while (!get_line(darkestSecret));
+    while (true) {
+        std::cout << "Enter First Name: ";
+        if (get_line(firstName))
+            break;
+        else
+            std::cout << "Invalid input. Please enter a valid First Name." << std::endl;
+    }
 
-        newContact.setContactInfo(firstName, lastName, nickName, phoneNumber, darkestSecret);
+    while (true) {
+        std::cout << "Enter Last Name: ";
+        if (get_line(lastName))
+            break;
+        else
+            std::cout << "Invalid input. Please enter a valid Last Name." << std::endl;
+    }
 
-        contacts[contactCount % maxContacts] = newContact;
-        contactCount++;
+    while (true) {
+        std::cout << "Enter Nickname: ";
+        if (get_line(nickName))
+            break;
+        else
+            std::cout << "Invalid input. Please enter a valid Nickname." << std::endl;
+    }
+
+    while (true) {
+        std::cout << "Enter Phone Number: ";
+        if (get_line(phoneNumber))
+            break;
+        else
+            std::cout << "Invalid input. Please enter a valid Phone Number." << std::endl;
+    }
+
+    while (true) {
+        std::cout << "Enter Darkest Secret: ";
+        if (get_line(darkestSecret))
+            break;
+        else
+            std::cout << "Invalid input. Please enter a valid Darkest Secret." << std::endl;
+    }
+
+    newContact.setContactInfo(firstName, lastName, nickName, phoneNumber, darkestSecret);
+
+    contacts[contactCount % maxContacts] = newContact;
+    contactCount++;
 }
 
 
@@ -61,10 +86,39 @@ void	PhoneBook::clearInputBuffer( void ) const {
 
 void PhoneBook::printContactHeader() const {
     std::cout << std::endl << std::endl;
-    std::cout << "┌──────────┬──────────┬──────────┬──────────┐" << std::endl;
-    std::cout << "│" << std::setw(10) << "Index" << "│" << std::setw(10) << "First Name" << "│"
-              << std::setw(10) << "Last Name" << "│" << std::setw(10) << "Nickname" << "│" << std::endl;
-    std::cout << "├──────────┼──────────┼──────────┼──────────┤" << std::endl;
+
+    std::cout << BoxDrawing::topLeftCorner;
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 10; j++) {
+			std::cout << BoxDrawing::horizontalBorder;
+		}
+		std::cout << BoxDrawing::topDownSeparator;
+	}
+
+	for (int j = 0; j < 10; j++) {
+		std::cout << BoxDrawing::horizontalBorder;
+	}
+    std::cout << BoxDrawing::topRightCorner << std::endl;
+
+
+    std::cout << BoxDrawing::verticalBorder << std::setw(10) << "Index" << BoxDrawing::verticalBorder
+              << std::setw(10) << "First Name" << BoxDrawing::verticalBorder
+              << std::setw(10) << "Last Name" << BoxDrawing::verticalBorder
+              << std::setw(10) << "Nickname" << BoxDrawing::verticalBorder << std::endl;
+    std::cout << BoxDrawing::verticalLeftSeparator;
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 10; j++) {
+			std::cout << BoxDrawing::horizontalBorder;
+		}
+		std::cout << BoxDrawing::innerSeparator;
+	}
+
+	for (int j = 0; j < 10; j++) {
+		std::cout << BoxDrawing::horizontalBorder;
+	}
+    std::cout << BoxDrawing::verticalRightSeparator << std::endl;
 }
 
 
@@ -75,7 +129,20 @@ void PhoneBook::printContacts() const {
 }
 
 void PhoneBook::printContactFooter() const {
-    std::cout << "└──────────┴──────────┴──────────┴──────────┘" << std::endl;
+
+    std::cout << BoxDrawing::bottomLeftCorner;
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 10; j++) {
+			std::cout << BoxDrawing::horizontalBorder;
+		}
+		std::cout << BoxDrawing::bottomUpSeparator;
+	}
+
+	for (int j = 0; j < 10; j++) {
+		std::cout << BoxDrawing::horizontalBorder;
+    }
+    std::cout << BoxDrawing::bottomRightCorner << std::endl;
 }
 
 void PhoneBook::getUserIndex(int &index) const {

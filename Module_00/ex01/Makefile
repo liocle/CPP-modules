@@ -4,7 +4,9 @@ CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
 SRC     		=	main.cpp \
 					contactClass.cpp \
-					phoneBookClass.cpp
+					phoneBookClass.cpp \
+					boxDrawingClass.cpp \
+					displayClass.cpp
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 NAME		    = 	phonebook
 
