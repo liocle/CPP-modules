@@ -3,13 +3,15 @@
 #include <iomanip>
 #include "contactClass.hpp"
 
+int Contact::instanceCounter = 0;
 Contact::Contact(void) {
-	std::cout << "Contact module initialized" << std::endl;
+	instanceCounter++;
+	std::cout << "Contact module (#" << instanceCounter << ") initialized..." << std::endl;
 	return ;
 }
 
 Contact::~Contact(void) {
-	std::cout << "Contact module wiped" << std::endl;
+	std::cout << "Contact module <" << instanceCounter << "> wiped..." << std::endl;
 	return ;
 }	
 

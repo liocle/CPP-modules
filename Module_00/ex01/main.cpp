@@ -2,6 +2,7 @@
 #include "displayClass.hpp"
 #include <iostream>
 #include <string>
+#include <cstdlib>
 
 #include "displayClass.hpp"
 #include "phoneBookClass.hpp"

@@ -92,11 +92,13 @@ public:
 	 */
     void getContactInfo(void) const;
 
-	private:
-		std::string	firstName;
-		std::string	lastName;
-		std::string	nickName;
-		std::string	phoneNumber;
-		std::string	darkestSecret;
+  private:
+    static int instanceCounter; // Static variable to count instances
+
+    std::string firstName;
+    std::string lastName;
+    std::string nickName;
+    std::string phoneNumber;
+    std::string darkestSecret;
 };
 #endif // !CONTACTCLASS_H

@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sstream>
+#include <cstdlib>
 #include <limits>
 #include "contactClass.hpp"
 #include "phoneBookClass.hpp"
@@ -145,17 +147,24 @@ void PhoneBook::printContactFooter() const {
     std::cout << BoxDrawing::bottomRightCorner << std::endl;
 }
 
+
 void PhoneBook::getUserIndex(int &index) const {
     while (true) {
         std::cout << std::endl << "Enter the index of the contact to display: ";
-        std::cin >> index;
+        std::string input;
+        std::cin >> input;
 
-        if (std::cin.fail() || index < 0 || index >= contactCount || index >= maxContacts) {
-            std::cout << "Invalid index. Please enter a valid index." << std::endl;
+        std::istringstream iss(input);
+        iss >> index;
+
+        if (iss.eof() && !iss.fail() && iss >> std::ws) {
+            // Check if there are any non-whitespace characters remaining in the stream
+            std::cout << "Invalid input. Please enter a valid index." << std::endl;
             clearInputBuffer();
-        } else {
-			clearInputBuffer();
+        } else if (index >= 0 && index < contactCount && index < maxContacts) {
             break;
+        } else {
+            std::cout << "Invalid index. Please enter a valid index." << std::endl;
         }
     }
 }
