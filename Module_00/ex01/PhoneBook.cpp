@@ -10,7 +10,8 @@
 
 PhoneBook::PhoneBook( void ) {
 	// initialize the phone book array etc
-	std::cout << "PhoneBook initialization..." << std::endl;
+	std::cout << BoxDrawing::verticalBorder << std::endl;
+	std::cout << BoxDrawing::bottomLeftCorner << BoxDrawing::horizontalBorder  << "→\tPHONEB00K INITIALIZED with up to " << maxContacts << " contacts\n\n\t\tIncludes darkest secret 🤫" << std::endl;
 	contactCount = 0;
 }
 

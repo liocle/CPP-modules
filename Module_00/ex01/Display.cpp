@@ -28,7 +28,7 @@ void Display::welcomeMessage() {
 
 
 void Display::displayMenu() {
-	std::string menu = " 👾 Modern phonebook action menu powered by Vim <3 👾 ";
+	std::string menu = " 👾 Modern phonebook action (made with Vim) 👾 ";
 	std::string actionDesired = "Enter the desired action in UPPERCASE";
 
 	// Print menu string top box
