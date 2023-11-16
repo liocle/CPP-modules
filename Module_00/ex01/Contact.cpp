@@ -1,17 +1,28 @@
 
 #include <iostream>
 #include <iomanip>
-#include "contactClass.hpp"
+#include "Contact.hpp"
+#include "BoxDrawing.hpp"
+#include "Display.hpp"
 
 int Contact::instanceCounter = 0;
 Contact::Contact(void) {
 	instanceCounter++;
-	std::cout << "Contact module (#" << instanceCounter << ") initialized..." << std::endl;
+	this->instanceId = instanceCounter;
+	if (this->instanceId == 1) {
+		Display::clearScreen();
+		std::cout << std::endl << std::endl;;
+
+			std::cout << BoxDrawing::vanishingVerticalLine << "Contact module (#" << this->instanceId << ") initialized..." << std::endl;
+	}
+	else {
+		std::cout << BoxDrawing::vanishingVerticalLine << "Contact module (#" << this->instanceId << ") initialized..." << std::endl;
+	}
 	return ;
 }
 
 Contact::~Contact(void) {
-	std::cout << "Contact module <" << instanceCounter << "> wiped..." << std::endl;
+	std::cout << "Contact module <" << this->instanceId << "> wiped..." << std::endl;
 	return ;
 }	
 

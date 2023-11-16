@@ -1,11 +1,9 @@
-#include "phoneBookClass.hpp"
-#include "displayClass.hpp"
+#include "PhoneBook.hpp"
+#include "Display.hpp"
 #include <iostream>
 #include <string>
 #include <cstdlib>
 
-#include "displayClass.hpp"
-#include "phoneBookClass.hpp"
 
 int main() {
     PhoneBook phoneBook;

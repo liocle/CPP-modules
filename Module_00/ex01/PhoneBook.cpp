@@ -4,9 +4,9 @@
 #include <sstream>
 #include <cstdlib>
 #include <limits>
-#include "contactClass.hpp"
-#include "phoneBookClass.hpp"
-#include "boxDrawingClass.hpp"
+#include "Contact.hpp"
+#include "PhoneBook.hpp"
+#include "BoxDrawing.hpp"
 
 PhoneBook::PhoneBook( void ) {
 	// initialize the phone book array etc
@@ -163,17 +163,17 @@ void PhoneBook::getUserIndex(int &index) const {
         } else {
             std::cout << "Invalid index. Please enter a valid index." << std::flush;
         }
-
     }
 }
 
 void PhoneBook::searchContact() const {
+	int index;
+
     if (contactCount > 0) {
         printContactHeader();
         printContacts();
         printContactFooter();
 
-        int index;
         getUserIndex(index);
 		if (contactCount > 0 && index < maxContacts)
 			contacts[index].getContactInfo();

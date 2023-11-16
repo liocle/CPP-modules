@@ -47,6 +47,8 @@ class BoxDrawing {
 		static const std::string topDownSeparator;
 		static const std::string bottomUpSeparator;
 
+		static const std::string vanishingHorizontalLine;
+		static const std::string vanishingVerticalLine;
 
 		
 };

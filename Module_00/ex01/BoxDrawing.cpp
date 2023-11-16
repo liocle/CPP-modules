@@ -1,4 +1,4 @@
-#include "boxDrawingClass.hpp"
+#include "BoxDrawing.hpp"
 
 
 // Phone contact box drawing characters
@@ -32,3 +32,8 @@ const std::string BoxDrawing::menuVerticalRightSeparator = "╡";
 
 const std::string BoxDrawing::menuTopDownSeparator = "╤";
 const std::string BoxDrawing::menuBottomUpSeparator = "╧";
+
+const std::string BoxDrawing::vanishingHorizontalLine = "╴";
+const std::string BoxDrawing::vanishingVerticalLine = "╵";
+
+

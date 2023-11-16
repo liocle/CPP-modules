@@ -3,6 +3,7 @@
 
 # include <string>
 # include <iostream>
+# include "BoxDrawing.hpp"
 
 /**
  * @brief A class representing a contact with basic information.
@@ -94,6 +95,7 @@ public:
 
   private:
     static int instanceCounter; // Static variable to count instances
+	int			instanceId;
 
     std::string firstName;
     std::string lastName;

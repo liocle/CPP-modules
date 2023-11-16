@@ -1,7 +1,7 @@
-#ifndef PHONEBOOKCLASS_H
-# define PHONEBOOKCLASS_H
+#ifndef PHONEBOOK_H
+# define PHONEBOOK_H
 
-# include "contactClass.hpp"
+# include "Contact.hpp"
 
 class PhoneBook {
 
@@ -24,4 +24,4 @@ class PhoneBook {
 
 };
 
-#endif // !PHONEBOOKCLASS_H
+#endif // !PHONEBOOK_H

@@ -3,10 +3,10 @@ CFLAGS  		= 	-Wall -Werror -Wextra -std=c++98
 CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
 SRC     		=	main.cpp \
-					contactClass.cpp \
-					phoneBookClass.cpp \
-					boxDrawingClass.cpp \
-					displayClass.cpp
+					Contact.cpp \
+					PhoneBook.cpp \
+					BoxDrawing.cpp \
+					Display.cpp
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 NAME		    = 	phonebook
 
