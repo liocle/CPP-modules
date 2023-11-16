@@ -9,10 +9,10 @@
 class Display {
 
 	public:
-		Display( void );
-		~Display( void );
 		static void welcomeMessage( void );
 		static void displayMenu( void );
+		static void clearScreen( void );
+		static void waitForKeypress( void );
 		static std::string  getUserInput ( void );
 };
 

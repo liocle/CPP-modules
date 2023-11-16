@@ -14,6 +14,23 @@ class BoxDrawing {
 
 	public:
 
+
+		// Menu box drawing characters 
+		static const std::string menuTopLeftCorner;
+		static const std::string menuTopRightCorner;
+		static const std::string menuBottomLeftCorner;
+		static const std::string menuBottomRightCorner;
+
+		static const std::string menuHorizontalBorder;
+		static const std::string menuVerticalBorder;
+
+		static const std::string menuVerticalLeftSeparator;
+		static const std::string menuVerticalRightSeparator;
+
+		static const std::string menuTopDownSeparator;
+		static const std::string menuBottomUpSeparator;
+
+		// Contact table drawing characters
 		static const std::string topLeftCorner;
 		static const std::string topRightCorner;
 		static const std::string bottomLeftCorner;
@@ -29,6 +46,9 @@ class BoxDrawing {
 
 		static const std::string topDownSeparator;
 		static const std::string bottomUpSeparator;
+
+
+		
 };
 
 #endif // !BOXDRAWINGCLASS_H

@@ -24,7 +24,7 @@ int main() {
         } else if (input.compare("EXIT") == 0) {
             break;
         }
-
+		Display::clearScreen();
         if (std::cin.eof())
             return 0;
     }

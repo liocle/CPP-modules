@@ -150,22 +150,20 @@ void PhoneBook::printContactFooter() const {
 
 void PhoneBook::getUserIndex(int &index) const {
     while (true) {
+        std::string userInput;
         std::cout << std::endl << "Enter the index of the contact to display: ";
-        std::string input;
-        std::cin >> input;
+        std::getline(std::cin, userInput);
 
-        std::istringstream iss(input);
-        iss >> index;
+        std::stringstream ss(userInput);
+        ss >> index;
 
-        if (iss.eof() && !iss.fail() && iss >> std::ws) {
-            // Check if there are any non-whitespace characters remaining in the stream
-            std::cout << "Invalid input. Please enter a valid index." << std::endl;
-            clearInputBuffer();
-        } else if (index >= 0 && index < contactCount && index < maxContacts) {
+        // Check if the entire string is a valid integer
+        if (ss.eof() && !ss.fail() && index >= 0 && index < contactCount && index < maxContacts) {
             break;
         } else {
-            std::cout << "Invalid index. Please enter a valid index." << std::endl;
+            std::cout << "Invalid index. Please enter a valid index." << std::flush;
         }
+
     }
 }
 
@@ -179,6 +177,8 @@ void PhoneBook::searchContact() const {
         getUserIndex(index);
 		if (contactCount > 0 && index < maxContacts)
 			contacts[index].getContactInfo();
+		// Clear the input buffer
+		clearInputBuffer();
     } else {
         std::cout << "No contact in the phonebook." << std::endl;
     }

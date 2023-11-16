@@ -22,7 +22,6 @@ class PhoneBook {
 		void				printContactFooter( void ) const;
 		void				getUserIndex( int &index) const;
 
-
 };
 
 #endif // !PHONEBOOKCLASS_H
