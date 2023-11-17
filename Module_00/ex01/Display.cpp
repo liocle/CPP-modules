@@ -28,7 +28,7 @@ void Display::welcomeMessage() {
 
 
 void Display::displayMenu() {
-	std::string menu = " Modern phonebook action (using state of the art vi text editor) ";
+	std::string menu = "     Modern phonebook action menu     ";
 	std::string actionDesired = "Enter the desired action in UPPERCASE";
 
 	// Print menu string top box
@@ -59,13 +59,13 @@ void Display::displayMenu() {
 		std::cout << BoxDrawing::horizontalBorder;
 	}
 	std::cout << BoxDrawing::bottomUpSeparator;
-	for (int i = 0; i < ((int)menu.size() - 39); i++) {
+	for (int i = 0; i < ((int)menu.size() - 12); i++) {
 		std::cout << BoxDrawing::horizontalBorder;
 	}
 	for (int i = 0; i < 10; i++) {
 		std::cout << BoxDrawing::vanishingHorizontalLine;
 	}
-    std::cout << std::endl << BoxDrawing::verticalBorder << "Choosen action in UPPERCASE please: ";
+    std::cout << std::endl << BoxDrawing::verticalBorder << "Chosen action in UPPERCASE please: ";
 }
 
 std::string Display::getUserInput() {
@@ -80,6 +80,6 @@ void Display::clearScreen() {
 }
 
 void Display::waitForKeypress() {
-    std::cout << "Press Enter to continue...";
+    std::cout << std::endl << "\t-  Press Enter to continue  - ";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }

@@ -13,7 +13,7 @@ class PhoneBook {
 		void	searchContact( void ) const;
 
 	private:
-		static const int	maxContacts = 3;
+		static const int	maxContacts = 8;
 		Contact				contacts[maxContacts];
 		int					contactCount;
 		void				clearInputBuffer( void ) const;

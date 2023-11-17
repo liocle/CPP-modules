@@ -7,6 +7,7 @@
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
 #include "BoxDrawing.hpp"
+#include "Display.hpp"
 
 PhoneBook::PhoneBook( void ) {
 	// initialize the phone book array etc
@@ -17,7 +18,7 @@ PhoneBook::PhoneBook( void ) {
 
 PhoneBook::~PhoneBook( void ) {
 	//free contacts, phonebook
-	std::cout << "Contact deletions" << std::endl << "PhoneBook erased" << std::endl;
+	std::cout << BoxDrawing::verticalLeftSeparator << "PhoneBook erased" << std::endl;
 }
 
 int	get_line(std::string &str)
@@ -78,6 +79,8 @@ void PhoneBook::addContact(void) {
 
     contacts[contactCount % maxContacts] = newContact;
     contactCount++;
+	Display::waitForKeypress();
+
 }
 
 
@@ -161,7 +164,7 @@ void PhoneBook::getUserIndex(int &index) const {
         if (ss.eof() && !ss.fail() && index >= 0 && index < contactCount && index < maxContacts) {
             break;
         } else {
-            std::cout << "Invalid index. Please enter a valid index." << std::flush;
+            std::cout << BoxDrawing::verticalBorder << " Invalid index. Please enter a valid index." << std::endl;
         }
     }
 }
