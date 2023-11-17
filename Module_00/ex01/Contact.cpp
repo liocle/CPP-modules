@@ -78,12 +78,12 @@ void	Contact::getContactList(int index) const {
 }
 
 void	Contact::getContactInfo(void) const {
-	std::cout << std::endl;
-	std::cout << std::setw(20) << "First Name:\t< " << firstName << " >" << std::endl;
-	std::cout << std::setw(20) << "Last Name:\t< " << lastName << " >" << std::endl;
-	std::cout << std::setw(20) << "Nickname:\t< " << nickName << " >" << std::endl;
-	std::cout << std::setw(20) << "Phone number:\t< " << phoneNumber << " >" <<  std::endl;
-	std::cout << std::setw(20) << "Darkest secret:\t< " << darkestSecret << " >" << std::endl;
+	std::cout << BoxDrawing::verticalBorder << std::endl;
+	std::cout << BoxDrawing::verticalBorder << std::setw(20) << "First Name:\t" << firstName << std::endl;
+	std::cout << BoxDrawing::verticalBorder << std::setw(20) << "Last Name:\t" << lastName << std::endl;
+	std::cout << BoxDrawing::verticalBorder << std::setw(20) << "Nickname:\t" << nickName <<  std::endl;
+	std::cout << BoxDrawing::verticalBorder << std::setw(20) << "Phone number:\t" << phoneNumber  <<  std::endl;
+	std::cout << BoxDrawing::verticalBorder << std::setw(20) << "Darkest secret:\t" << darkestSecret  << std::endl;
 	std::cout << std::endl;
 }
 

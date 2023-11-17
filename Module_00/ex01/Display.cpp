@@ -28,12 +28,12 @@ void Display::welcomeMessage() {
 
 
 void Display::displayMenu() {
-	std::string menu = " 👾 Modern phonebook action (made with Vim) 👾 ";
+	std::string menu = " Modern phonebook action (using state of the art vi text editor) ";
 	std::string actionDesired = "Enter the desired action in UPPERCASE";
 
 	// Print menu string top box
 	std::cout << BoxDrawing::menuTopLeftCorner;
-	for (int i = 0; i < (int)menu.size() - 4; i++) {
+	for (int i = 0; i < (int)menu.size(); i++) {
 		std::cout << BoxDrawing::menuHorizontalBorder;
 	}
 	std::cout << BoxDrawing::menuTopRightCorner << std::endl;
@@ -45,7 +45,7 @@ void Display::displayMenu() {
 		std::cout << BoxDrawing::menuHorizontalBorder;
 	}
 	std::cout << BoxDrawing::menuTopDownSeparator;
-	for (int i = 0; i < ((int)menu.size() - 12); i++) {
+	for (int i = 0; i < ((int)menu.size() - 8); i++) {
 		std::cout << BoxDrawing::menuHorizontalBorder;
 	}
 	std::cout << BoxDrawing::menuBottomRightCorner << std::endl;
@@ -59,10 +59,10 @@ void Display::displayMenu() {
 		std::cout << BoxDrawing::horizontalBorder;
 	}
 	std::cout << BoxDrawing::bottomUpSeparator;
-	for (int i = 0; i < ((int)menu.size() - 12); i++) {
+	for (int i = 0; i < ((int)menu.size() - 39); i++) {
 		std::cout << BoxDrawing::horizontalBorder;
 	}
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 10; i++) {
 		std::cout << BoxDrawing::vanishingHorizontalLine;
 	}
     std::cout << std::endl << BoxDrawing::verticalBorder << "Choosen action in UPPERCASE please: ";

@@ -11,7 +11,7 @@
 PhoneBook::PhoneBook( void ) {
 	// initialize the phone book array etc
 	std::cout << BoxDrawing::verticalBorder << std::endl;
-	std::cout << BoxDrawing::bottomLeftCorner << BoxDrawing::horizontalBorder  << "→\tPHONEB00K INITIALIZED with up to " << maxContacts << " contacts\n\n\t\tIncludes darkest secret 🤫" << std::endl;
+	std::cout << BoxDrawing::bottomLeftCorner << BoxDrawing::horizontalBorder  << "→\t☏ PHONEB00K INITIALIZED with up to " << maxContacts << " contacts \n\n\t🆕  Includes darkest secret 🆕" << std::endl;
 	contactCount = 0;
 }
 
@@ -35,43 +35,43 @@ void PhoneBook::addContact(void) {
     std::string firstName, lastName, nickName, phoneNumber, darkestSecret;
 
     while (true) {
-        std::cout << "Enter First Name: ";
+        std::cout << BoxDrawing::verticalLeftSeparator << "Enter First Name: ";
         if (get_line(firstName))
             break;
         else
-            std::cout << "Invalid input. Please enter a valid First Name." << std::endl;
+            std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid First Name." << std::endl;
     }
 
     while (true) {
-        std::cout << "Enter Last Name: ";
+        std::cout << BoxDrawing::verticalLeftSeparator << "Enter Last Name: ";
         if (get_line(lastName))
             break;
         else
-            std::cout << "Invalid input. Please enter a valid Last Name." << std::endl;
+            std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid Last Name." << std::endl;
     }
 
     while (true) {
-        std::cout << "Enter Nickname: ";
+        std::cout << BoxDrawing::verticalLeftSeparator << "Enter Nickname: ";
         if (get_line(nickName))
             break;
         else
-            std::cout << "Invalid input. Please enter a valid Nickname." << std::endl;
+            std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid Nickname." << std::endl;
     }
 
     while (true) {
-        std::cout << "Enter Phone Number: ";
+        std::cout << BoxDrawing::verticalLeftSeparator << "Enter Phone Number: ";
         if (get_line(phoneNumber))
             break;
         else
-            std::cout << "Invalid input. Please enter a valid Phone Number." << std::endl;
+            std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid Phone Number." << std::endl;
     }
 
     while (true) {
-        std::cout << "Enter Darkest Secret: ";
+        std::cout << BoxDrawing::verticalLeftSeparator << "Enter Darkest Secret: ";
         if (get_line(darkestSecret))
             break;
         else
-            std::cout << "Invalid input. Please enter a valid Darkest Secret." << std::endl;
+            std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid Darkest Secret." << std::endl;
     }
 
     newContact.setContactInfo(firstName, lastName, nickName, phoneNumber, darkestSecret);
@@ -88,9 +88,8 @@ void	PhoneBook::clearInputBuffer( void ) const {
 
 
 void PhoneBook::printContactHeader() const {
-    std::cout << std::endl << std::endl;
 
-    std::cout << BoxDrawing::topLeftCorner;
+    std::cout << BoxDrawing::verticalLeftSeparator;
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -133,7 +132,7 @@ void PhoneBook::printContacts() const {
 
 void PhoneBook::printContactFooter() const {
 
-    std::cout << BoxDrawing::bottomLeftCorner;
+    std::cout << BoxDrawing::verticalLeftSeparator;
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -152,7 +151,7 @@ void PhoneBook::printContactFooter() const {
 void PhoneBook::getUserIndex(int &index) const {
     while (true) {
         std::string userInput;
-        std::cout << std::endl << "Enter the index of the contact to display: ";
+        std::cout << BoxDrawing::verticalBorder << " Choose contact index to display: ";
         std::getline(std::cin, userInput);
 
         std::stringstream ss(userInput);
