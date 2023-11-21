@@ -26,9 +26,12 @@ void Display::welcomeMessage() {
 }
 
 
-
+/**
+ * @brief Displays the main menu with available actions.
+ *        Prompts the user to enter their desired action.
+ */
 void Display::displayMenu() {
-	std::string menu = " Modern phonebook action (using state of the art vi text editor) ";
+	std::string menu = "     Modern phonebook action menu     ";
 	std::string actionDesired = "Enter the desired action in UPPERCASE";
 
 	// Print menu string top box
@@ -59,27 +62,36 @@ void Display::displayMenu() {
 		std::cout << BoxDrawing::horizontalBorder;
 	}
 	std::cout << BoxDrawing::bottomUpSeparator;
-	for (int i = 0; i < ((int)menu.size() - 39); i++) {
+	for (int i = 0; i < ((int)menu.size() - 12); i++) {
 		std::cout << BoxDrawing::horizontalBorder;
 	}
 	for (int i = 0; i < 10; i++) {
 		std::cout << BoxDrawing::vanishingHorizontalLine;
 	}
-    std::cout << std::endl << BoxDrawing::verticalBorder << "Choosen action in UPPERCASE please: ";
+    std::cout << std::endl << BoxDrawing::verticalBorder << "Chosen action in UPPERCASE please: ";
 }
 
+/**
+ * @brief Reads a line of user input from the standard input.
+ * @return A string containing the user input.
+ */
 std::string Display::getUserInput() {
     std::string input;
     std::getline(std::cin, input);
     return input;
 }
 
-
+/**
+ * @brief Clears the terminal screen.
+ */
 void Display::clearScreen() {
 		std::cout << "\033[2J\033[1;1H";
 }
 
+/**
+ * @brief Waits for the user to press Enter before continuing.
+ */
 void Display::waitForKeypress() {
-    std::cout << "Press Enter to continue...";
+    std::cout << std::endl << "\t-  Press Enter to continue  - ";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
