@@ -54,9 +54,7 @@ Contact::Contact(void) {
 }
 
 Contact::~Contact(void) {
-	usleep(50000);
-		std::cout << BoxDrawing::vanishingVerticalLine << "Contact module <" << this->instanceId << "> wiped..." << std::endl;
-		
+	std::cout << "Contact module <" << this->instanceId << "> wiped..." << std::endl;
 	return ;
 }	
 
@@ -86,14 +84,7 @@ void	Contact::getContactInfo(void) const {
 	std::cout << BoxDrawing::verticalBorder << std::setw(20) << "Nickname:\t" << nickName <<  std::endl;
 	std::cout << BoxDrawing::verticalBorder << std::setw(20) << "Phone number:\t" << phoneNumber  <<  std::endl;
 	std::cout << BoxDrawing::verticalBorder << std::setw(20) << "Darkest secret:\t" << darkestSecret  << std::endl;
-	std::cout << BoxDrawing:: menuBottomLeftCorner;
-	for (int i = 0; i < 44; i++) {
-		std::cout << BoxDrawing::menuHorizontalBorder;
-	}
 	std::cout << std::endl;
-
-	Display::waitForKeypress();
-
 }
 
 
