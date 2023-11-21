@@ -1,13 +1,4 @@
-
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <cstdlib>
-#include <limits>
-#include "Contact.hpp"
 #include "PhoneBook.hpp"
-#include "BoxDrawing.hpp"
-#include "Display.hpp"
 
 /**
  * @brief Default constructor for the PhoneBook class.
@@ -37,6 +28,9 @@ int	myGetLine(std::string &str)
     std::getline(std::cin, str); // Read a line from the standard input and store it in the string 'str'
     if (str.empty()) // Check if the input string is empty
         return 0;
+	if (std::cin.eof())
+		exit(0);
+
 	return (1);
 }
 

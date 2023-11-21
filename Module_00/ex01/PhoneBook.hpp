@@ -1,7 +1,16 @@
 #ifndef PHONEBOOK_H
 # define PHONEBOOK_H
 
+
+# include <iostream>
+# include <iomanip>
+# include <sstream>
+# include <cstdlib>
+# include <limits>
+# include "BoxDrawing.hpp"
 # include "Contact.hpp"
+# include "Contact.hpp"
+# include "Display.hpp"
 
 class PhoneBook {
 
