@@ -8,10 +8,9 @@
 # include <cstdlib>
 # include <limits>
 # include "BoxDrawing.hpp"
-# include "Contact.hpp"
-# include "Contact.hpp"
-# include "Display.hpp"
 
+class Contact;
+class Display;
 class PhoneBook {
 
 	public: 
@@ -20,10 +19,11 @@ class PhoneBook {
 		~PhoneBook( void );
 		void	addContact( void );
 		void	searchContact( void ) const;
+		static int		myGetLine(std::string &str);
 
 	private:
 		static const int	maxContacts = 8;
-		Contact				contacts[maxContacts];
+		static Contact				contacts[maxContacts];
 		int					contactCount;
 		void				clearInputBuffer( void ) const;
 		void				printContactHeader( void ) const;

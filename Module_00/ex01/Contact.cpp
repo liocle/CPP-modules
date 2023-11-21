@@ -1,10 +1,5 @@
 
-#include <iostream>
-#include <iomanip>
 #include "Contact.hpp"
-#include "BoxDrawing.hpp"
-#include "Display.hpp"
-#include <unistd.h>
 
 int Contact::instanceCounter = 0;
 Contact::Contact(void) {

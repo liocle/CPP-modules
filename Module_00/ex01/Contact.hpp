@@ -1,10 +1,16 @@
-#ifndef CONTACTCLASS_H
-# define CONTACTCLASS_H
+#ifndef CONTACT_H
+# define CONTACT_H
 
 # include <string>
 # include <iostream>
+# include <iomanip>
+# include <unistd.h>
 # include "BoxDrawing.hpp"
+# include "Display.hpp"
 
+
+// Forward declaration of the Contact class
+class Contact;
 /**
  * @brief A class representing a contact with basic information.
  *
@@ -103,4 +109,4 @@ public:
     std::string phoneNumber;
     std::string darkestSecret;
 };
-#endif // !CONTACTCLASS_H
+#endif // !CONTACT_H

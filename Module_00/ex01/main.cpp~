@@ -23,8 +23,8 @@ int main() {
             break;
         }
 		Display::clearScreen();
-//        if (std::cin.eof())
-//            return 0;
+        if (std::cin.eof())
+            return 0;
     }
 
     return 0;

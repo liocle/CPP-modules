@@ -1,10 +1,12 @@
 // displayClass.hpp
 
 #ifndef DISPLAYCLASS_H
-#define DISPLAYCLASS_H
+# define DISPLAYCLASS_H
 
-#include <iostream>
-#include <string>
+# include <iostream>
+# include <string>
+# include "BoxDrawing.hpp"
+# include "PhoneBook.hpp"
 
 class Display {
 

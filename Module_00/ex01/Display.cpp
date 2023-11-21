@@ -1,7 +1,6 @@
 // displayClass.cpp
 
 #include "Display.hpp"
-#include "BoxDrawing.hpp"
 
 
 
@@ -77,7 +76,7 @@ void Display::displayMenu() {
  */
 std::string Display::getUserInput() {
     std::string input;
-    std::getline(std::cin, input);
+	PhoneBook::myGetLine(input);
     return input;
 }
 
