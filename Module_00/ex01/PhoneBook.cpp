@@ -32,7 +32,7 @@ PhoneBook::~PhoneBook( void ) {
  * @param str Reference to the string to store user input.
  * @return 0 if the input is empty or EOF is reached; 1 otherwise.
  */
-int	get_line(std::string &str)
+int	myGetLine(std::string &str)
 {
     std::getline(std::cin, str); // Read a line from the standard input and store it in the string 'str'
     if (str.empty()) // Check if the input string is empty
@@ -51,7 +51,7 @@ void PhoneBook::addContact(void) {
 
     while (true) {
         std::cout << BoxDrawing::verticalLeftSeparator << "Enter First Name: ";
-        if (get_line(firstName))
+        if (myGetLine(firstName))
             break;
         else
             std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid First Name." << std::endl;
@@ -59,7 +59,7 @@ void PhoneBook::addContact(void) {
 
     while (true) {
         std::cout << BoxDrawing::verticalLeftSeparator << "Enter Last Name: ";
-        if (get_line(lastName))
+        if (myGetLine(lastName))
             break;
         else
             std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid Last Name." << std::endl;
@@ -67,7 +67,7 @@ void PhoneBook::addContact(void) {
 
     while (true) {
         std::cout << BoxDrawing::verticalLeftSeparator << "Enter Nickname: ";
-        if (get_line(nickName))
+        if (myGetLine(nickName))
             break;
         else
             std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid Nickname." << std::endl;
@@ -75,7 +75,7 @@ void PhoneBook::addContact(void) {
 
     while (true) {
         std::cout << BoxDrawing::verticalLeftSeparator << "Enter Phone Number: ";
-        if (get_line(phoneNumber))
+        if (myGetLine(phoneNumber))
             break;
         else
             std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid Phone Number." << std::endl;
@@ -83,7 +83,7 @@ void PhoneBook::addContact(void) {
 
     while (true) {
         std::cout << BoxDrawing::verticalLeftSeparator << "Enter Darkest Secret: ";
-        if (get_line(darkestSecret))
+        if (myGetLine(darkestSecret))
             break;
         else
             std::cout << BoxDrawing::verticalLeftSeparator << "Invalid input. Please enter a valid Darkest Secret." << std::endl;
