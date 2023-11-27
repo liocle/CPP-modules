@@ -4,11 +4,10 @@ CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
 SRC     		=	main.cpp \
 					Zombie.cpp \
-					newZombie.cpp \
-					randomChump.cpp \
+					zombieHorde.cpp
 					
 OBJ 		    = 	$(SRC:%.cpp=%.o)
-NAME		    = 	zombie
+NAME		    = 	zombieHorde
 
 all: $(NAME)
 
@@ -19,7 +18,6 @@ $(NAME): $(OBJ)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY: clean fclean debug lldb re
 
 clean:
 	@echo "🧹Cleaning up... ✨"
@@ -30,7 +28,7 @@ fclean: clean
 	/bin/rm -f $(NAME)
 
 
-debug: 	CFLAGS + =$(CFLAGS_DEBUG)
+debug: 	CFLAGS += $(CFLAGS_DEBUG)
 debug:	all
 
 lldb_g: CFLAGS += -g
@@ -38,3 +36,4 @@ lldb_g: all
 
 re: 	fclean all
 
+.PHONY: all clean fclean debug lldb re
