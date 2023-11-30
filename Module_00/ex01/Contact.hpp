@@ -88,19 +88,14 @@ public:
 	 *
 	 * This function displays detailed information about the contact, including first name, last name,
 	 * nickname, phone number, and darkest secret. The function is marked as const to indicate that it
-	 * does not modify the state of the Contact object.
-	 *
-	 * @details
-	 * - The function provides a comprehensive display of the contact's information.
-	 * - The use of const at the end of the function signature indicates that this function does not
-	 *   modify the internal state of the Contact object. It is a read-only operation.
+	 * does not modify the internal state of the Contact object. It is a read-only operation.
 	 *
 	 * @see Contact
 	 */
     void getContactInfo(void) const;
 
   private:
-    static int instanceCounter; // Static variable to count instances
+    static int	instanceCounter; // Static variable to count instances
 	int			instanceId;
 
     std::string firstName;

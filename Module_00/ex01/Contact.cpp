@@ -1,4 +1,5 @@
 
+#include "PhoneBook.hpp"
 #include "Contact.hpp"
 
 int Contact::instanceCounter = 0;
@@ -11,38 +12,43 @@ Contact::Contact(void) {
 		std::cout << std::endl;
 
 		// Print menu string top box
-		std::cout << BoxDrawing::menuTopLeftCorner;
-		for (int i = 0; i < (int)warning.size() - 3; i++) {
-			std::cout << BoxDrawing::menuHorizontalBorder;
+		std::cout << BoxDrawing::menuTopLeftCorner << "╒";
+ 		for (int i = 0; i < (int)warning.size() - 3; i++) {
+			std::cout << BoxDrawing::menuHorizontalBorder << "═" ;
 		}
-		std::cout << BoxDrawing::menuTopRightCorner << std::endl;
+		std::cout << BoxDrawing::menuTopRightCorner << "╕" << std::endl; ;
 		// Print menu string within the box
-		std::cout << BoxDrawing::menuVerticalBorder << warning << " " << BoxDrawing::menuVerticalBorder << std::endl;
+		std::cout << BoxDrawing::menuVerticalBorder << "│" << warning << " " << BoxDrawing::menuVerticalBorder  << "│" << std::endl;
 		// Print menu string bottom box
-		std::cout << BoxDrawing::menuBottomLeftCorner;
+		std::cout << BoxDrawing::menuBottomLeftCorner <<  "╘";
 		for (int i = 0; i < (int)warning.size() - 3; i++) {
-			std::cout << BoxDrawing::menuHorizontalBorder;
+			std::cout << BoxDrawing::menuHorizontalBorder << "═" ;
 		}
-		std::cout << BoxDrawing::menuVerticalRightSeparator << std::endl;
+		std::cout << BoxDrawing::menuVerticalRightSeparator << "╡"<< std::endl;
 
 		for (int i = 0; i < (int)warning.size() - 2; i++) {
 			std::cout << " ";	
 		}
-		std::cout << BoxDrawing::verticalBorder << std::endl;
+		std::cout << BoxDrawing::verticalBorder << "│" << std::endl;
 		
 		for (int i = 0; i < (int)warning.size() - 2; i++) {
 			if (i == 0)
-				std::cout << BoxDrawing::topLeftCorner;
+				std::cout << BoxDrawing::topLeftCorner << "┌";
 			else 
-				std::cout << BoxDrawing::vanishingHorizontalLine;	
+				std::cout << BoxDrawing::vanishingHorizontalLine << "╴";
 		}
-		std::cout << BoxDrawing::bottomRightCorner << std::endl;
+		std::cout << BoxDrawing::bottomRightCorner << "┘" << std::endl;
 
-		std::cout << BoxDrawing::verticalBorder <<std::endl;
-		std::cout << BoxDrawing::verticalLeftSeparator << "Contact module\t\t\t(#" << this->instanceId << ")\tINITIALIZED" << std::endl;
+		std::cout << BoxDrawing::verticalBorder << "│"<< std::endl;
+		std::cout << BoxDrawing::verticalLeftSeparator << "├" << "Contact module\t\t\t(#" << this->instanceId << ")\tINITIALIZED" << std::endl;
 	}
 	else {
-		std::cout << BoxDrawing::verticalLeftSeparator << "Contact module\t\t\t(#" << this->instanceId << ")\tINITIALIZED" << std::endl;
+        if (instanceId <= PhoneBook::maxContacts)
+        {
+            std::cout << "├" << "Contact module\t\t\t(#" << this->instanceId << ")\tINITIALIZED" << std::endl;
+        }
+        else 
+            std::cout << BoxDrawing::verticalLeftSeparator << "Contact module\t\t\t(#" << this->instanceId << ")\tINITIALIZED" << std::endl;
 		sleep(1);
 	}
 	return ;

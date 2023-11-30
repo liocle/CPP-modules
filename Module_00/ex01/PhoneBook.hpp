@@ -20,9 +20,9 @@ class PhoneBook {
 		void	addContact( void );
 		void	searchContact( void ) const;
 		static int		myGetLine(std::string &str);
+		static const int	maxContacts = 8;
 
 	private:
-		static const int	maxContacts = 8;
 		static Contact				contacts[maxContacts];
 		int					contactCount;
 		void				clearInputBuffer( void ) const;

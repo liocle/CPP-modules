@@ -2,6 +2,7 @@
 # define BOXDRAWINGCLASS_H
 
 # include <string>
+# include <iostream>
 
 
 /**
@@ -14,6 +15,7 @@ class BoxDrawing {
 
 	public:
 
+    BoxDrawing() { std::cout << "BoxDrawing constructor called "  << std::endl; }
 
 		// Menu box drawing characters 
 		static const std::string menuTopLeftCorner;

@@ -1,4 +1,10 @@
 #include "PhoneBook.hpp"
+#include "Contact.hpp"
+#include "Display.hpp"
+#include "BoxDrawing.hpp"
+
+
+Contact PhoneBook::contacts[PhoneBook::maxContacts];
 
 /**
  * @brief Default constructor for the PhoneBook class.
@@ -6,7 +12,7 @@
  */
 PhoneBook::PhoneBook( void ) {
 	std::cout << BoxDrawing::verticalBorder << std::endl;
-	std::cout << BoxDrawing::bottomLeftCorner << BoxDrawing::horizontalBorder  << "→\t☏ PHONEB00K INITIALIZED with up to " << maxContacts << " contacts \n\n\t🆕  Includes darkest secret 🆕" << std::endl;
+	std::cout << BoxDrawing::bottomLeftCorner << BoxDrawing::horizontalBorder  << ">\t☏ PHONEB00K INITIALIZED with up to " << maxContacts << " contacts \n\n\t🆕  Includes darkest secret 🆕" << std::endl;
 	contactCount = 0;
 }
 
@@ -23,7 +29,7 @@ PhoneBook::~PhoneBook( void ) {
  * @param str Reference to the string to store user input.
  * @return 0 if the input is empty or EOF is reached; 1 otherwise.
  */
-int	myGetLine(std::string &str)
+int	PhoneBook::myGetLine(std::string &str)
 {
     std::getline(std::cin, str); // Read a line from the standard input and store it in the string 'str'
     if (str.empty()) // Check if the input string is empty
