@@ -92,5 +92,8 @@ void Display::clearScreen() {
  */
 void Display::waitForKeypress() {
     std::cout << std::endl << "\t-  Press Enter to continue  - ";
+    if (std::cin.eof())
+        exit(0);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    
 }

@@ -12,7 +12,7 @@ Contact PhoneBook::contacts[PhoneBook::maxContacts];
  */
 PhoneBook::PhoneBook( void ) {
 	std::cout << BoxDrawing::verticalBorder << std::endl;
-	std::cout << BoxDrawing::bottomLeftCorner << BoxDrawing::horizontalBorder  << ">\t☏ PHONEB00K INITIALIZED with up to " << maxContacts << " contacts \n\n\t🆕  Includes darkest secret 🆕" << std::endl;
+	std::cout << BoxDrawing::bottomLeftCorner << BoxDrawing::horizontalBorder  << "\t☏ PHONEB00K INITIALIZED with up to " << maxContacts << " contacts \n\n\t🆕  Includes darkest secret 🆕" << std::endl;
 	contactCount = 0;
 }
 
@@ -32,10 +32,10 @@ PhoneBook::~PhoneBook( void ) {
 int	PhoneBook::myGetLine(std::string &str)
 {
     std::getline(std::cin, str); // Read a line from the standard input and store it in the string 'str'
-    if (str.empty()) // Check if the input string is empty
-        return 0;
 	if (std::cin.eof())
 		exit(0);
+    if (str.empty()) // Check if the input string is empty
+        return 0;
 
 	return (1);
 }
@@ -188,7 +188,10 @@ void PhoneBook::getUserIndex(int &index) const {
         
         // Read a line of input from the user
         std::getline(std::cin, userInput);
-
+        if (std::cin.eof()) {
+            std::cout << std::endl;
+            exit(0);
+        }
         // Create a stringstream to perform formatted input operations on the string
         std::stringstream ss(userInput);
 
@@ -198,7 +201,7 @@ void PhoneBook::getUserIndex(int &index) const {
         // Check if the entire string is a valid integer
 		// ss.eof checks if the stringstream has reached eof, if yes, integer extraction was succesfull
 		// ss.fail flag set to ensure that there was no failure during the extraction (in case that it would contains a non-integer character)
-        if (ss.eof() && !ss.fail() && index >= 0 && index < contactCount && index < maxContacts) {
+        if (!ss.fail() && index >= 0 && index < contactCount && index < maxContacts) {
             break; // Exit the loop if the input is valid
         } else {
             std::cout << BoxDrawing::verticalBorder << " Invalid index. Please enter a valid index." << std::endl;
