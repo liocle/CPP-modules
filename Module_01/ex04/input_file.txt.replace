@@ -1,5 +1,5 @@
 CC      		= 	g++
-CFLAGS  		= 	-Wall -Werror -Wextra -std=c++98
+CFLAGS  		= 	-Wnone -Werror -Wextra -std=c++98
 CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
 SRC     		=	main.cpp \
@@ -7,7 +7,7 @@ SRC     		=	main.cpp \
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 NAME		    = 	sedIs4L0S3rS
 
-all: $(NAME)
+none: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "🏗  Building a" $@ "👌"
@@ -27,11 +27,11 @@ fclean: clean
 
 
 debug: 	CFLAGS += $(CFLAGS_DEBUG)
-debug:	all
+debug:	none
 
 lldb_g: CFLAGS += -g
-lldb_g: all
+lldb_g: none
 
-re: 	fclean all
+re: 	fclean none
 
-.PHONY: all clean fclean debug lldb re
+.PHONY: none clean fclean debug lldb re
