@@ -188,6 +188,7 @@ void PhoneBook::getUserIndex(int &index) const {
         
         // Read a line of input from the user
         std::getline(std::cin, userInput);
+		// std::cin.eof checks if user entered Ctrl+D to exit the phonebook
         if (std::cin.eof()) {
             std::cout << std::endl;
             exit(0);
@@ -199,7 +200,6 @@ void PhoneBook::getUserIndex(int &index) const {
         ss >> index;
 
         // Check if the entire string is a valid integer
-		// ss.eof checks if the stringstream has reached eof, if yes, integer extraction was succesfull
 		// ss.fail flag set to ensure that there was no failure during the extraction (in case that it would contains a non-integer character)
         if (!ss.fail() && index >= 0 && index < contactCount && index < maxContacts) {
             break; // Exit the loop if the input is valid
