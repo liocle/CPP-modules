@@ -18,8 +18,8 @@ int main() {
     std::cout << std::endl;
     std::cout << "Declaration and initialization done as:" << std::endl;
     std::cout << "\tstd::string " << BLUE << "string      = \"HI THIS IS BRAIN\";" << RESET << std::endl;
-    std::cout << "\tstd::string " << TOTO << "*stringPTR  = \"&string\";" << RESET << std::endl;
-    std::cout << "\tstd::string " << GREEN << "&stringREF  = \"string\";" << RESET << std::endl;
+    std::cout << "\tstd::string " << TOTO << "*stringPTR  = &string;" << RESET << std::endl;
+    std::cout << "\tstd::string " << GREEN << "&stringREF  = string;" << RESET << std::endl;
     
     std::cout << std::endl;
     
@@ -36,7 +36,7 @@ int main() {
 
     std::cout << "Syntax to get value:\n";
     std::cout << "\tstd::cout " << BLUE << "<< \"Value of string:\t\t\t\"<< string " << RESET << "<< std::endl;" << std::endl;
-    std::cout << "\tstd::cout " << TOTO << "<< \"Value pointed at by stringPTR:\t\" << *stringPTR " << RESET << " << std::endl;" << std::endl;
+    std::cout << "\tstd::cout " << TOTO << "<< \"Value pointed at by stringPTR:\t\"<< *stringPTR " << RESET << " << std::endl;" << std::endl;
     std::cout << "\tstd::cout " << GREEN << "<< \"Value referred by stringREF:\t\"<< stringREF  " << RESET << "<< std::endl;\n" << std::endl;
     
     std::cout << "Value of string:\t\t"<< string << std::endl;
