@@ -1,16 +1,16 @@
-CC      		= 	g++
+CC      		= 	c++
 CFLAGS  		= 	-Wall -Werror -Wextra -std=c++98
 CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
 SRC     		=	main.cpp \
 					Harl.cpp
 OBJ 		    = 	$(SRC:%.cpp=%.o)
-NAME		    = 	Harl🤖_2.0
+NAME		    = 	Harl_2.0
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "🏗  Building a" $@ 
+	@echo "🏗  Building a" $@ "🤖"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 %.o: %.cpp
