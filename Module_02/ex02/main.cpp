@@ -1,14 +1,15 @@
 #include "Fixed.hpp"
-
+#include <iomanip>
 int main(void) {
  //    std::cout << "print float and objects with <iomanip> std::setprecision(16)" << std::endl;
  //    std::cout << std::setprecision(16) << "\tpi as float:\t\t" << pi << std::endl;
  //    std::cout << std::setprecision(16) << "\tpi as Fixed:\t\t" << piFixed << std::endl;
 
+    std::cout << PURPLE << "Subject proposed main:" << RESET << std::endl;
+
     Fixed a;
     Fixed const b(Fixed(5.05f) * Fixed(2));
 
-    std::cout << PURPLE << "Subject proposed main:" << RESET << std::endl;
     std::cout << a << std::endl;
     std::cout << ++a << std::endl;
     std::cout << a << std::endl;
@@ -19,25 +20,32 @@ int main(void) {
 
     ////////////////////////////////////////////////////////////////////////////////
     std::cout << PURPLE << "Additional tests:" << RESET << std::endl;
+
+
     Fixed e(42);
 
     std::cout << "Initial values:" << std::endl;
-    std::cout << "a: " << a << std::endl;
+    std::cout << "e: " << e << std::endl;
     std::cout << "b: " << b << std::endl;
-    std::cout << Fixed::max(a, b) << std::endl;
-    std::cout << Fixed::min(a, b) << std::endl;
+    std::cout << Fixed::max(e, b) << std::endl;
+    std::cout << Fixed::min(e, b) << std::endl;
 
     // Test increment and decrement operators
     std::cout << "\nIncrement and decrement:" << std::endl;
-    Fixed c = a++; // Post-increment
-    std::cout << "a (post-increment): " << a << std::endl;
-    std::cout << std::setprecision(16) << "\tstd::setprecision(16) a(post-increment):\t\t" << a << std::endl;
+    Fixed c = e++; // Post-increment
+    std::cout << "Fixed c = e++; // Post-increment " << std::endl;
+    std::cout << "e (post-increment): " << e << std::endl;
+    std::cout << std::setprecision(16) << "\tstd::setprecision(16) e(post-increment):\t\t" << e << std::endl;
     std::cout << "c (post-increment result): " << c << std::endl;
+    std::cout << std::setprecision(16) << "\tstd::setprecision(16) c(post-increment):\t\t" << c << std::endl;
 
     
     Fixed d = ++a; // Pre-increment
-    std::cout << "a (pre-increment): " << a << std::endl;
+    std::cout << "Fixed d = e++; // Post-increment " << std::endl;
+    std::cout << "e (pre-increment): " << e << std::endl;
+    std::cout << std::setprecision(16) << "\tstd::setprecision(16) e(post-increment):\t\t" << e << std::endl;
     std::cout << "d (pre-increment result): " << d << std::endl;
+    std::cout << std::setprecision(16) << "\tstd::setprecision(16) d(post-increment):\t\t" << d << std::endl;
 
     // Test arithmetic operations
     std::cout << "\nArithmetic operations:" << std::endl;
