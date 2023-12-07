@@ -39,8 +39,8 @@ void    StringReplacer::check_strings_validity(){
  * 
  * The line std::istreambuf_iterator<char> endIterator; declares an iterator named endIterator.
  * The default constructor of std::istreambuf_iterator creates an iterator that represents the end of the stream. It essentially points to no specific element.
+ *
  * String Constructor Using Iterators:
- * 
  * The std::string constructor used here takes two iterators (startIterator and endIterator) as arguments.
  * It constructs a string using the characters between these iterators. In this context, it reads characters from file_stream and stores them in _file_content.
  */
