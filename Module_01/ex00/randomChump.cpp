@@ -1,4 +1,3 @@
-
 #include "Zombie.hpp"
 
 void    randomChump( std::string zombie_on_the_stack) {
