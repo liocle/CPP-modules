@@ -11,7 +11,7 @@
 # define RED  "\033[31m"
 # define YELLOW "\033[33m"
 # define MAGENTA "\033[35m"
-# define PURPLE "\033[1;5;35m"
+# define PURPLE "\033[1;4;35m"
 
 /**
  * @brief Class representing a fixed-point number.

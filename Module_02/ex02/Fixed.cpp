@@ -171,10 +171,10 @@ Fixed Fixed::operator--(int) {
 
 // Fonctions statiques min et max
 Fixed Fixed::min(const Fixed &a, const Fixed &b) {
-    return (a < b) ? a : b;
+    return ((a < b) ? a : b);
 }
 
 Fixed Fixed::max(const Fixed &a, const Fixed &b) {
-    return (a > b) ? a : b;
+    return ((a > b) ? a : b);
 }
 
