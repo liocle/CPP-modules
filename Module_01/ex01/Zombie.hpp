@@ -1,7 +1,7 @@
 #ifndef ZOMBIE_HPP
 #define ZOMBIE_HPP
 
-#define HORDE_SIZE 25
+#define HORDE_SIZE 5
 #include <iostream>
 #include <string>
 
