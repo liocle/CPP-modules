@@ -11,8 +11,8 @@ int main(void) {
     Fixed const b(Fixed(5.05f) * Fixed(2));
 
     std::cout << a << std::endl;
-    std::cout << ++a << std::endl;
-    std::cout << a << std::endl;
+    std::cout << ++a << " <- corresponds to the smallest representable fraction 1/(2^8) = 1/256 provided by _fractionalBits set to 8" << std::endl;
+    std::cout << a <<  std::endl;
     std::cout << a++ << std::endl;
     std::cout << a << std::endl;
     std::cout << b << std::endl;
@@ -22,60 +22,69 @@ int main(void) {
     std::cout << PURPLE << "Additional tests:" << RESET << std::endl;
 
 
+    std::cout << "Let's instantiate 'Fixed e(42)':" << std::endl;
     Fixed e(42);
+    std::cout << "e:\t" << e << std::endl;
+    std::cout << "b:\t" << b << std::endl;
 
-    std::cout << "Initial values:" << std::endl;
-    std::cout << "e: " << e << std::endl;
-    std::cout << "b: " << b << std::endl;
-    std::cout << Fixed::max(e, b) << std::endl;
-    std::cout << Fixed::min(e, b) << std::endl;
+    std::cout << "Test: Fixed::max(e, b): " << Fixed::max(e, b) << std::endl ;
+    std::cout << std::endl << "Test: Fixed::min(e, b): " << Fixed::min(e, b) << std::endl ;
+    // Test static member functions
+    std::cout << "Let's instantiate 'Fixed min_result = Fixed::min(e, b)'";
+    Fixed min_result = Fixed::min(e, b);
+    std::cout << "min_result:\t" << min_result << std::endl;
+
+    std::cout << "Let's instantiate 'Fixed max_result = Fixed::max(e, b)'";
+    Fixed max_result = Fixed::max(e, b);
+    std::cout << "max_result:\t" << max_result << std::endl;
+
 
     // Test increment and decrement operators
-    std::cout << "\nIncrement and decrement:" << std::endl;
-    Fixed c = e++; // Post-increment
-    std::cout << "Fixed c = e++; // Post-increment " << std::endl;
-    std::cout << "e (post-increment): " << e << std::endl;
-    std::cout << std::setprecision(16) << "\tstd::setprecision(16) e(post-increment):\t\t" << e << std::endl;
-    std::cout << "c (post-increment result): " << c << std::endl;
-    std::cout << std::setprecision(16) << "\tstd::setprecision(16) c(post-increment):\t\t" << c << std::endl;
+    std::cout << std::endl << "Test Increment and decrement:" << std::endl;
+    std::cout << "Let's declare: Fixed c = e++;" ;
+    Fixed c = e++; 
+    std::cout << "c (assigned before incrementaion):\t" << c << std::endl;
+    std::cout << "e (incremented after assignment):\t" << e << std::endl;
 
     
-    Fixed d = ++a; // Pre-increment
-    std::cout << "Fixed d = e++; // Post-increment " << std::endl;
-    std::cout << "e (pre-increment): " << e << std::endl;
-    std::cout << std::setprecision(16) << "\tstd::setprecision(16) e(post-increment):\t\t" << e << std::endl;
-    std::cout << "d (pre-increment result): " << d << std::endl;
-    std::cout << std::setprecision(16) << "\tstd::setprecision(16) d(post-increment):\t\t" << d << std::endl;
+    std::cout << std::endl << "Let's declare: Fixed d = ++c;" ;
+    Fixed d = ++c; 
+    std::cout << "c (increment before assignement):\t" << c << std::endl;
+    std::cout << "d (increment before assignement):\t" << d << std::endl;
 
     // Test arithmetic operations
     std::cout << "\nArithmetic operations:" << std::endl;
-    Fixed result_add = a + b;
-    Fixed result_sub = a - b;
-    Fixed result_mul = a * b;
-    Fixed result_div = a / b;
+    std::cout << std::endl << "Let's instantiate 'Fixed result_add = e + b'" ;
+    Fixed result_add = e + b;
+    std::cout << "e =\t" << e << std::endl << "b =\t" << b << std::endl;
+    std::cout << "e + b:\t" << result_add << std::endl;
+    std::cout << std::endl << "Let's instantiate 'Fixed result_sub = e - b'" ;
+    Fixed result_sub = e - b;
+    std::cout << "e =\t" << e << std::endl << "b =\t" << b << std::endl;
+    std::cout << "e - b:\t" << result_sub << std::endl;
 
-    std::cout << "a + b: " << result_add << std::endl;
-    std::cout << "a - b: " << result_sub << std::endl;
-    std::cout << "a * b: " << result_mul << std::endl;
-    std::cout << "a / b: " << result_div << std::endl;
+
+    std::cout << std::endl << "Let's instantiate 'Fixed result_mul = e * b'" ;
+    Fixed result_mul = e * b;
+    std::cout << "e =\t" << e << std::endl << "b =\t" << b << std::endl;
+    std::cout << "e * b:\t" << result_mul << std::endl;
+
+    std::cout << std::endl << "Let's instantiate 'Fixed result_div = e / b'" ;
+    Fixed result_div = e / b;
+    std::cout << "e =\t" << e << std::endl << "b =\t" << b << std::endl;
+    std::cout << "e / b:\t" << result_div << std::endl;
 
     // Test comparisons
-    std::cout << "\nComparisons:" << std::endl;
-    bool greater_than = a > b;
-    bool less_than = a < b;
-    bool equal_to = a == b;
+    std::cout << "\nComparing 'e' and 'b':" << std::endl;
+    std::cout << "e =\t" << e << std::endl << "b =\t" << b << std::endl;
+    bool greater_than = e > b;
+    bool less_than = e < b;
+    bool equal_to = e == b;
 
-    std::cout << "a > b: " << (greater_than ? "true" : "false") << std::endl;
-    std::cout << "a < b: " << (less_than ? "true" : "false") << std::endl;
-    std::cout << "a == b: " << (equal_to ? "true" : "false") << std::endl;
+    std::cout << "e > b:\t" << (greater_than ? "true" : "false") << std::endl;
+    std::cout << "e < b:\t" << (less_than ? "true" : "false") << std::endl;
+    std::cout << "e == b:\t" << (equal_to ? "true" : "false") << std::endl;
 
-    // Test static member functions
-    std::cout << "\nStatic member functions:" << std::endl;
-    Fixed min_result = Fixed::min(a, b);
-    Fixed max_result = Fixed::max(a, b);
-
-    std::cout << "min(a, b): " << min_result << std::endl;
-    std::cout << "max(a, b): " << max_result << std::endl;
     std::cout << std::endl;
 
     return 0;

@@ -45,8 +45,7 @@ Fixed::Fixed(const float value)
  */
 Fixed::Fixed(const Fixed &source) : _value(source._value) {
   std::cout << CYAN
-            << " -- Copy constructor called, source's _value set to copied "
-               "instance's value -- "
+            << " -- Copy constructor called -- "
             << RESET << std::endl;
 }
 
@@ -202,25 +201,31 @@ Fixed Fixed::operator/(const Fixed &other) const {
  * @brief Overloaded pre-increment operator for Fixed instances.
  * @return Reference to the current Fixed instance.
  */
-Fixed &Fixed::operator++(void) { 
+Fixed &Fixed::operator++() { 
   this->_value++;
   return *this;
 }
 
 /**
- * @brief Overloaded pre-decrement operator for Fixed instances.
- * @return Reference to the current Fixed instance.
+ * @brief   Overloaded pre-decrement operator for Fixed instances.
+ * @details Needs a copy of the current instance prior incrementation 
+ * which can be returned not incremented;
+ *
+ * @return  Reference to the current Fixed instance.
  */
-Fixed &Fixed::operator--(void) {
+Fixed &Fixed::operator--() {
   this->_value--;
   return *this;
 }
 
 /**
- * @brief Overloaded post-increment operator for Fixed instances.
- * @param unused Dummy parameter to distinguish between pre-increment and
+ * @brief   Overloaded post-increment operator for Fixed instances.
+ * @details Needs a copy of the current instance prior incrementation 
+ * which can be returned not incremented;
+ *
+ * @param   unused Dummy parameter to distinguish between pre-increment and
  * post-increment.
- * @return A copy of the Fixed instance before the increment.
+ * @return  A copy of the Fixed instance before the increment.
  */
 Fixed Fixed::operator++(int) { 
   Fixed ret_instance = *this;
