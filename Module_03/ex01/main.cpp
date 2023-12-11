@@ -38,7 +38,6 @@ int main() {
     scav_guard.beRepaired(20);
 
     std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " << std::endl;
-    // Let the final battle begin!
     ClapTrapOverLord.attack("JoJo_Da_GuaRD_oVeRLoRD");
     big_boss.takeDamage(30);
     ClapTrapOverLord.setAttackDamage(100);

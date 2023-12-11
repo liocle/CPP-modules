@@ -31,6 +31,7 @@ int main() {
     Bob.attack("T0t0");
     T0t0.takeDamage(0);
     Bob.attack("T0t0");
+    std::cout << "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ " << std::endl;
     T0t0.attack("Bob");
     Bob.takeDamage(5);
     
