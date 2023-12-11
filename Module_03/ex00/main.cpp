@@ -39,7 +39,8 @@ int main() {
 
     std::cout << "\nTesting copy constructor and assignment operator overload:" << std::endl;
     ClapTrap copy_overLord(Bob); // Copy constructor
-    copy_overLord = T0t0; // Assignment operator overload
+    ClapTrap big_boss("BoB_Da_oVeRLoRD");
+    copy_overLord = big_boss; // Assignment operator overload
 
     copy_overLord.attack("Target3");
     copy_overLord.takeDamage(7);
