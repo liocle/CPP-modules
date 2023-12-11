@@ -1,8 +1,9 @@
+#include <iostream>
 #include "ClapTrap.hpp"
 
 // Constructors and destructor
 ClapTrap::ClapTrap() :
-  _name("T0t0"), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
+  _name("Clapman"), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
     std::cout << GREEN << "Claptrap "<< _name << " is born with default delivery method 🎉" << RESET <<  std::endl;
 }
 
@@ -42,7 +43,7 @@ void ClapTrap::attack(const std::string& target) {
         std::cout << GREEN << "ClapTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage! 💥" << std::endl;
         _energyPoints--;
     } else {
-        std::cout << GREEN << "ClapTrap " << _name << " is out of energy! 😴" << std::endl;
+    std::cout << GREEN << "ClapTrap " << _name << " is out of energy! 😴" << std::endl;
     std::cout << RESET;
     }
 }
