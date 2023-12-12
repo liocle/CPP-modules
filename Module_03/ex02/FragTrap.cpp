@@ -29,6 +29,10 @@ FragTrap::~FragTrap() {
 FragTrap& FragTrap::operator=(const FragTrap& other) {
     if (this != &other) {
         ClapTrap::operator=(other);  // Call the base class assignment operator
+    }    else 
+    {
+        std::cout << RED << "⚠️  ClapTrap ⚠️  class operator assignment failed: explicitely assigning value of variable to itself";
+        std::cout << std::endl << "check your code and your compilation flags" << RESET << std::endl;
     }
     return *this;
 }
