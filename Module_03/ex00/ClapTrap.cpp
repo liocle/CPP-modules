@@ -1,4 +1,5 @@
 #include "ClapTrap.hpp"
+#include <iostream>
 
 // Constructors and destructor
 ClapTrap::ClapTrap() :
@@ -21,18 +22,21 @@ ClapTrap::~ClapTrap() {
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) 
 {
-  std::cout << "ClapTrap " << _name << " invoked operator assignment overload and will be named: ";
-  _name = other._name; 
-  std::cout << _name << std::endl;
-  std::cout << "ClapTrap " << _name << "'s hit points level was\t" << _hitPoints << ", now is: ";
-  _hitPoints = other._hitPoints;
-  std::cout << _hitPoints << std::endl;
-  std::cout << "ClapTrap " << _name << "'s energy points level was\t" << _energyPoints << ", now is: ";
-  _energyPoints = other._energyPoints;
-  std::cout << _energyPoints << std::endl;
-  std::cout << "ClapTrap " << _name << "'s attack damage level was\t" << _attackDamage << ", now is: ";
-  _attackDamage = other._attackDamage;
-  std::cout << _attackDamage << std::endl;
+
+    std::cout << CYAN;
+    std::cout << "ClapTrap " << _name << " invoked operator assignment overload and will be named: ";
+    _name = other._name; 
+    std::cout << _name << std::endl;
+    std::cout << "ClapTrap " << _name << "'s hit points level was\t" << _hitPoints << ", now is: ";
+    _hitPoints = other._hitPoints;
+    std::cout << _hitPoints << std::endl;
+    std::cout << "ClapTrap " << _name << "'s energy points level was\t" << _energyPoints << ", now is: ";
+    _energyPoints = other._energyPoints;
+    std::cout << _energyPoints << std::endl;
+    std::cout << "ClapTrap " << _name << "'s attack damage level was\t" << _attackDamage << ", now is: ";
+    _attackDamage = other._attackDamage;
+    std::cout << _attackDamage << std::endl;
+    std::cout << RESET;
 
   return *this;
 }
