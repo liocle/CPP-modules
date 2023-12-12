@@ -8,11 +8,11 @@ SRC     		=	main.cpp \
 
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 
-NAME		    = 	fragtrap
+NAME		    = 	ScavTrap
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "Building "  $@ 
+	@echo "🏗  Building "  $@ 
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 %.o: %.cpp

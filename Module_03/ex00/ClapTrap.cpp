@@ -19,28 +19,31 @@ ClapTrap::ClapTrap(const ClapTrap &other) {
 ClapTrap::~ClapTrap() {
     std::cout << "ClapTrap " << _name << " is no more! 💔" << std::endl;
 }
-
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) 
 {
+    if (this != &other) {
+        std::cout << GREEN << "ClapTrap " << _name << " invoked operator assignment overload and will be named: ";
+        _name = other._name; 
+        std::cout << _name << std::endl;
+        std::cout << "ClapTrap " << _name << "'s hit points level was\t" << _hitPoints << ", now is: ";
+        _hitPoints = other._hitPoints;
+        std::cout << _hitPoints << std::endl;
+        std::cout << "ClapTrap " << _name << "'s energy points level was\t" << _energyPoints << ", now is: ";
+        _energyPoints = other._energyPoints;
+        std::cout << _energyPoints << std::endl;
+        std::cout << "ClapTrap " << _name << "'s attack damage level was\t" << _attackDamage << ", now is: ";
+        _attackDamage = other._attackDamage;
+        std::cout << _attackDamage << RESET <<  std::endl;
 
-    std::cout << CYAN;
-    std::cout << "ClapTrap " << _name << " invoked operator assignment overload and will be named: ";
-    _name = other._name; 
-    std::cout << _name << std::endl;
-    std::cout << "ClapTrap " << _name << "'s hit points level was\t" << _hitPoints << ", now is: ";
-    _hitPoints = other._hitPoints;
-    std::cout << _hitPoints << std::endl;
-    std::cout << "ClapTrap " << _name << "'s energy points level was\t" << _energyPoints << ", now is: ";
-    _energyPoints = other._energyPoints;
-    std::cout << _energyPoints << std::endl;
-    std::cout << "ClapTrap " << _name << "'s attack damage level was\t" << _attackDamage << ", now is: ";
-    _attackDamage = other._attackDamage;
-    std::cout << _attackDamage << std::endl;
-    std::cout << RESET;
-
-  return *this;
+        return *this;
+    }
+    else 
+    {
+        std::cout << RED << "⚠️  ClapTrap ⚠️  class operator assignment failed: explicitely assigning value of variable to itself";
+        std::cout << std::endl << "check your code and your compilation flags" << RESET << std::endl;
+        return *this;
+    }
 }
-
 void ClapTrap::attack(const std::string& target) {
     if (_energyPoints > 0 && _hitPoints > 0) {
         std::cout << "ClapTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage! 💥" << std::endl;

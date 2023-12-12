@@ -45,6 +45,7 @@ int main() {
     big_boss.takeDamage(100);
     big_boss.beRepaired(20);
 
+    std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " << std::endl;
     return 0;
 }
 
