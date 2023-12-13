@@ -6,49 +6,39 @@
 #include "WrongCat.hpp"
 
 int main() {
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
-    std::cout << "//-> const Animal* meta = new Animal();\n";
+    std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n";
+    std::cout << "Animal base class's makeSound() is virtual:" << std::endl;
+    std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n";
     const Animal* meta = new Animal();
-    std::cout << "//-> std::cout << meta->getType() << \" says:\"\n";
     std::cout << meta->getType() << " says: ";
     meta->makeSound();
 
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
-    std::cout << "//-> const Animal* j = new Dog();\n";
+    std::cout << "\n" << std::endl;
     const Animal* j = new Dog();
-    std::cout << "//-> std::cout << j->getType() << \" says:\"\n";
     std::cout << j->getType() << " says: ";
     j->makeSound();
 
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
-    std::cout << "//-> const Animal* i = new Cat() -- \n";
+    std::cout << "\n" << std::endl;
     const Animal* i = new Cat();
-    std::cout << "//-> std::cout << i->getType() << \" says:\"\n";
     std::cout << i->getType() << " says: ";
-    i->makeSound(); // will output the cat sound!
-
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
+    i->makeSound(); 
 
 
-    // Additional tests
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
-    std::cout << "//-> const WrongAnimal* wrongJ = new WrongCat()";
+    std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n";
+    std::cout << "Additional tests with WrongAnimal's makeSound attribute not being 'virtual'" << std::endl;
+    std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n";
     const WrongAnimal* wrongJ = new WrongCat();
-    std::cout << "//-> std::cout << wrongJ->getType() << \" says:\"\n";
     std::cout << wrongJ->getType() << " says: ";
-    wrongJ->makeSound(); // will output the WrongCat sound!
+    wrongJ->makeSound(); 
 
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
-    std::cout << "//-> delete meta; //aka Animal\n";
+    std::cout <<  std::endl;
+    std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n";
     delete meta;
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
-    std::cout << "//-> delete j; //aka Dog\n";
+    std::cout << std::endl;
     delete j;
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
-    std::cout << "//-> delete i; //aka Cat\n";
+    std::cout << std::endl;
     delete i;
-    std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n" << std::endl;
-    std::cout << "//-> delete wrongJ; //aka WrongCat\n";
+    std::cout << std::endl;
     delete wrongJ;
 
     return 0;

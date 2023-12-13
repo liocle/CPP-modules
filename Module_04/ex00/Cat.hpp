@@ -7,6 +7,11 @@ class Cat : public Animal {
 public:
     Cat();
     virtual ~Cat();
+
+    Cat( Cat const & src ) ;  
+
+    Cat &   operator=( Cat const & rhs);
+
     void makeSound() const ;
 };
 
