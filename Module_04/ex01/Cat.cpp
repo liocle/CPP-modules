@@ -1,4 +1,5 @@
 #include "Cat.hpp"
+#include <iostream>
 
 Cat::Cat() : Animal() {
     _type = "Cat";
@@ -11,12 +12,16 @@ Cat::Cat( Cat const & src ) : Animal(src) {
 
 Cat::~Cat() {
     std::cout << "Cat destructor called" << std::endl;
+    delete _brain;
 }
 
 Cat &    Cat::operator=(Cat const & rhs) {
     std::cout << "Cat assignment operator called for " << _type << std::endl;
-    if ( this != &rhs )
+    if ( this != &rhs ){
         this->_type = rhs.getType();
+        delete _brain;
+        _brain = new Brain(*rhs._brain);
+    }
     return *this;
 }
 

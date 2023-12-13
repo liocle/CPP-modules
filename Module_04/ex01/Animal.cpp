@@ -7,12 +7,10 @@ Animal::Animal() : _type("Generic Animal") {
 
 Animal::~Animal() {
     std::cout << "Animal destructor called for " << _type << std::endl;
-    delete _brain;
 }
 
-Animal::Animal( Animal const & src ) {
+Animal::Animal( Animal const & other ) : _type(other._type) {
     std::cout << "Animal copy constructor called for " << _type << std::endl;
-    *this = src;
     return;
 }
 
@@ -20,8 +18,6 @@ Animal &    Animal::operator=(Animal const & other) {
     std::cout << "Animal assignment operator called for " << _type << std::endl;
     if ( this != &other ){
         this->_type = other.getType();
-        delete _brain;
-        _brain = new Brain(*other._brain);
     }
     return *this;
 }
