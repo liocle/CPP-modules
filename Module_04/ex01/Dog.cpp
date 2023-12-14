@@ -1,5 +1,6 @@
 #include "Dog.hpp"
 #include <iostream>
+#include <string>
 
 Dog::Dog() : Animal() , _brain(new Brain){
     _type = "Dog";
@@ -26,3 +27,12 @@ Dog &Dog::operator=(Dog const &rhs) {
 }
 
 void Dog::makeSound() const { std::cout << "Ouaf! Ouaf!" << std::endl; }
+
+std::string Dog::getIdea(unsigned int index) const{
+    return (_brain->getIdea(index));
+}
+    
+void    Dog::setIdea(unsigned int index, const std::string &idea) {
+    _brain->setIdea(index, idea);
+}
+

@@ -3,6 +3,7 @@
 
 #include "Animal.hpp"
 #include "Brain.hpp"
+#include <string>
 
 class Cat : public Animal {
 public:
@@ -12,7 +13,9 @@ public:
 
     Cat &   operator=( Cat const & rhs);
 
-    void makeSound() const ;
+    void    makeSound() const ;
+    void    setIdea(unsigned int index, const std::string &idea);
+    std::string getIdea(unsigned int index) const;
 
 private:
     Brain *_brain;
