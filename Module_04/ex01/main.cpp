@@ -170,7 +170,7 @@ int main() {
 
         std::cout << std::endl;
         std::cout << CYAN;
-        std::cout << "\n-> Deep copy - Setting up a cool Cat thinking as usually:\n";
+        std::cout << "\n-> Deep copy - Setting up a thinker Cat:\n";
         std::cout << RESET;
         
         Cat a_new_cat;
@@ -182,7 +182,7 @@ int main() {
         
         std::cout << std::endl;
         std::cout << CYAN;
-        std::cout << "\nA copy constructed cat got an idea from the cool Cat:\n";
+        std::cout << "\nA copy constructed cat got an idea from the thinking Cat:\n";
         std::cout << RESET;
         Cat copy_constructed_cat(a_new_cat);
         for (int i = 0; i < thought_amount; i++){
@@ -192,7 +192,7 @@ int main() {
         
         std::cout << std::endl;
         std::cout << CYAN;
-        std::cout << "\nAn operator assigned cat seeks influence from the cool Cat:\n";
+        std::cout << "\nAn operator assigned cat under influence of a thinking Cat:\n";
         std::cout << RESET;
         Cat another_cat = a_new_cat;
         for (int i = 0; i < thought_amount; i++){
@@ -200,8 +200,6 @@ int main() {
             std::cout << another_cat.getIdea(i) << std::endl;
         }
 
-        std::cout << std::endl;
-        std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
  
 
     }

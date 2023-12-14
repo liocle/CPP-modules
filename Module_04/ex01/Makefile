@@ -32,7 +32,7 @@ fclean: clean
 	/bin/rm -f $(NAME)
 
 
-debug: 	CFLAGS + =$(CFLAGS_DEBUG)
+debug: 	CFLAGS +=$(CFLAGS_DEBUG)
 debug:	all
 
 lldb_g: CFLAGS += -g
