@@ -23,11 +23,11 @@ $(NAME): $(OBJ)
 
 
 clean:
-	@echo "Cleaning up... ✨"
+	@echo "Cleaning up..."
 	/bin/rm -f $(OBJ)
 
 fclean: clean
-	@echo "Full cleaning... ✨"
+	@echo "Full cleaning..."
 	/bin/rm -f $(NAME)
 
 
