@@ -79,6 +79,8 @@ int main() {
         std::cout << std::endl;
         std::cout << std::endl;
         delete wrongJ;
+        delete i;
+        delete j;
     }
 
     {
