@@ -16,8 +16,9 @@ public:
      */
     Cat();
     /**
-     * @brief Destructor.
+     * @brief   Virtual destructor.
      * Ensures proper cleanup, including the cat's brain.
+     * Set as virtual in the eventuality of a derived class being implemented from it in future.
      */
     virtual ~Cat();
     /**
@@ -40,11 +41,15 @@ public:
     void    makeSound() const ;
     /**
      * @brief Set an idea in the cat's brain.
-     *
      * @param index The index of the idea.
      * @param idea The idea to set.
      */
     void    setIdea(unsigned int index, const std::string &idea);
+    /**
+     * @brief Get an idea from the cat's brain.
+     * @param index The index of the idea.
+     * @return The idea at the specified index.
+     */
     std::string getIdea(unsigned int index) const;
 
 private:
