@@ -10,10 +10,6 @@
  */
 class Cat : public Animal {
 public:
-    /**
-     * @brief Default constructor.
-     * Initializes the cat type and brain.
-     */
     Cat();
     /**
      * @brief   Virtual destructor.
