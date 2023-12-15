@@ -22,6 +22,7 @@ AAnimal &    AAnimal::operator=(AAnimal const & other) {
     return *this;
 }
 
+// AAnimal cant express themeselves anymore
 // void AAnimal::makeSound() const {
 //     std::cout << "AAnimal sound" << std::endl;
 // }

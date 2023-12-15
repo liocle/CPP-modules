@@ -17,9 +17,9 @@ public:
      */
     Dog(Dog const & src);
     /**
-     * @brief Destructor.
-     *
+     * @brief Virtual destructor.
      * Ensures proper cleanup, including the dog's brain.
+     * Set virtual in case a derived Dog class would be instantiated in the future.
      */
     virtual ~Dog();
     /**

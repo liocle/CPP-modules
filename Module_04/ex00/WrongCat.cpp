@@ -1,5 +1,5 @@
 #include "WrongCat.hpp"
-#include <iostream>
+# include <iostream>
 
 WrongCat::WrongCat() : WrongAnimal() {
     _type = "WrongCat";

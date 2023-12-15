@@ -1,7 +1,7 @@
 #ifndef WRONGANIMAL_HPP
-#define WRONGANIMAL_HPP
+# define WRONGANIMAL_HPP
 
-#include <string>
+# include <string>
 
 class WrongAnimal {
 protected:
