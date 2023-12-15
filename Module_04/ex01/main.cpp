@@ -172,7 +172,6 @@ int main() {
         std::cout << CYAN;
         std::cout << "\n-> Deep copy - Setting up a thinker Cat:\n";
         std::cout << RESET;
-        
         Cat a_new_cat;
         a_new_cat.setIdea(0, "Miaou! Miaou!");
         for (int i = 0; i < thought_amount; i++){
@@ -200,11 +199,35 @@ int main() {
             std::cout << another_cat.getIdea(i) << std::endl;
         }
 
+        std::cout << std::endl;
+        std::cout << CYAN;
+        std::cout << "\nThinker Cat got a second idea:\n";
+        std::cout << RESET;
+        a_new_cat.setIdea(1, "Miaou! Miaou! Miaaaaaaaouuuuuu!");
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << a_new_cat.getType() << "'s thought [" << i << "] ";
+            std::cout << a_new_cat.getIdea(i) << std::endl;
+        }
  
-
+        std::cout << std::endl;
+        std::cout << CYAN;
+        std::cout << "\nCopy constructed cat has still one idea:\n";
+        std::cout << RESET;
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << copy_constructed_cat.getType() << "'s thought [" << i << "] ";
+            std::cout << copy_constructed_cat.getIdea(i) << std::endl;
+        }
+        std::cout << std::endl;
+        std::cout << CYAN;
+        std::cout << "\nThe operator assigned cat still has only one idea:\n";
+        std::cout << RESET;
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << another_cat.getType() << "'s thought [" << i << "] ";
+            std::cout << another_cat.getIdea(i) << std::endl;
+        }
+        std::cout << std::endl;
+        std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
     }
-
-
     return 0;
 }
 

@@ -1,4 +1,5 @@
 #include "Animal.hpp"
+#include <iostream>
 
 Animal::Animal() : _type("Generic Animal") {
     std::cout << "Animal constructor called for " << _type << std::endl;

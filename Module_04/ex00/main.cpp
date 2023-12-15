@@ -11,6 +11,9 @@
 #define CYAN "\033[36m"
 #define RED  "\033[31m"
 
+/**
+  * @brief Polymorphism is demonstrated through the use of pointers to base class objects.
+  */
 int main() {
     {
         std::cout << BLUE;
@@ -21,15 +24,18 @@ int main() {
         std::cout << "-> Animal(), Dog() or Cat():\n";
         std::cout << RESET;
 
+        // Creating objects of the base class.
         Animal  an_animal;
         std::cout << an_animal.getType() << " says: ";
         an_animal.makeSound();
 
+        // Creating objects of the derived class.
         std::cout << std::endl;
         Dog     a_dog;
         std::cout << a_dog.getType() << " says: ";
         a_dog.makeSound();
 
+        // Creating objects of the derived class.
         std::cout << std::endl;
         Cat     a_cat;
         std::cout << a_cat.getType() << " says: ";
