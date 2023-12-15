@@ -18,7 +18,7 @@ int main() {
     {
         std::cout << BLUE;
         std::cout << "________________________________________________________________________________\n";
-        std::cout << "Exercise00: Animal base class's makeSound() is virtual:" << std::endl;
+        std::cout << "Exercise00: Use of virtual makeSound() on base and derived class objects through pointers:" << std::endl;
         std::cout << "________________________________________________________________________________\n";
         std::cout << CYAN;
         std::cout << "-> Animal(), Dog() or Cat():\n";
@@ -27,19 +27,19 @@ int main() {
         // Creating objects of the base class.
         Animal  an_animal;
         std::cout << an_animal.getType() << " says: ";
-        an_animal.makeSound();
+        an_animal.makeSound();                          
 
-        // Creating objects of the derived class.
+        // Creating derived Dog objects.
         std::cout << std::endl;
         Dog     a_dog;
         std::cout << a_dog.getType() << " says: ";
-        a_dog.makeSound();
+        a_dog.makeSound();                              
 
-        // Creating objects of the derived class.
+        // Creating derived Cat objects.
         std::cout << std::endl;
         Cat     a_cat;
         std::cout << a_cat.getType() << " says: ";
-        a_cat.makeSound();
+        a_cat.makeSound();                              
 
 
         
@@ -48,17 +48,17 @@ int main() {
         std::cout << RESET;
         const Animal* meta = new Animal();
         std::cout << meta->getType() << " says: ";
-        meta->makeSound();
+        meta->makeSound();                              // uses base class makeSound()
 
         std::cout << std::endl;
         const Animal* j = new Dog();
         std::cout << j->getType() << " says: ";
-        j->makeSound();
+        j->makeSound();                                 // uses Dog class implementation of makeSound()
 
         std::cout <<  std::endl;
         const Animal* i = new Cat();
         std::cout << i->getType() << " says: ";
-        i->makeSound(); 
+        i->makeSound();                                 // uses Cat class implementation of makeSound()
 
 
         std::cout << BLUE;
@@ -96,4 +96,6 @@ int main() {
         std::cout << std::endl;
         delete wrongJ;
     }
+    return 0;
+
 }
