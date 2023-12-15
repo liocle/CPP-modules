@@ -10,7 +10,7 @@
 class Cat : public Animal {
 public:
     Cat();                                  // Initializes _type member according to Animal type, calls base class constructor implicitly
-    virtual ~Cat();                         // Virtual destructor to ensure proper cleanup if this class would be inherited from a derived class.// Virtual destructor to ensure proper cleanup if this class would be inherited from a derived class.
+    virtual ~Cat();                         // Virtual destructor to ensure proper cleanup if this class would be inherited from a derived class.
 
     Cat( Cat const & src ) ;                // Copy constructor
 
