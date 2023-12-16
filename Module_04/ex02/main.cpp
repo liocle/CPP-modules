@@ -4,7 +4,7 @@
 #include "Cat.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
-#include "Brain.hpp"
+
 #define RESET "\033[0m"
 #define BLUE "\033[34m"
 #define GREEN "\033[32m"

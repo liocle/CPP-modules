@@ -4,7 +4,7 @@
 #include "Cat.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
-#include "Brain.hpp"
+
 #define RESET "\033[0m"
 #define BLUE "\033[34m"
 #define GREEN "\033[32m"
@@ -306,7 +306,12 @@ int main() {
         Cat a_cat;
         {
             Cat another_cat(a_cat);
+            std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+        }
         std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+        {
+            Cat another_cat = a_cat;
+            std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
         }
         std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
     }
@@ -318,10 +323,16 @@ int main() {
         Dog a_dog;
         {
             Dog another_dog(a_dog);
+            std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+        }
         std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+        {
+            Dog another_dog = a_dog;
+            std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
         }
         std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
     }
+
     return 0;
 }
 
