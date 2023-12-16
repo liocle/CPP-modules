@@ -168,6 +168,11 @@ int main() {
              std::cout << "Animal #" << i+1 << " is gone\n";
         }
 
+    }
+
+    {
+        int     thought_amount = 5;
+
         std::cout << std::endl;
         std::cout << CYAN;
         std::cout << "\n-> Deep copy - Setting up a thinker Cat:\n";
@@ -226,6 +231,95 @@ int main() {
             std::cout << another_cat.getIdea(i) << std::endl;
         }
         std::cout << std::endl;
+        std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+    }
+
+    {
+        int     thought_amount = 5;
+
+        std::cout << std::endl;
+        std::cout << GREEN;
+        std::cout << "\n-> Deep copy - Setting up a thinker Dog:\n";
+        std::cout << RESET;
+        Dog a_new_dog;
+        a_new_dog.setIdea(0, "Ouaf! Ouaf!");
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << a_new_dog.getType() << "'s thought [" << i << "] ";
+            std::cout << a_new_dog.getIdea(i) << std::endl;
+        }
+        
+        std::cout << std::endl;
+        std::cout << GREEN;
+        std::cout << "\nA copy constructed dog got an idea from the thinking Dog:\n";
+        std::cout << RESET;
+        Dog copy_constructed_dog(a_new_dog);
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << copy_constructed_dog.getType() << "'s thought [" << i << "] ";
+            std::cout << copy_constructed_dog.getIdea(i) << std::endl;
+        }
+        
+        std::cout << std::endl;
+        std::cout << GREEN;
+        std::cout << "\nAn operator assigned dog under influence of a thinking Dog:\n";
+        std::cout << RESET;
+        Dog another_dog = a_new_dog;
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << another_dog.getType() << "'s thought [" << i << "] ";
+            std::cout << another_dog.getIdea(i) << std::endl;
+        }
+
+        std::cout << std::endl;
+        std::cout << GREEN;
+        std::cout << "\nThinker Dog got a second idea:\n";
+        std::cout << RESET;
+        a_new_dog.setIdea(1, "Ouaf! Ouaf! Ouuuaaaaaaaffffffffffff!");
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << a_new_dog.getType() << "'s thought [" << i << "] ";
+            std::cout << a_new_dog.getIdea(i) << std::endl;
+        }
+ 
+        std::cout << std::endl;
+        std::cout << GREEN;
+        std::cout << "\nCopy constructed dog has still one idea:\n";
+        std::cout << RESET;
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << copy_constructed_dog.getType() << "'s thought [" << i << "] ";
+            std::cout << copy_constructed_dog.getIdea(i) << std::endl;
+        }
+        std::cout << std::endl;
+        std::cout << GREEN;
+        std::cout << "\nThe operator assigned dog still has only one idea:\n";
+        std::cout << RESET;
+        for (int i = 0; i < thought_amount; i++){
+            std::cout << another_dog.getType() << "'s thought [" << i << "] ";
+            std::cout << another_dog.getIdea(i) << std::endl;
+        }
+        std::cout << std::endl;
+        std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+
+    }
+    {
+        std::cout << std::endl;
+        std::cout << CYAN;
+        std::cout << "\n-> Eval form Cat's deep copy check:\n";
+        std::cout << RESET;
+        Cat a_cat;
+        {
+            Cat another_cat(a_cat);
+        std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+        }
+        std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+    }
+    {
+        std::cout << std::endl;
+        std::cout << GREEN;
+        std::cout << "\n-> Eval form Dog's deep copy check:\n";
+        std::cout << RESET;
+        Dog a_dog;
+        {
+            Dog another_dog(a_dog);
+        std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
+        }
         std::cout << "\n- - - - - - - - - - - - - - - - - - - - \n";
     }
     return 0;
