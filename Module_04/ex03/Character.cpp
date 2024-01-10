@@ -1,12 +1,8 @@
 #include "Character.hpp"
 
 Character::Character() : _name("'A character'") {
-    for (int i = 0, j = 0; i < INVENTORY_SIZE && j < UNEQUIPPED_OBJ_MAX; i++, j++)
-    {
-        _unequipped_objects[j] = NULL;
-        if (i < INVENTORY_SIZE)
-            _inventory[i] = NULL;
-    }
+    bzero(_inventory, sizeof(AMateria*) * INVENTORY_SIZE);
+    bzero(_unequipped_objects, sizeof(AMateria*) * UNEQUIPPED_OBJ_MAX);
     std::cout << " -- Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to NULL -- " << std::endl;
 }
 
@@ -21,9 +17,10 @@ Character::~Character() {
 }
 
 Character::Character(const Character &other) : _name(other._name) {
-    for (int i = 0, j = 0; i < INVENTORY_SIZE && j < UNEQUIPPED_OBJ_MAX; i++, j++)
+    bzero(_inventory, sizeof(AMateria*) * INVENTORY_SIZE);
+    bzero(_unequipped_objects, sizeof(AMateria*) * UNEQUIPPED_OBJ_MAX);
+    for (int i = 0; i < INVENTORY_SIZE; i++)
     {
-        _unequipped_objects[j] = NULL;
         if (i < INVENTORY_SIZE && other._inventory[i])
             _inventory[i] = other._inventory[i]->clone();
     }
@@ -33,10 +30,10 @@ Character::Character(const Character &other) : _name(other._name) {
 
 Character& Character::operator=(const Character &other){
     _name = other._name;
-    for (int i = 0, j = 0; i < INVENTORY_SIZE && j < UNEQUIPPED_OBJ_MAX; i++, j++)
+    bzero(_unequipped_objects, sizeof(AMateria*) * UNEQUIPPED_OBJ_MAX);
+    for (int i = 0; i < INVENTORY_SIZE; i++)
     {
-        _unequipped_objects[j] = NULL;
-        if (i < INVENTORY_SIZE && other._inventory[i])
+        if (i < INVENTORY_SIZE)
             _inventory[i] = other._inventory[i]->clone();
     }
     std::cout << " -- Character " << getName() << " - Copy constructor called, _inventory and _unequipped_objects initialized to NULL -- " << std::endl;
@@ -73,8 +70,9 @@ void Character::unequip(int idx) {
 }
 
 void    Character::use(int idx, Character& target) {
-    if ((unsigned int) < UNEQUIPPED_OBJ_MAX && _inventory[idx]) {
+    if ((unsigned int) idx < UNEQUIPPED_OBJ_MAX && _inventory[idx]) {
         _inventory[idx]->use(target);
+        return ;
     }
 
 }
