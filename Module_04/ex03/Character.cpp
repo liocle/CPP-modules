@@ -7,7 +7,7 @@ Character::Character() : _name("'A character'") {
 }
 
 Character::~Character() {
-    for (int i = 0, j = 0; i < INVENTORY_SIZE && j < UNEQUIPPED_OBJ_MAX; i++, j++)
+    for (int i = 0, j = 0; j < UNEQUIPPED_OBJ_MAX; i++, j++)
     {
         delete _unequipped_objects[j];
         if (i < INVENTORY_SIZE)
