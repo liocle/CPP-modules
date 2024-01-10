@@ -1,23 +1,80 @@
 #include "Character.hpp"
 
-Character::Character() : _name("A character") {
-    std::cout << " - Character - Constructor - " << std::endl;
+Character::Character() : _name("'A character'") {
+    for (int i = 0, j = 0; i < INVENTORY_SIZE && j < UNEQUIPPED_OBJ_MAX; i++, j++)
+    {
+        _unequipped_objects[j] = NULL;
+        if (i < INVENTORY_SIZE)
+            _inventory[i] = NULL;
+    }
+    std::cout << " -- Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to NULL -- " << std::endl;
 }
 
 Character::~Character() {
-    std::cout << " - Character - Destructor - " << std::endl;
-    for (AMateria *m : _inventory)
+    for (int i = 0, j = 0; i < INVENTORY_SIZE && j < UNEQUIPPED_OBJ_MAX; i++, j++)
     {
-        delete m;
+        delete _unequipped_objects[j];
+        if (i < INVENTORY_SIZE)
+            delete _inventory[i];
     }
+    std::cout << " -- Character " << getName() << " - Destructor called, _inventory and _unequipped_objects deleted -- " << std::endl;
 }
 
-Character::Character(const Character &other) : _name(other._name)
-{
+Character::Character(const Character &other) : _name(other._name) {
+    for (int i = 0, j = 0; i < INVENTORY_SIZE && j < UNEQUIPPED_OBJ_MAX; i++, j++)
+    {
+        _unequipped_objects[j] = NULL;
+        if (i < INVENTORY_SIZE && other._inventory[i])
+            _inventory[i] = other._inventory[i]->clone();
+    }
+    std::cout << " -- Character " << getName() << " - Copy constructor called, _inventory and _unequipped_objects initialized to NULL -- " << std::endl;
+}
+
+
+Character& Character::operator=(const Character &other){
+    _name = other._name;
+    for (int i = 0, j = 0; i < INVENTORY_SIZE && j < UNEQUIPPED_OBJ_MAX; i++, j++)
+    {
+        _unequipped_objects[j] = NULL;
+        if (i < INVENTORY_SIZE && other._inventory[i])
+            _inventory[i] = other._inventory[i]->clone();
+    }
+    std::cout << " -- Character " << getName() << " - Copy constructor called, _inventory and _unequipped_objects initialized to NULL -- " << std::endl;
+    return *this;
+}
+
+const std::string & Character::getName() const {
+    return this->_name;
+}
+
+void Character::equip(AMateria* materia) {
+    if (!materia)
+        return ;
     for (int i = 0; i < INVENTORY_SIZE; i++)
     {
+        if (_inventory[i]) {
+            _inventory[i] = materia;
+            return;
+        }
+    }
+    delete materia;
+}
 
+void Character::unequip(int idx) {
+    if ((unsigned int) idx < INVENTORY_SIZE && _inventory[idx]){
+        for (int i = 0; i < UNEQUIPPED_OBJ_MAX; i++) {
+            if ( _unequipped_objects[i] == NULL ) {
+                _unequipped_objects[i] = _inventory[idx] ;
+                _inventory[idx] = NULL;
+                return;
+            }
+        }
+    }
+}
+
+void    Character::use(int idx, Character& target) {
+    if ((unsigned int) < UNEQUIPPED_OBJ_MAX && _inventory[idx]) {
+        _inventory[idx]->use(target);
     }
 
 }
-
