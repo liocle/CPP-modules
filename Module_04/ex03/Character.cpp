@@ -3,7 +3,7 @@
 Character::Character() : _name("'A character'") {
     bzero(_inventory, sizeof(AMateria*) * INVENTORY_SIZE);
     bzero(_unequipped_objects, sizeof(AMateria*) * UNEQUIPPED_OBJ_MAX);
-    std::cout << " -- Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to NULL -- " << std::endl;
+    std::cout << " -- Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to nullptr -- " << std::endl;
 }
 
 Character::~Character() {
@@ -25,7 +25,7 @@ Character::Character(const Character &other) : _name(other._name) {
         if (i < INVENTORY_SIZE && other._inventory[i])
             _inventory[i] = other._inventory[i]->clone();
     }
-    std::cout << " -- Character " << getName() << " - Copy constructor called, _inventory and _unequipped_objects initialized to NULL -- " << std::endl;
+    std::cout << " -- Character " << getName() << " - Copy constructor called, _inventory and _unequipped_objects initialized to nullptr -- " << std::endl;
 }
 
 
@@ -37,7 +37,7 @@ Character& Character::operator=(const Character &other){
         if (i < INVENTORY_SIZE)
             _inventory[i] = other._inventory[i]->clone();
     }
-    std::cout << " -- Character " << getName() << " - Copy constructor called, _inventory and _unequipped_objects initialized to NULL -- " << std::endl;
+    std::cout << " -- Character " << getName() << " - Copy assignment operator called, _inventory and _unequipped_objects initialized to nullptr -- " << std::endl;
     return *this;
 }
 
@@ -61,9 +61,9 @@ void Character::equip(AMateria* materia) {
 void Character::unequip(int idx) {
     if ((unsigned int) idx < INVENTORY_SIZE && _inventory[idx]){
         for (int i = 0; i < UNEQUIPPED_OBJ_MAX; i++) {
-            if ( _unequipped_objects[i] == NULL ) {
+            if ( _unequipped_objects[i] == nullptr ) {
                 _unequipped_objects[i] = _inventory[idx] ;
-                _inventory[idx] = NULL;
+                _inventory[idx] = nullptr;
                 return;
             }
         }
