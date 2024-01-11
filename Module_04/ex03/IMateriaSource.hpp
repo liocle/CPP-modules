@@ -2,8 +2,9 @@
 #ifndef IMATERIASOURCE_HPP
 # define IMATERIASOURCE_HPP
 
-# include <string>
-# include "AMateria.hpp"
+# include   <string>
+# include   "AMateria.hpp"
+# define     MAX_KNOWN_MATERIAS 4
 
 class IMateriaSource
     {

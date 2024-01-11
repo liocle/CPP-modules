@@ -9,8 +9,9 @@ Character::Character() : _name("'A character'") {
 Character::~Character() {
     for (int i = 0, j = 0; j < UNEQUIPPED_OBJ_MAX; i++, j++)
     {
-        delete _unequipped_objects[j];
-        if (i < INVENTORY_SIZE)
+        if (_unequipped_objects[j] != nullptr)
+            delete _unequipped_objects[j];
+        if (i < INVENTORY_SIZE && _inventory[i] != nullptr)
             delete _inventory[i];
     }
     std::cout << " -- Character " << getName() << " - Destructor called, _inventory and _unequipped_objects deleted -- " << std::endl;
@@ -45,16 +46,16 @@ const std::string & Character::getName() const {
 }
 
 void Character::equip(AMateria* materia) {
-    if (!materia)
-        return ;
-    for (int i = 0; i < INVENTORY_SIZE; i++)
-    {
-        if (_inventory[i]) {
-            _inventory[i] = materia;
-            return;
+    if (materia != nullptr) {
+        for (int i = 0; i < INVENTORY_SIZE; i++)
+        {
+            if (_inventory[i]) {
+                _inventory[i] = materia;
+                return;
+            }
         }
+        delete materia;
     }
-    delete materia;
 }
 
 void Character::unequip(int idx) {
@@ -67,6 +68,8 @@ void Character::unequip(int idx) {
             }
         }
     }
+    else 
+        std::cout << "Cannot unequip this Materia" << std::endl;
 }
 
 void    Character::use(int idx, Character& target) {
