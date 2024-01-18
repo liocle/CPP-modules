@@ -11,7 +11,7 @@ SRC     		=	main.cpp \
 
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 
-NAME		    = 	animal
+NAME		    = 	materia
 all: $(NAME)
 
 $(NAME): $(OBJ)

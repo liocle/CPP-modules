@@ -6,6 +6,13 @@ Character::Character() : _name("'A character'") {
     std::cout << " -- Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to nullptr -- " << std::endl;
 }
 
+Character::Character(std::string const &name) : _name(name) {
+    bzero(_inventory, sizeof(AMateria*) * INVENTORY_SIZE);
+    bzero(_unequipped_objects, sizeof(AMateria*) * UNEQUIPPED_OBJ_MAX);
+    std::cout << " -- Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to nullptr -- " << std::endl;
+}
+
+
 Character::~Character() {
     for (int i = 0, j = 0; j < UNEQUIPPED_OBJ_MAX; i++, j++)
     {
