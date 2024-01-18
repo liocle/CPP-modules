@@ -4,13 +4,13 @@
 Character::Character() : _name("'A character'") {
     bzero(_inventory, sizeof(AMateria*) * INVENTORY_SIZE);
     bzero(_unequipped_objects, sizeof(AMateria*) * UNEQUIPPED_OBJ_MAX);
-    std::cout << YELLOW << " **** Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to nullptr **** " << RESET << RESET << std::endl;
+    std::cout << MAGENTA << " **** Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to nullptr **** " << RESET << RESET << std::endl;
 }
 
 Character::Character(std::string const &name) : _name(name) {
     bzero(_inventory, sizeof(AMateria*) * INVENTORY_SIZE);
     bzero(_unequipped_objects, sizeof(AMateria*) * UNEQUIPPED_OBJ_MAX);
-    std::cout << YELLOW << " **** Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to nullptr **** " << RESET << std::endl;
+    std::cout << MAGENTA << " **** Character " << getName() << " - Constructor called, _inventory and _unequipped_objects initialized to nullptr **** " << RESET << std::endl;
 }
 
 
@@ -22,7 +22,7 @@ Character::~Character() {
         if (i < INVENTORY_SIZE && _inventory[i] != nullptr)
             delete _inventory[i];
     }
-    std::cout << YELLOW << " **** Character " << getName() << " - Destructor called, _inventory and _unequipped_objects deleted **** " << RESET << std::endl;
+    std::cout << MAGENTA << " **** Character " << getName() << " - Destructor called, _inventory and _unequipped_objects deleted **** " << RESET << std::endl;
 }
 
 Character::Character(const Character &other) : _name(other._name) {
@@ -33,7 +33,7 @@ Character::Character(const Character &other) : _name(other._name) {
         if (i < INVENTORY_SIZE && other._inventory[i])
             _inventory[i] = other._inventory[i]->clone();
     }
-    std::cout << YELLOW << " **** Character " << getName() << " - Copy constructor called, _inventory and _unequipped_objects initialized to nullptr **** " << RESET << std::endl;
+    std::cout << MAGENTA << " **** Character " << getName() << " - Copy constructor called, _inventory and _unequipped_objects initialized to nullptr **** " << RESET << std::endl;
 }
 
 
@@ -45,7 +45,7 @@ Character& Character::operator=(const Character &other){
         if (i < INVENTORY_SIZE)
             _inventory[i] = other._inventory[i]->clone();
     }
-    std::cout << YELLOW << " **** Character " << getName() << " - Copy assignment operator called, _inventory and _unequipped_objects initialized to nullptr **** " << RESET << std::endl;
+    std::cout << MAGENTA << " **** Character " << getName() << " - Copy assignment operator called, _inventory and _unequipped_objects initialized to nullptr **** " << RESET << std::endl;
     return *this;
 }
 
@@ -77,13 +77,15 @@ void Character::unequip(int idx) {
         }
     }
     else 
-        std::cout << YELLOW << "Cannot unequip this Materia" << RESET << std::endl;
+        std::cout << MAGENTA << "Cannot unequip this Materia" << RESET << std::endl;
 }
 
 void    Character::use(int idx, ICharacter& target) {
-    if ((unsigned int) idx < UNEQUIPPED_OBJ_MAX && _inventory[idx]) {
-        _inventory[idx]->use(target);
+    
+    if (idx < 0 || idx >= UNEQUIPPED_OBJ_MAX || _inventory[idx] == nullptr) {
+        std::cout << RED << "HERE IN CHARACTER use() " << RESET << std::endl;
         return ;
     }
+    _inventory[idx]->use(target);
 
 }

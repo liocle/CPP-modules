@@ -1,9 +1,11 @@
 #include "MateriaSource.hpp"
+#include "Color.hpp"
 
 MateriaSource::MateriaSource() {
     for (int i = 0; i < MAX_KNOWN_MATERIAS; i++) {
         _knownMaterias[i] = nullptr;
     }
+    std::cout << 
 }
 
 MateriaSource::~MateriaSource() {
@@ -15,7 +17,12 @@ MateriaSource::~MateriaSource() {
 
 MateriaSource::MateriaSource (const MateriaSource& other) {
     for (int i = 0; i < MAX_KNOWN_MATERIAS; i++) {
-        _knownMaterias[i] = other._knownMaterias[i]->clone();
+        if (other._knownMaterias[i] != nullptr)
+            _knownMaterias[i] = other._knownMaterias[i]->clone();
+        else {
+            (void)other;
+            _knownMaterias[i] = nullptr;
+        }
 
     }
 }
