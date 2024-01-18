@@ -1,5 +1,6 @@
 
 #include "Cure.hpp"
+#include "ICharacter.hpp"
 
 Cure::Cure() : AMateria("cure") {
     std::cout << "- Cure Constructor called -" << std::endl;
@@ -15,6 +16,7 @@ Cure::~Cure() {
 
 Cure & Cure::operator=(const Cure &other) {
     std::cout << "- Cure Assignment Constructor called -" << std::endl;
+    (void) other; 
     return *this;
 }
 

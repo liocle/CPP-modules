@@ -1,5 +1,5 @@
 CC      		= 	c++
-CFLAGS  		= 	-Wall -Werror -Wextra -std=c++98
+CFLAGS  		= 	-Wall -Werror -Wextra -std=c++11
 CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
 SRC     		=	main.cpp \

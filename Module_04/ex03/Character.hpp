@@ -22,7 +22,7 @@ class Character: public ICharacter
         std::string const & getName() const override;
         void equip(AMateria* m) override;
         void unequip(int idx) override;
-        void use(int idx, Character& target);
+        void use(int idx, ICharacter& target) override;
         
     };
 #endif

@@ -1,5 +1,6 @@
 
 
+#include "ICharacter.hpp"
 #include "Ice.hpp"
 
 Ice::Ice() : AMateria("cure") {
@@ -16,6 +17,7 @@ Ice::~Ice() {
 
 Ice & Ice::operator=(const Ice &other) {
     std::cout << "- Ice Assignment Constructor called -" << std::endl;
+    (void) other; 
     return *this;
 }
 

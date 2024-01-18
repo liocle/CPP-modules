@@ -72,7 +72,7 @@ void Character::unequip(int idx) {
         std::cout << "Cannot unequip this Materia" << std::endl;
 }
 
-void    Character::use(int idx, Character& target) {
+void    Character::use(int idx, ICharacter& target) {
     if ((unsigned int) idx < UNEQUIPPED_OBJ_MAX && _inventory[idx]) {
         _inventory[idx]->use(target);
         return ;
