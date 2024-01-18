@@ -5,13 +5,7 @@
 #include "Character.hpp"
 #include "Ice.hpp"
 #include "Cure.hpp"
-
-#define RESET "\033[0m"
-#define BLUE "\033[34m"
-#define GREEN "\033[32m"
-#define CYAN "\033[36m"
-#define RED  "\033[31m"
-
+#include "Color.hpp"
 
 int main() {
     {
@@ -32,11 +26,10 @@ int main() {
         delete bob;
         delete me;
         delete src;
-        return 0;
     }
     {
-        std::cout << CYAN << "--- example test ---" << RESET
-            << std::endl;
+        std::cout << std::endl;
+        std::cout << CYAN << "--- example test ----------------------------------------------------------------------" << RESET << std::endl;
 
         IMateriaSource* src = new MateriaSource();
         src->learnMateria(new Ice());
@@ -60,15 +53,16 @@ int main() {
         delete src;
     }
     {
-        std::cout << CYAN << "--- copy test ---" << RESET << std::endl;
+        std::cout << std::endl;
+        std::cout << CYAN << "--- copy test ----------------------------------------------------------------------" << RESET << std::endl;
 
         IMateriaSource* src = new MateriaSource();
         src->learnMateria(new Ice());
         src->learnMateria(new Cure());
-        IMateriaSource* src_copy =
-            new MateriaSource(dynamic_cast<MateriaSource&>(*src));
+        IMateriaSource* src_copy = new MateriaSource(dynamic_cast<MateriaSource&>(*src));
 
         ICharacter* orig = new Character("orig");
+        std::cout << RED << "HERE" << RESET << std::endl;
         orig->equip(src_copy->createMateria("ice"));
         orig->equip(src_copy->createMateria("cure"));
         orig->use(0, *orig);
@@ -84,7 +78,8 @@ int main() {
         delete copy;
     }
     {
-        std::cout << CYAN << "--- overfill Character inventory test ---" << RESET << std::endl;
+        std::cout << std::endl;
+        std::cout << CYAN << "--- overfill Character inventory test ---------------------------------------------------------------------" << RESET << std::endl;
 
         IMateriaSource* src = new MateriaSource();
         src->learnMateria(new Ice());
@@ -115,7 +110,8 @@ int main() {
         delete me;
     }
     {
-        std::cout << CYAN << "--- overfill MateriaSource inventory test ---" << RESET << std::endl;
+        std::cout << std::endl;
+        std::cout << CYAN << "--- overfill MateriaSource inventory test ----------------------------------------------------------------------" << RESET << std::endl;
 
         IMateriaSource* src = new MateriaSource();
         src->learnMateria(new Ice());
@@ -127,7 +123,8 @@ int main() {
         delete src;
     }
     {
-        std::cout << CYAN << "--- overfill Character pile test ---" << RESET << std::endl;
+        std::cout << std::endl;
+        std::cout << CYAN << "--- overfill Character pile test ----------------------------------------------------------------------" << RESET << std::endl;
 
         IMateriaSource* src = new MateriaSource();
         src->learnMateria(new Ice());

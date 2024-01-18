@@ -1,20 +1,21 @@
+#include "Color.hpp"
 #include "ICharacter.hpp"
 #include "Ice.hpp"
 
 Ice::Ice() : AMateria("cure") {
-    std::cout << "- Ice Constructor called -" << std::endl;
+    std::cout << LIGHT_BLUE << "- Ice Constructor called -" << RESET << std::endl;
 }
 
 Ice::Ice(const Ice &other) : AMateria(other){
-    std::cout << "- Ice Copy Constructor called -" << std::endl;
+    std::cout << LIGHT_BLUE << "- Ice Copy Constructor called -" << RESET << std::endl;
 }
 
 Ice::~Ice() {
-    std::cout << "- Ice destructor called -" << std::endl;
+    std::cout << LIGHT_BLUE << "- Ice destructor called -" << RESET << std::endl;
 }
 
 Ice & Ice::operator=(const Ice &other) {
-    std::cout << "- Ice Assignment Constructor called -" << std::endl;
+    std::cout << LIGHT_BLUE << "- Ice Assignment Constructor called -" << RESET << std::endl;
     (void) other; 
     return *this;
 }
@@ -24,5 +25,5 @@ AMateria *Ice::clone() const{
 }
 
 void Ice::use(ICharacter &target) {
-    std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
+    std::cout << LIGHT_BLUE << "* heals " << target.getName() << "'s wounds *" << RESET << std::endl;
 }
