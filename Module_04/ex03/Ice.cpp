@@ -2,7 +2,7 @@
 #include "ICharacter.hpp"
 #include "Ice.hpp"
 
-Ice::Ice() : AMateria("cure") {
+Ice::Ice() : AMateria("ice") {
     std::cout << LIGHT_BLUE << "- Ice Constructor called -" << RESET << std::endl;
 }
 

@@ -13,7 +13,7 @@ int main() {
         std::cout << CYAN << "--- example test ----------------------------------------------------------------------" << RESET << std::endl;
 
         std::cout << CYAN << "----------------------------------------" << RESET << std::endl;
-        std::cout << CYAN << "Initializing a pointer src to IMateriaSource and assigning it to new MateriaSource" << RESET << std::endl;
+        std::cout << CYAN << "IMateriaSource* src = new MateriaSource();" << RESET << std::endl;
         IMateriaSource* src = new MateriaSource();
         std::cout << CYAN << "----------------------------------------" << RESET << std::endl;
         std::cout << CYAN << "src->learnMateria(new Ice())" << RESET << std::endl;
@@ -24,10 +24,11 @@ int main() {
         src->learnMateria(new Cure());
 
         std::cout << CYAN << "----------------------------------------" << RESET << std::endl;
-        std::cout << CYAN << "Initializing a pointer src to ICharacter and assigning it to new Character(\"me\")" << RESET << std::endl;
+        std::cout << CYAN << "ICharacter* me = new Character(\"me\");" << RESET << std::endl;
         ICharacter* me = new Character("me");
 
 
+        std::cout << std::endl;
         std::cout << CYAN << "----------------------------------------" << RESET << std::endl;
         std::cout << CYAN << "AMateria* tmp;" << RESET << std::endl;
         AMateria* tmp;
@@ -45,10 +46,10 @@ int main() {
         me->equip(tmp);
 
 
+        std::cout << std::endl;
         std::cout << CYAN << "----------------------------------------" << RESET << std::endl;
         std::cout << CYAN << "ICharacter* bob = new Character(\"bob\")" << RESET << std::endl;
         ICharacter* bob = new Character("bob");
-
         std::cout << CYAN << "----------------------------------------" << RESET << std::endl;
         std::cout << CYAN << "me->use(0, *bob)" << RESET << std::endl;
         me->use(0, *bob);
@@ -56,6 +57,7 @@ int main() {
         std::cout << CYAN << "me->use(1, *bob)" << RESET << std::endl;
         me->use(1, *bob);
 
+        std::cout << std::endl;
         std::cout << CYAN << "----------------------------------------" << RESET << std::endl;
         std::cout << CYAN << "delete bob" << RESET << std::endl;
         delete bob;

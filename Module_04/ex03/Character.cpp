@@ -50,7 +50,7 @@ Character& Character::operator=(const Character &other){
 }
 
 const std::string & Character::getName() const {
-    std::cout << MAGENTA << " **** Character::getName() called **** " << RESET << std::endl;
+    // std::cout << MAGENTA << " **** Character::getName() called **** " << RESET << std::endl;
     return this->_name;
 }
 
@@ -59,13 +59,16 @@ void Character::equip(AMateria* materia) {
     if (materia != nullptr) {
         for (int i = 0; i < INVENTORY_SIZE; i++)
         {
-            if (_inventory[i]) {
+            if (!_inventory[i]) {
                 _inventory[i] = materia;
+                std::cout << "materia of type" << materia->getType() << std::endl;
+                std::cout << "_inventory[" << i << "] contains now: " << _inventory[i]->getType() << std::endl;
                 return;
             }
         }
         delete materia;
     }
+    std::cout << "Did not manage to equip a materia pointing to null" << std::endl;
 }
 
 void Character::unequip(int idx) {
