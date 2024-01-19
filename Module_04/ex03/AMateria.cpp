@@ -18,6 +18,7 @@ AMateria::AMateria(const AMateria &other) : type(other.type) {
 
 AMateria &AMateria::operator=(const AMateria &other)
 {
+    std::cout << GREEN << "- AMateria assignment operator called of given type - " << this->type << RESET << std::endl;
     if (this != &other)
     {
         type = other.type;
@@ -26,6 +27,7 @@ AMateria &AMateria::operator=(const AMateria &other)
 }
 
 std::string const & AMateria::getType() const {
+    std::cout << GREEN << "- AMateria::getType() called of given type - " << this->type << RESET << std::endl;
     return (this->type);
 }
 

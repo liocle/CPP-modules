@@ -50,10 +50,12 @@ Character& Character::operator=(const Character &other){
 }
 
 const std::string & Character::getName() const {
+    std::cout << MAGENTA << " **** Character::getName() called **** " << RESET << std::endl;
     return this->_name;
 }
 
 void Character::equip(AMateria* materia) {
+    std::cout << MAGENTA << " **** Character::equip() called **** " << RESET << std::endl;
     if (materia != nullptr) {
         for (int i = 0; i < INVENTORY_SIZE; i++)
         {
@@ -67,6 +69,7 @@ void Character::equip(AMateria* materia) {
 }
 
 void Character::unequip(int idx) {
+    std::cout << MAGENTA << " **** Character::unequip() called **** " << RESET << std::endl;
     if ((unsigned int) idx < INVENTORY_SIZE && _inventory[idx]){
         for (int i = 0; i < UNEQUIPPED_OBJ_MAX; i++) {
             if ( _unequipped_objects[i] == nullptr ) {
@@ -81,9 +84,9 @@ void Character::unequip(int idx) {
 }
 
 void    Character::use(int idx, ICharacter& target) {
-    
+    std::cout << MAGENTA << " **** Character::use() called **** " << RESET << std::endl;
     if (idx < 0 || idx >= UNEQUIPPED_OBJ_MAX || _inventory[idx] == nullptr) {
-        std::cout << RED << "HERE IN CHARACTER use() " << RESET << std::endl;
+        std::cout << RED << "Failed to Use() Materia on target" << RESET << std::endl;
         return ;
     }
     _inventory[idx]->use(target);

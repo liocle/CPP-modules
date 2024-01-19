@@ -21,6 +21,7 @@ Ice & Ice::operator=(const Ice &other) {
 }
 
 AMateria *Ice::clone() const{
+    std::cout << LIGHT_BLUE << "- Ice::clone() called -" << RESET << std::endl;
     return (new Ice);
 }
 

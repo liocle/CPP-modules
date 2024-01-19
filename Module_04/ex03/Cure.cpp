@@ -21,6 +21,7 @@ Cure & Cure::operator=(const Cure &other) {
 }
 
 AMateria *Cure::clone() const{
+    std::cout << YELLOW << "- Cure::clone() called -" << RESET << std::endl;
     return (new Cure);
 }
 

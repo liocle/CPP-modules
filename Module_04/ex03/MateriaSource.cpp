@@ -5,7 +5,7 @@ MateriaSource::MateriaSource() {
     for (int i = 0; i < MAX_KNOWN_MATERIAS; i++) {
         _knownMaterias[i] = nullptr;
     }
-    std::cout << 
+    std::cout << RED << "MateriaSource constructor called" << std::endl;
 }
 
 MateriaSource::~MateriaSource() {
@@ -13,6 +13,7 @@ MateriaSource::~MateriaSource() {
         if (_knownMaterias[i] != nullptr)
             delete _knownMaterias[i];
     }
+    std::cout << RED << "MateriaSource destructor called" << std::endl;
 }
 
 MateriaSource::MateriaSource (const MateriaSource& other) {
@@ -23,6 +24,7 @@ MateriaSource::MateriaSource (const MateriaSource& other) {
             (void)other;
             _knownMaterias[i] = nullptr;
         }
+    std::cout << RED << "MateriaSource copy constructor called" << std::endl;
 
     }
 }
@@ -36,11 +38,13 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &other) {
         }
         _knownMaterias[i] = other._knownMaterias[i]->clone();
     }
+    std::cout << RED << "MateriaSource copy assignment operator called" << std::endl;
     return *this;
 }
 
 
 void MateriaSource::learnMateria(AMateria* materia) {
+    std::cout << RED << "MateriaSource::learnMateria() called" << std::endl;
     if (materia != nullptr) {
         for (int i = 0; i < MAX_KNOWN_MATERIAS; i++){
             if (_knownMaterias[i] == nullptr){
@@ -54,6 +58,7 @@ void MateriaSource::learnMateria(AMateria* materia) {
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type){
+    std::cout << RED << "MateriaSource::createMateria() called" << std::endl;
     for (int i = 0; i < MAX_KNOWN_MATERIAS; i++){
         if (_knownMaterias[i] && _knownMaterias[i]->getType() == type){
             return (_knownMaterias[i]->clone());
