@@ -96,18 +96,27 @@ int main() {
         std::cout << std::endl;
         std::cout << CYAN << "--- copy test ----------------------------------------------------------------------" << RESET << std::endl;
 
+        std::cout << std::endl;
+        std::cout << CYAN << "---- New MateriaSource  ----------------------------------" << RESET << std::endl;
+        std::cout << CYAN << "IMateriaSource* src = new MateriaSource()" << RESET << std::endl;
         IMateriaSource* src = new MateriaSource();
+        std::cout << std::endl;
         std::cout << CYAN << "---- learn Ice then Cure Materia ----------------------------------" << RESET << std::endl;
         std::cout << CYAN << "src->learnMateria(new Ice())" << RESET << std::endl;
         src->learnMateria(new Ice());
         src->learnMateria(new Cure());
+
+        std::cout << std::endl;
         std::cout << CYAN << "---- Instantiate a *src_copy from MateriaSource ----------------------------------" << RESET << std::endl;
         std::cout << CYAN << "src->learnMateria(new Ice())" << RESET << std::endl;
         IMateriaSource* src_copy = new MateriaSource(dynamic_cast<MateriaSource&>(*src));
 
+        std::cout << std::endl;
+        std::cout << std::endl;
         std::cout << CYAN << "--- new Character original -----------------------------------" << RESET << std::endl;
         std::cout << CYAN << "ICharacter* bob = new Character(\"original\")" << RESET << std::endl;
         ICharacter* original = new Character("original");
+
         std::cout << CYAN << "--- Original equips ice -----------------------------------" << RESET << std::endl;
         std::cout << CYAN << "original->equip(src_copy->createMateria(\"ice\"))" << RESET << std::endl;
         original->equip(src_copy->createMateria("ice"));
@@ -115,6 +124,7 @@ int main() {
         std::cout << CYAN << "original->equip(src_copy->createMateria(\"cure\"))" << RESET << std::endl;
         original->equip(src_copy->createMateria("cure"));
 
+        std::cout << std::endl;
         std::cout << CYAN << "--- Original uses ice -----------------------------------" << RESET << std::endl;
         std::cout << CYAN << "original->use(0, *original)" << RESET << std::endl;
         original->use(0, *original);
@@ -122,19 +132,25 @@ int main() {
         std::cout << CYAN << "original->use(1, *original)" << RESET << std::endl;
         original->use(1, *original);
 
+        std::cout << std::endl;
+        std::cout << std::endl;
         std::cout << CYAN << "--- *original_char_is_copied Character is copied from *original -----------------------------------" << RESET << std::endl;
         std::cout << CYAN << "ICharacter* bob = new Character(\"original\")" << RESET << std::endl;
         ICharacter* copied_original_character = new Character(dynamic_cast<Character&>(*original));
+        
+        std::cout << std::endl;
         std::cout << CYAN << "--- *copied_original_character uses his _inventory, inherited from *original -----------------------------------" << RESET << std::endl;
         std::cout << CYAN << "copied_original_character->use({0,1}, *copied_original_character)" << RESET << std::endl;
         copied_original_character->use(0, *copied_original_character);
         copied_original_character->use(1, *copied_original_character);
 
+        std::cout << std::endl;
         std::cout << CYAN << "---- Cleaning up ------------------------------------" << RESET << std::endl;
         std::cout << CYAN << "---- delete src Materia" << RESET << std::endl;
         delete src;
         std::cout << CYAN << "---- delete src_copy Materia" << RESET << std::endl;
         delete src_copy;
+        std::cout << std::endl;
         std::cout << CYAN << "---- delete original character" << RESET << std::endl;
         delete original;
         std::cout << CYAN << "---- delete copied_original_character character" << RESET << std::endl;

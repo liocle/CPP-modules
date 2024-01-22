@@ -61,8 +61,6 @@ void Character::equip(AMateria* materia) {
         {
             if (!_inventory[i]) {
                 _inventory[i] = materia;
-                std::cout << "materia of type" << materia->getType() << std::endl;
-                std::cout << "_inventory[" << i << "] contains now: " << _inventory[i]->getType() << std::endl;
                 return;
             }
         }
