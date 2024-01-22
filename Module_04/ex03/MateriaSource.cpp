@@ -53,13 +53,16 @@ void MateriaSource::learnMateria(AMateria* materia) {
             }
         }
         delete materia;
+        std::cout << RED << "MAX_KNOWN_MATERIAS reached, cannot learn anymore new Materia" << RESET << std::endl;
     }
+    std::cout << RED << "Materia points to nullptr" << RESET << std::endl;
     materia = nullptr;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type){
     std::cout << RED << "MateriaSource::createMateria() called" << std::endl;
     for (int i = 0; i < MAX_KNOWN_MATERIAS; i++){
+        std::cout << RED << "Number of for loop iterations: " << i << RESET << std::endl;
         if (_knownMaterias[i] && _knownMaterias[i]->getType() == type){
             return (_knownMaterias[i]->clone());
         }

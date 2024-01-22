@@ -27,7 +27,7 @@ AMateria &AMateria::operator=(const AMateria &other)
 }
 
 std::string const & AMateria::getType() const {
-    std::cout << GREEN << "- AMateria::getType() called of given type - " << this->type << RESET << std::endl;
+    std::cout << GREEN << "- AMateria::getType() called of given materia type - " << this->type << RESET << std::endl;
     return (this->type);
 }
 
