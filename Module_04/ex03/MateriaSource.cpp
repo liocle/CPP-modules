@@ -24,9 +24,8 @@ MateriaSource::MateriaSource (const MateriaSource& other) {
             (void)other;
             _knownMaterias[i] = nullptr;
         }
-    std::cout << RED << "MateriaSource copy constructor called" << std::endl;
-
     }
+    std::cout << RED << "MateriaSource copy constructor called" << std::endl;
 }
 
 MateriaSource &MateriaSource::operator=(const MateriaSource &other) {
