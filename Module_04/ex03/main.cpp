@@ -7,6 +7,135 @@
 #include "Cure.hpp"
 #include "Color.hpp"
 
+int main() {
+    {
+    std::cout << std::endl;
+    std::cout << CYAN << "--- example test ---" << RESET << std::endl;
+
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+
+    ICharacter* me = new Character("me");
+
+    AMateria* tmp;
+    tmp = src->createMateria("ice");
+    me->equip(tmp);
+    tmp = src->createMateria("cure");
+    me->equip(tmp);
+
+    ICharacter* bob = new Character("bob");
+
+    me->use(0, *bob);
+    me->use(1, *bob);
+
+    delete bob;
+    delete me;
+    delete src;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- copy test ---" << RESET << std::endl;
+
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+    IMateriaSource* src_copy =
+        new MateriaSource(dynamic_cast<MateriaSource&>(*src));
+
+    ICharacter* orig = new Character("orig");
+    orig->equip(src_copy->createMateria("ice"));
+    orig->equip(src_copy->createMateria("cure"));
+    orig->use(0, *orig);
+    orig->use(1, *orig);
+
+    ICharacter* copy = new Character(dynamic_cast<Character&>(*orig));
+    copy->use(0, *copy);
+    copy->use(1, *copy);
+
+    delete src;
+    delete src_copy;
+    delete orig;
+    delete copy;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- overfill Character inventory test ---" << RESET << std::endl;
+
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+
+    ICharacter* me = new Character("me");
+
+    me->equip(src->createMateria("ice"));
+    me->equip(src->createMateria("ice"));
+    me->equip(src->createMateria("ice"));
+    me->equip(src->createMateria("ice"));
+    me->equip(src->createMateria("cure"));
+
+    me->use(0, *me);
+    me->use(1, *me);
+    me->use(2, *me);
+    me->use(3, *me);
+
+    me->unequip(2);
+    me->equip(src->createMateria("cure"));
+
+    me->use(0, *me);
+    me->use(1, *me);
+    me->use(2, *me);
+    me->use(3, *me);
+
+    delete src;
+    delete me;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- overfill MateriaSource inventory test ---" << RESET << std::endl;
+
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+
+    delete src;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- overfill Character pile test ---" << RESET << std::endl;
+
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+
+    ICharacter* me = new Character("me");
+
+    for (int i = 0; i < UNEQUIPPED_OBJ_MAX; i++) {
+      me->equip(src->createMateria("ice"));
+      me->unequip(0);
+    }
+
+    for (int i = 0; i < 4; i++) {
+      me->equip(src->createMateria("ice"));
+    }
+
+    me->unequip(1);
+    me->equip(src->createMateria("cure"));
+
+    me->use(1, *me);
+
+    delete src;
+    delete me;
+  }
+  return 0;
+}
 // int main() {
     // {
     //     std::cout << std::endl;
@@ -255,132 +384,3 @@
     // }
     // return 0;
 // }
-int main() {
-    {
-    std::cout << std::endl;
-    std::cout << CYAN << "--- example test ---" << RESET << std::endl;
-
-    IMateriaSource* src = new MateriaSource();
-    src->learnMateria(new Ice());
-    src->learnMateria(new Cure());
-
-    ICharacter* me = new Character("me");
-
-    AMateria* tmp;
-    tmp = src->createMateria("ice");
-    me->equip(tmp);
-    tmp = src->createMateria("cure");
-    me->equip(tmp);
-
-    ICharacter* bob = new Character("bob");
-
-    me->use(0, *bob);
-    me->use(1, *bob);
-
-    delete bob;
-    delete me;
-    delete src;
-  }
-  {
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << CYAN << "--- copy test ---" << RESET << std::endl;
-
-    IMateriaSource* src = new MateriaSource();
-    src->learnMateria(new Ice());
-    src->learnMateria(new Cure());
-    IMateriaSource* src_copy =
-        new MateriaSource(dynamic_cast<MateriaSource&>(*src));
-
-    ICharacter* orig = new Character("orig");
-    orig->equip(src_copy->createMateria("ice"));
-    orig->equip(src_copy->createMateria("cure"));
-    orig->use(0, *orig);
-    orig->use(1, *orig);
-
-    ICharacter* copy = new Character(dynamic_cast<Character&>(*orig));
-    copy->use(0, *copy);
-    copy->use(1, *copy);
-
-    delete src;
-    delete src_copy;
-    delete orig;
-    delete copy;
-  }
-  {
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << CYAN << "--- overfill Character inventory test ---" << RESET << std::endl;
-
-    IMateriaSource* src = new MateriaSource();
-    src->learnMateria(new Ice());
-    src->learnMateria(new Cure());
-
-    ICharacter* me = new Character("me");
-
-    me->equip(src->createMateria("ice"));
-    me->equip(src->createMateria("ice"));
-    me->equip(src->createMateria("ice"));
-    me->equip(src->createMateria("ice"));
-    me->equip(src->createMateria("cure"));
-
-    me->use(0, *me);
-    me->use(1, *me);
-    me->use(2, *me);
-    me->use(3, *me);
-
-    me->unequip(2);
-    me->equip(src->createMateria("cure"));
-
-    me->use(0, *me);
-    me->use(1, *me);
-    me->use(2, *me);
-    me->use(3, *me);
-
-    delete src;
-    delete me;
-  }
-  {
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << CYAN << "--- overfill MateriaSource inventory test ---" << RESET << std::endl;
-
-    IMateriaSource* src = new MateriaSource();
-    src->learnMateria(new Ice());
-    src->learnMateria(new Ice());
-    src->learnMateria(new Ice());
-    src->learnMateria(new Ice());
-    src->learnMateria(new Cure());
-
-    delete src;
-  }
-  {
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << CYAN << "--- overfill Character pile test ---" << RESET << std::endl;
-
-    IMateriaSource* src = new MateriaSource();
-    src->learnMateria(new Ice());
-    src->learnMateria(new Cure());
-
-    ICharacter* me = new Character("me");
-
-    for (int i = 0; i < UNEQUIPPED_OBJ_MAX; i++) {
-      me->equip(src->createMateria("ice"));
-      me->unequip(0);
-    }
-
-    for (int i = 0; i < 4; i++) {
-      me->equip(src->createMateria("ice"));
-    }
-
-    me->unequip(1);
-    me->equip(src->createMateria("cure"));
-
-    me->use(1, *me);
-
-    delete src;
-    delete me;
-  }
-  return 0;
-}
