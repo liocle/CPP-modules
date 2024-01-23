@@ -7,7 +7,7 @@
 #include "Cure.hpp"
 #include "Color.hpp"
 
-int main() {
+// int main() {
     // {
     //     std::cout << std::endl;
     //     std::cout << CYAN << "--- example test ----------------------------------------------------------------------" << RESET << std::endl;
@@ -156,83 +156,231 @@ int main() {
     //     std::cout << CYAN << "---- delete copied_original_character character" << RESET << std::endl;
     //     delete copied_original_character;
     // }
+    // {
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- overfill Character inventory test ---------------------------------------------------------------------" << RESET << std::endl;
+
+    //     IMateriaSource* src = new MateriaSource();
+    //     src->learnMateria(new Ice());
+    //     src->learnMateria(new Cure());
+
+    //     ICharacter* me = new Character("me");
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- equip 4 ice Materia then 1 Cure in inventory of 4 ---------------------------------------------------------------------" << RESET << std::endl;
+    //     me->equip(src->createMateria("ice"));
+    //     me->equip(src->createMateria("ice"));
+    //     me->equip(src->createMateria("ice"));
+    //     me->equip(src->createMateria("ice"));
+    //     me->equip(src->createMateria("cure"));
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- use each inventory slot, and try to use the non-existing slot 5 ---------------------------------------------------------------------" << RESET << std::endl;
+    //     me->use(0, *me);
+    //     me->use(1, *me);
+    //     me->use(2, *me);
+    //     me->use(3, *me);
+    //     me->use(4, *me);
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << " ---- Unequip slot 3 and equip it with cure Materia ----------" << std::endl;
+    //     me->unequip(2);
+    //     me->equip(src->createMateria("cure"));
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- use again the all inventory slots  ---------------------------------------------------------------------" << RESET << std::endl;
+    //     me->use(0, *me);
+    //     me->use(1, *me);
+    //     me->use(2, *me);
+    //     me->use(3, *me);
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- clean all ---------------------------------------------------------------------" << RESET << std::endl;
+    //     delete src;
+    //     delete me;
+    // }
+    // {
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- TEST: overfill MateriaSource inventory test ----------------------------------------------------------------------" << RESET << std::endl;
+
+    //     std::cout << CYAN << "Inventory size is: " << INVENTORY_SIZE << std::endl;
+    //     std::cout << CYAN << " - Initialize new MateriaSource " << std::endl;
+    //     IMateriaSource* src = new MateriaSource();
+    //     std::cout << CYAN << " - learn ice and cure Materia " << std::endl;
+    //     src->learnMateria(new Ice());
+    //     src->learnMateria(new Ice());
+    //     src->learnMateria(new Ice());
+    //     src->learnMateria(new Ice());
+    //     src->learnMateria(new Cure());
+
+    //     delete src;
+    // }
+    // {
+    //     std::cout << std::endl;
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- TEST: overfill Character unequip array ----------------------------------------------------------------------" << RESET << std::endl;
+
+    //     std::cout << CYAN << " - learn ice and cure Materia " << std::endl;
+    //     IMateriaSource* src = new MateriaSource();
+    //     src->learnMateria(new Ice());
+    //     src->learnMateria(new Cure());
+
+    //     ICharacter* me = new Character("me");
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- fill the unequipped array of ice Materia keeping inventory empty ----------------------------------------------------------------------" << RESET << std::endl;
+    //     std::cout << CYAN << "Unequipped array size is: " << UNEQUIPPED_OBJ_MAX << std::endl;
+    //     for (int i = 0; i < UNEQUIPPED_OBJ_MAX + 1; i++) {
+    //         me->equip(src->createMateria("ice"));
+    //         me->unequip(0);
+    //     }
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- now fill the inventory with ice Materia ----------------------------------------------------------------------" << RESET << std::endl;
+    //     for (int i = 0; i < INVENTORY_SIZE; i++) {
+    //         me->equip(src->createMateria("ice"));
+    //     }
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- unequip slot 1 containing ice and equip it with cure Materia ----------------------------------------------------------------------" << RESET << std::endl;
+    //     me->unequip(1);
+    //     me->equip(src->createMateria("cure"));
+
+    //     std::cout << std::endl;
+    //     std::cout << CYAN << "--- use slot 1 containing ice Materia ----------------------------------------------------------------------" << RESET << std::endl;
+    //     me->use(1, *me);
+
+    //     delete src;
+    //     delete me;
+    // }
+    // return 0;
+// }
+int main() {
     {
-        std::cout << std::endl;
-        std::cout << CYAN << "--- overfill Character inventory test ---------------------------------------------------------------------" << RESET << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- example test ---" << RESET << std::endl;
 
-        IMateriaSource* src = new MateriaSource();
-        src->learnMateria(new Ice());
-        src->learnMateria(new Cure());
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
 
-        ICharacter* me = new Character("me");
+    ICharacter* me = new Character("me");
 
-        me->equip(src->createMateria("ice"));
-        me->equip(src->createMateria("ice"));
-        me->equip(src->createMateria("ice"));
-        me->equip(src->createMateria("ice"));
-        me->equip(src->createMateria("cure"));
+    AMateria* tmp;
+    tmp = src->createMateria("ice");
+    me->equip(tmp);
+    tmp = src->createMateria("cure");
+    me->equip(tmp);
 
-        me->use(0, *me);
-        me->use(1, *me);
-        me->use(2, *me);
-        me->use(3, *me);
+    ICharacter* bob = new Character("bob");
 
-        me->unequip(2);
-        me->equip(src->createMateria("cure"));
+    me->use(0, *bob);
+    me->use(1, *bob);
 
-        me->use(0, *me);
-        me->use(1, *me);
-        me->use(2, *me);
-        me->use(3, *me);
+    delete bob;
+    delete me;
+    delete src;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- copy test ---" << RESET << std::endl;
 
-        delete src;
-        delete me;
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+    IMateriaSource* src_copy =
+        new MateriaSource(dynamic_cast<MateriaSource&>(*src));
+
+    ICharacter* orig = new Character("orig");
+    orig->equip(src_copy->createMateria("ice"));
+    orig->equip(src_copy->createMateria("cure"));
+    orig->use(0, *orig);
+    orig->use(1, *orig);
+
+    ICharacter* copy = new Character(dynamic_cast<Character&>(*orig));
+    copy->use(0, *copy);
+    copy->use(1, *copy);
+
+    delete src;
+    delete src_copy;
+    delete orig;
+    delete copy;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- overfill Character inventory test ---" << RESET << std::endl;
+
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+
+    ICharacter* me = new Character("me");
+
+    me->equip(src->createMateria("ice"));
+    me->equip(src->createMateria("ice"));
+    me->equip(src->createMateria("ice"));
+    me->equip(src->createMateria("ice"));
+    me->equip(src->createMateria("cure"));
+
+    me->use(0, *me);
+    me->use(1, *me);
+    me->use(2, *me);
+    me->use(3, *me);
+
+    me->unequip(2);
+    me->equip(src->createMateria("cure"));
+
+    me->use(0, *me);
+    me->use(1, *me);
+    me->use(2, *me);
+    me->use(3, *me);
+
+    delete src;
+    delete me;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- overfill MateriaSource inventory test ---" << RESET << std::endl;
+
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+
+    delete src;
+  }
+  {
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << CYAN << "--- overfill Character pile test ---" << RESET << std::endl;
+
+    IMateriaSource* src = new MateriaSource();
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+
+    ICharacter* me = new Character("me");
+
+    for (int i = 0; i < UNEQUIPPED_OBJ_MAX; i++) {
+      me->equip(src->createMateria("ice"));
+      me->unequip(0);
     }
-//     {
-//         std::cout << std::endl;
-//         std::cout << CYAN << "--- overfill MateriaSource inventory test ----------------------------------------------------------------------" << RESET << std::endl;
 
-//         IMateriaSource* src = new MateriaSource();
-//         src->learnMateria(new Ice());
-//         src->learnMateria(new Ice());
-//         src->learnMateria(new Ice());
-//         src->learnMateria(new Ice());
-//         src->learnMateria(new Cure());
+    for (int i = 0; i < 4; i++) {
+      me->equip(src->createMateria("ice"));
+    }
 
-//         delete src;
-//     }
-//     {
-//         std::cout << std::endl;
-//         std::cout << CYAN << "--- overfill Character pile test ----------------------------------------------------------------------" << RESET << std::endl;
+    me->unequip(1);
+    me->equip(src->createMateria("cure"));
 
-//         IMateriaSource* src = new MateriaSource();
-//         src->learnMateria(new Ice());
-//         src->learnMateria(new Cure());
+    me->use(1, *me);
 
-//         ICharacter* me = new Character("me");
-
-//         // fill the pile, inventory empty
-//         for (int i = 0; i < 100; i++) {
-//             me->equip(src->createMateria("ice"));
-//             me->unequip(0);
-//         }
-
-//         // fill the inventory as well
-//         for (int i = 0; i < 4; i++) {
-//             me->equip(src->createMateria("ice"));
-//         }
-
-//         // unequip slot 1 and equip cure
-//         // should not unequip because pile full, should not equip because inventory full
-//         me->unequip(1);
-//         me->equip(src->createMateria("cure"));
-
-//         // check that slot 1 is still ice, not cure
-//         me->use(1, *me);
-
-//         delete src;
-//         delete me;
-//     }
-//     return 0;
+    delete src;
+    delete me;
+  }
+  return 0;
 }
-

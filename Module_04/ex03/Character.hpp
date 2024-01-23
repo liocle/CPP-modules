@@ -3,7 +3,7 @@
 
 # include   "ICharacter.hpp"
 # define    INVENTORY_SIZE 4
-# define    UNEQUIPPED_OBJ_MAX 100
+# define    UNEQUIPPED_OBJ_MAX 6
 
 class Character: public ICharacter
     {
@@ -23,6 +23,5 @@ class Character: public ICharacter
         void equip(AMateria* m) override;
         void unequip(int idx) override;
         void use(int idx, ICharacter& target) override;
-        
     };
 #endif
