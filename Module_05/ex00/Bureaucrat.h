@@ -4,6 +4,10 @@
 # define BUREAUCRAT_H
 
 # include <string>
+# include <iostream>
+
+# define    MAX_GRADE 1
+# define    MIN_GRADE 150
 
 class Bureaucrat {
 
@@ -13,12 +17,12 @@ private:
     Bureaucrat();
 
 public:
-    Bureaucrat(const std::string name_, int grade_) throw ();
+    Bureaucrat(const std::string name_, int grade_);
     Bureaucrat(Bureaucrat &other);
     ~Bureaucrat();
 
-    Bureaucrat & operator=(Bureaucrat & other);
-    Bureaucrat & operator<<(Bureaucrat & other);
+    Bureaucrat & operator=(Bureaucrat &other);
+    std::ostream & operator<<(std::ostream &outputstream, Bureaucrat &a_bureaucrat);
     
     std::string     getName();
     int             getGrade();
@@ -27,11 +31,11 @@ public:
 
     class GradeTooHighException : public std::exception {
         public:
-            GradeTooHighException() ;
+            GradeTooHighException()   noexcept = default;
             ~GradeTooHighException() = default;
 
         virtual const char *what() const noexcept {
-            return ("Grade is too High");
+            return ("Bureaucrat::GradeTooHighException caught");
         }
     };
 
@@ -41,7 +45,7 @@ public:
             ~GradeTooLowException() = default;
 
         virtual const char *what() const noexcept {
-            return ("Grade is too Low");
+            return ("Bureaucrat::GradeTooLowException caught");
         }
     };
 };
