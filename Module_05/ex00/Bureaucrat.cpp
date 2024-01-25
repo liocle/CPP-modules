@@ -1,38 +1,33 @@
-
 #include "Bureaucrat.h"
+#include "Colors.h"
 
 Bureaucrat::Bureaucrat() {}
 
-Bureaucrat::Bureaucrat(const std::string name_, int grade_) : name_(name_), grade_(grade_) {
-    std::cout <<  "Bureaucrat constructor called " << std::endl;
-    if (grade_ < 1) 
+Bureaucrat::Bureaucrat(const std::string name, int grade) : name_(name), grade_(grade) {
+    std::cout <<  GREEN << "Bureaucrat constructor called " << RESET << std::endl;
+    if (grade_ < MAX_GRADE) 
         throw GradeTooHighException();
 
-    if (grade_ > 150 ) {
+    if (grade_ > MIN_GRADE ) {
         throw GradeTooLowException();
     }
-    std::cout << getName() << " is welcome to the administrative world with a grade of: " << getGrade() << std::endl;
+    std::cout  << getName() << " is a new bureaucrat with a grade of: " << getGrade() << RESET << std::endl;
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat &other): name_(other.name_), grade_(other.grade_){
-    std::cout << "Bureaucrat duplication sucessful" << std::endl;
+    std::cout << GREEN << "Bureaucrat duplication sucessful" << RESET << std::endl;
 }
 
 
 Bureaucrat::~Bureaucrat() {
-    std::cout << "Destructor called for" << getName() << std::endl;
+    std::cout << GREEN << "Destructor called for " << getName() << RESET << std::endl;
 }
 
 
-Bureaucrat & Bureaucrat::operator=(Bureaucrat & other) {
-    std::cout << "Bureaucrat duplication successful via operator assignment" << std::endl;
-    name_ = other.name_;
-    grade_ = other.grade_;
-    return (*this);
-}
 
 std::ostream & operator<<(std::ostream &outputstream, Bureaucrat & a_bureaucrat){
-    std::cout << a_bureaucrat.getName() << ", bureaucrat grade "  << a_bureaucrat.getGrade() << std::endl;
+    std::cout  << a_bureaucrat.getName() << ", bureaucrat grade "  << a_bureaucrat.getGrade() << RESET << std::endl;
+    return outputstream;
 }
 
 std::string     Bureaucrat::getName() {
@@ -43,12 +38,14 @@ int             Bureaucrat::getGrade() {
 }
 
 void            Bureaucrat::incrementGrade(){
+    std::cout << GREEN << "Incrementing the grade" << RESET << std::endl;;
     if (grade_ == MAX_GRADE)
         throw GradeTooHighException();
     grade_--;
 }
 
 void            Bureaucrat::decrementGrade(){
+    std::cout << GREEN << "Decrementing the grade\n";
     if (grade_ == MIN_GRADE)
         throw GradeTooLowException();
     grade_++;

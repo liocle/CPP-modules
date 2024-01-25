@@ -22,7 +22,6 @@ public:
     ~Bureaucrat();
 
     Bureaucrat & operator=(Bureaucrat &other);
-    std::ostream & operator<<(std::ostream &outputstream, Bureaucrat &a_bureaucrat);
     
     std::string     getName();
     int             getGrade();
@@ -31,9 +30,6 @@ public:
 
     class GradeTooHighException : public std::exception {
         public:
-            GradeTooHighException()   noexcept = default;
-            ~GradeTooHighException() = default;
-
         virtual const char *what() const noexcept {
             return ("Bureaucrat::GradeTooHighException caught");
         }
@@ -41,13 +37,12 @@ public:
 
     class GradeTooLowException : public std::exception {
         public:
-            GradeTooLowException()   noexcept = default;
-            ~GradeTooLowException() = default;
-
         virtual const char *what() const noexcept {
             return ("Bureaucrat::GradeTooLowException caught");
         }
     };
 };
+
+std::ostream & operator<<(std::ostream &outputstream, Bureaucrat &a_bureaucrat);
 
 #endif

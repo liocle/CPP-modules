@@ -7,7 +7,7 @@ SRC     		=	main.cpp \
 
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 
-NAME		    = 	materia
+NAME		    = 	bureaucrat
 all: $(NAME)
 
 $(NAME): $(OBJ)
