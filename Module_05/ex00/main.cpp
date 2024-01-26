@@ -40,12 +40,12 @@ int main(void){
 
             std::cout << CYAN << " **** Increase OK **** " << RESET << std::endl;
             toto.incrementGrade();
-            std::cout << toto << " located at " << &toto << std::endl;
+            std::cout << toto << std::endl;
             std::cout << std::endl;
 
             std::cout << CYAN << " **** Decrease OK **** " << RESET << std::endl;
             toto.decrementGrade();
-            std::cout << toto << " located at " << &toto << std::endl;
+            std::cout << toto << std::endl;
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
         }
@@ -87,21 +87,15 @@ int main(void){
         std::cout << CYAN << "____________________ Copy constructor test ____________________" << RESET << std::endl;
         try {
             Bureaucrat toto("toto", 42);
-            std::cout << toto << std::endl;
             std::cout << std::endl;
 
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-            std::cout << CYAN <<  "Copy constructing a Bureaucrat (including its name)" << RESET << std::endl;
+            std::cout << CYAN <<  "Copy constructing a Bureaucrat" << RESET << std::endl;
             Bureaucrat tata(toto);
-            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-
-            toto.incrementGrade();
-            std::cout << toto << "above is the original one" << std::endl;
-            std::cout << tata << "above is the copied one not incremented" << std::endl;
             std::cout << std::endl;
 
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-            std::cout << CYAN <<  "Assigning a bureaucrat to another one, should this be implemented?" << RESET << std::endl;
+            std::cout << CYAN <<  "Assigning a bureaucrat to another one" << RESET << std::endl;
             std::cout << CYAN <<  "Only the grade can be copied" << RESET << std::endl;
             Bureaucrat tutu;
             Bureaucrat another("High_ranked_bureaucrat", 1);

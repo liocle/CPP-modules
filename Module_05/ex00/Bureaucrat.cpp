@@ -3,7 +3,7 @@
 
 Bureaucrat::Bureaucrat() : name_("a_bureaucrat"), grade_(42) {
     std::cout <<  GREEN << "Bureaucrat constructor called " << RESET << std::endl;
-    std::cout << *this << " located at " << this << std::endl;
+    std::cout << *this << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const std::string name, int grade) : name_(name), grade_(grade) {
@@ -14,22 +14,22 @@ Bureaucrat::Bureaucrat(const std::string name, int grade) : name_(name), grade_(
     if (grade_ > MIN_GRADE ) {
         throw GradeTooLowException();
     }
-    std::cout << *this << " located at " << this << std::endl;
+    std::cout << *this << std::endl;
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat &other): name_(other.name_), grade_(other.grade_){
     std::cout << GREEN << "Bureaucrat duplication sucessful" << RESET << std::endl;
-    std::cout << *this << " located at " << this << std::endl;
-    std::cout << other << " located at " << &other << std::endl;
+    std::cout << *this << " at location " << this << std::endl;
+    std::cout << other << " at location " << &other << std::endl;
 }
 
 Bureaucrat & Bureaucrat::operator=(const Bureaucrat & other) {
-    std::cout << "Assigning " << other << " to " << this << RESET << std::endl;
+    std::cout << "Assigning " << other << RESET << std::endl;
     if (this != &other) {
         grade_ = other.grade_;
     }
-    std::cout << *this << " located at " << this << std::endl;
-    std::cout << other << " located at " << &other << std::endl;
+    std::cout << *this << std::endl;
+    std::cout << other << std::endl;
     return (*this);
 }
 
