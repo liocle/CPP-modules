@@ -9,11 +9,9 @@ int main(void){
         try {
             std::cout << std::endl;
             std::cout << CYAN << " **** Test grade OK **** " << RESET << std::endl;
-            Bureaucrat toto("toto", 42);
-            std::cout << toto << std::endl;
+            Bureaucrat toto; 
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
-            std::cerr << e.what() << std::endl;
         }
         try {
             std::cout << std::endl;
@@ -22,7 +20,6 @@ int main(void){
             std::cout << tata << std::endl;
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
-            std::cerr << e.what() << std::endl;
         }
         try {
             std::cout << std::endl;
@@ -39,17 +36,16 @@ int main(void){
         std::cout << CYAN << "____________________ Change grade test ____________________" << RESET << std::endl;
         try {
             Bureaucrat toto("toto", 42);
-            std::cout << toto << std::endl;
             std::cout << std::endl;
 
             std::cout << CYAN << " **** Increase OK **** " << RESET << std::endl;
             toto.incrementGrade();
-            std::cout << toto << std::endl;
+            std::cout << toto << " located at " << &toto << std::endl;
             std::cout << std::endl;
 
             std::cout << CYAN << " **** Decrease OK **** " << RESET << std::endl;
             toto.decrementGrade();
-            std::cout << toto << std::endl;
+            std::cout << toto << " located at " << &toto << std::endl;
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
         }
@@ -59,7 +55,6 @@ int main(void){
             std::cout << std::endl;
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
             Bureaucrat tata("tata", MAX_GRADE);
-            std::cout << tata << std::endl;
             std::cout << std::endl;
 
             std::cout << CYAN << " **** Increase not OK **** " << RESET << std::endl;
@@ -76,7 +71,6 @@ int main(void){
             std::cout << std::endl;
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
             Bureaucrat tutu("tutu", MIN_GRADE);
-            std::cout << tutu << std::endl;
             std::cout << std::endl;
 
             std::cout << CYAN << " **** Decrease not OK **** " << RESET << std::endl;
@@ -99,13 +93,23 @@ int main(void){
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
             std::cout << CYAN <<  "Copy constructing a Bureaucrat (including its name)" << RESET << std::endl;
             Bureaucrat tata(toto);
-            std::cout << tata << std::endl;
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
 
             toto.incrementGrade();
             std::cout << toto << "above is the original one" << std::endl;
             std::cout << tata << "above is the copied one not incremented" << std::endl;
             std::cout << std::endl;
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "Assigning a bureaucrat to another one, should this be implemented?" << RESET << std::endl;
+            std::cout << CYAN <<  "Only the grade can be copied" << RESET << std::endl;
+            Bureaucrat tutu;
+            Bureaucrat another("High_ranked_bureaucrat", 1);
+            
+            std::cout << std::endl;
+            tutu = another;
+            std::cout << std::endl;
+
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
         }

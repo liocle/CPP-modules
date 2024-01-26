@@ -14,17 +14,17 @@ class Bureaucrat {
 private:
     const std::string   name_;
     int                 grade_; 
-    Bureaucrat();
 
 public:
+    Bureaucrat();
     Bureaucrat(const std::string name_, int grade_);
     Bureaucrat(Bureaucrat &other);
     ~Bureaucrat();
 
-    Bureaucrat & operator=(Bureaucrat &other);
+    Bureaucrat & operator=(const Bureaucrat &other);
     
-    std::string     getName();
-    int             getGrade();
+    std::string     getName() const;
+    int             getGrade() const;
     void            incrementGrade();
     void            decrementGrade();
 
@@ -43,6 +43,6 @@ public:
     };
 };
 
-std::ostream & operator<<(std::ostream &outputstream, Bureaucrat &a_bureaucrat);
+std::ostream & operator<<(std::ostream &outputstream, const Bureaucrat &a_bureaucrat);
 
 #endif
