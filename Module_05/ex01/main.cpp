@@ -118,23 +118,45 @@ int main(void){
             std::cout << std::endl;
 
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-            std::cout << CYAN <<  "A random form appears on the desk" << RESET << std::endl;
+            std::cout << CYAN <<  "A default form appears on the desk" << RESET << std::endl;
             Form a_form;
 
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-            std::cout << CYAN <<  "Toto tries to sign " << RESET << std::endl;
+            std::cout << CYAN <<  "Toto tries to sign with a too low grade" << RESET << std::endl;
             toto.signForm(a_form);
-            
             std::cout << std::endl;
 
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-            std::cout << CYAN <<  "a High_ranked_bureaucrat signs" << RESET << std::endl;
+            std::cout << CYAN <<  "A High_ranked_bureaucrat can sign it" << RESET << std::endl;
             high_ranked_bureaucrat.signForm(a_form);
-            
-            std::cout << std::endl;
             std::cout << std::endl;
 
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A High_ranked_bureaucrat can't sign it twice" << RESET << std::endl;
+            high_ranked_bureaucrat.signForm(a_form);
+            std::cout << std::endl;
         } catch (std::exception &e) {
+            std::cerr << RED << e.what() << RESET << std::endl;
+        }
+        try {
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A special form, properly set, appears on the desk" << RESET << std::endl;
+            Form form("Pretty secure form", 10, 20);
+        } catch (std::exception &e){
+            std::cerr << RED << e.what() << RESET << std::endl;
+        }
+        try {
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A special form, with a too high grade to sign, appears on the desk" << RESET << std::endl;
+            Form form("Pretty secure form", 0, 20);
+        } catch (std::exception &e){
+            std::cerr << RED << e.what() << RESET << std::endl;
+        }
+        try {
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A special form, with a too low grade to sign, appears on the desk" << RESET << std::endl;
+            Form form("Pretty secure form", 10000, 20);
+        } catch (std::exception &e){
             std::cerr << RED << e.what() << RESET << std::endl;
         }
     }

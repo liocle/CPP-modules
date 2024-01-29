@@ -64,17 +64,14 @@ void            Bureaucrat::signForm(Form &form) {
     if (form.getSignature() == true) {
         std::cout << name_ << " cannot sign twice the same form named: " << form.getName() << std::endl;
     }
-    else if (form.getGradeToSign() < this->grade_) {
-        std::cout << name_ << " does not have the permission to sign: " << form.getGradeToSign() << std::endl;
-    } 
     else {
         try {
             form.beSigned(*this);
+        } catch (Form::GradeTooLowException &e) { 
+            std::cout << RED << std::endl << "-> "<< e.what() << " <-" << RESET << std::endl;
+            std::cout <<  name_ << " does not have the permission to sign with a bureaucrat's grade of: " << this->grade_ << std::endl;
         }
-        catch (std::exception &e) { }
-
     }
-
 }
         
 
