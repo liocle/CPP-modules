@@ -1,9 +1,10 @@
 #include "Form.h"
+#include "Bureaucrat.h"
 #include <iostream>
 
 Form::Form() : name_("a_form"), signed_flag_(false), grade_required_to_sign_form_(MIN_GRADE_TO_SIGN), grade_required_to_execute_form_(MIN_GRADE_TO_EXECUTE) {
     std::cout << "Constructor called for " << name_ << " with default values: " << std::endl;
-    std::cout << this;
+    std::cout << *this;
 }
 
 Form::~Form() {
@@ -35,16 +36,19 @@ const std::string     Form::getName() const {
 };
 
 void                  Form::beSigned(Bureaucrat & a_bureaucrat) {
-    if (a_bureaucrat.getGrade() > )
+    if (a_bureaucrat.getGrade() > getGradeToSign() ) {
+        std::cout << *this;
         throw GradeTooLowException();
+    }
     signed_flag_ = true;
+    std::cout << *this;
 };
 
 bool                  Form::getSignature() const {
     return (signed_flag_);
 };
 
-unsigned int    Form::getGrateToSign() const {
+unsigned int    Form::getGradeToSign() const {
     return (grade_required_to_sign_form_);
 };
 
@@ -54,8 +58,8 @@ unsigned int    Form::getGradeToExecute() const {
 
 std::ostream &operator<<(std::ostream &outputstream, const Form &form_name){
 
-    outputstream << "Signed: " << form_name.getSignature() << std::endl
-        << "Grade required to sign form: " << form_name.getGrateToSign() << std::endl
+    outputstream << "Signed: " << (form_name.getSignature() ? "true" : "false") << std::endl
+        << "Grade required to sign form: " << form_name.getGradeToSign() << std::endl
         << "Grade required to execute form: " << form_name.getGradeToExecute() << std::endl;
     return (outputstream);
 }

@@ -41,7 +41,7 @@ std::string     Bureaucrat::getName() const {
     return (name_);
 }
 
-int             Bureaucrat::getGrade() const {
+unsigned int    Bureaucrat::getGrade() const {
     return (grade_);
 }
 
@@ -60,10 +60,23 @@ void            Bureaucrat::decrementGrade(){
 }
 
 
-void            Bureaucrat::signForm() {
-    if (Bureaucrat.getGrade < )
+void            Bureaucrat::signForm(Form &form) {
+    if (form.getSignature() == true) {
+        std::cout << name_ << " cannot sign twice the same form named: " << form.getName() << std::endl;
+    }
+    else if (form.getGradeToSign() < this->grade_) {
+        std::cout << name_ << " does not have the permission to sign: " << form.getGradeToSign() << std::endl;
+    } 
+    else {
+        try {
+            form.beSigned(*this);
+        }
+        catch (std::exception &e) { }
 
-};
+    }
+
+}
+        
 
 std::ostream & operator<<(std::ostream &outputstream, const Bureaucrat & a_bureaucrat){
     outputstream  << a_bureaucrat.getName() << ", bureaucrat grade "  << a_bureaucrat.getGrade() << RESET;

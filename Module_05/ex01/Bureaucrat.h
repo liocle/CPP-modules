@@ -5,6 +5,7 @@
 
 # include <string>
 # include <iostream>
+# include "Form.h"
 
 # define    MAX_GRADE 1
 # define    MIN_GRADE 150
@@ -13,7 +14,7 @@ class Bureaucrat {
 
 private:
     const std::string   name_;
-    int                 grade_; 
+    unsigned int        grade_; 
 
 public:
     Bureaucrat();
@@ -24,7 +25,7 @@ public:
     Bureaucrat & operator=(const Bureaucrat &other);
     
     std::string     getName() const;
-    int             getGrade() const;
+    unsigned int    getGrade() const;
     void            incrementGrade();
     void            decrementGrade();
     void            signForm(Form &form);

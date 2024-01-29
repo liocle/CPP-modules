@@ -109,7 +109,35 @@ int main(void){
     //     }
     // }
     {
-        
+        std::cout << std::endl;
+        std::cout << CYAN << "____________________ Form test ____________________" << RESET << std::endl;
+        try {
+            std::cout << CYAN <<  "2 bureaucrats are at work, a high rank and toto" << RESET << std::endl;
+            Bureaucrat toto("Toto", 42);
+            Bureaucrat high_ranked_bureaucrat("High_ranked_bureaucrat", 1);
+            std::cout << std::endl;
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A random form appears on the desk" << RESET << std::endl;
+            Form a_form;
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "Toto tries to sign " << RESET << std::endl;
+            toto.signForm(a_form);
+            
+            std::cout << std::endl;
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "a High_ranked_bureaucrat signs" << RESET << std::endl;
+            high_ranked_bureaucrat.signForm(a_form);
+            
+            std::cout << std::endl;
+            std::cout << std::endl;
+
+        } catch (std::exception &e) {
+            std::cerr << RED << e.what() << RESET << std::endl;
+        }
     }
+
 }
 

@@ -2,9 +2,11 @@
 # define FORM_HPP
 
 # include <string>
-# include "Bureaucrat.h"
 
+# define  MIN_GRADE_TO_SIGN     21
+# define  MIN_GRADE_TO_EXECUTE  42
 
+class Bureaucrat;
 
 class Form {
 private:
@@ -23,7 +25,7 @@ public:
     void                  beSigned(Bureaucrat & a_bureaucrat);
     bool                  getSignature() const;
     const std::string     getName() const;
-    unsigned int    getGrateToSign() const;
+    unsigned int    getGradeToSign() const;
     unsigned int    getGradeToExecute() const;
 
     
