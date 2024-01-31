@@ -26,7 +26,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@echo "Cleaning up..."
-	/bin/rm -f $(OBJ)
+	/bin/rm -f $(OBJ) *_shrubbery
 
 fclean: clean
 	@echo "Full cleaning..."

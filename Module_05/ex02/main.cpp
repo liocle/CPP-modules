@@ -7,171 +7,140 @@
 #include "Colors.h"
 
 int main(void){
-    // {
-    //     std::cout << CYAN << "____________________ Bureaucrat test ____________________" << RESET << std::endl;
-    //     try {
-    //         std::cout << std::endl;
-    //         std::cout << CYAN << " **** Test grade OK **** " << RESET << std::endl;
-    //         Bureaucrat toto; 
-    //     } catch (std::exception &e) {
-    //         std::cerr << RED << e.what() << RESET << std::endl;
-    //     }
-    //     try {
-    //         std::cout << std::endl;
-    //         std::cout << CYAN << " **** Test grade too high **** " << RESET << std::endl;
-    //         Bureaucrat tata("tata", MAX_GRADE - 1);
-    //         std::cout << tata << std::endl;
-    //     } catch (std::exception &e) {
-    //         std::cerr << RED << e.what() << RESET << std::endl;
-    //     }
-    //     try {
-    //         std::cout << std::endl;
-    //         std::cout << CYAN << " **** Test grade too low **** " << RESET << std::endl;
-    //         Bureaucrat tutu("tutu", MIN_GRADE + 1);
-    //         std::cout << tutu << std::endl;
-    //     } catch (std::exception &e) {
-    //         std::cerr << RED << e.what() << RESET << std::endl;
-    //     }
-
-    // }
-    // {
-    //     std::cout << std::endl;
-    //     std::cout << CYAN << "____________________ Change grade test ____________________" << RESET << std::endl;
-    //     try {
-    //         Bureaucrat toto("toto", 42);
-    //         std::cout << std::endl;
-
-    //         std::cout << CYAN << " **** Increase OK **** " << RESET << std::endl;
-    //         toto.incrementGrade();
-    //         std::cout << toto << std::endl;
-    //         std::cout << std::endl;
-
-    //         std::cout << CYAN << " **** Decrease OK **** " << RESET << std::endl;
-    //         toto.decrementGrade();
-    //         std::cout << toto << std::endl;
-    //     } catch (std::exception &e) {
-    //         std::cerr << RED << e.what() << RESET << std::endl;
-    //     }
-    // }
-    // {
-    //     try {
-    //         std::cout << std::endl;
-    //         std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-    //         Bureaucrat tata("tata", MAX_GRADE);
-    //         std::cout << std::endl;
-
-    //         std::cout << CYAN << " **** Increase not OK **** " << RESET << std::endl;
-    //         tata.incrementGrade();
-    //         std::cout << tata << std::endl;
-    //         std::cout << std::endl;
-    //         std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-    //     } catch (std::exception &e) {
-    //         std::cerr << RED << e.what() << RESET << std::endl;
-    //     }
-    // }
-    // {   
-    //     try {
-    //         std::cout << std::endl;
-    //         std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-    //         Bureaucrat tutu("tutu", MIN_GRADE);
-    //         std::cout << std::endl;
-
-    //         std::cout << CYAN << " **** Decrease not OK **** " << RESET << std::endl;
-    //         tutu.decrementGrade();
-    //         std::cout << tutu << std::endl;
-    //         std::cout << std::endl;
-    //         std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-    //     } catch (std::exception &e) {
-    //         std::cerr << RED << e.what() << RESET << std::endl;
-    //     }
-    // }
-    // {
-    //     std::cout << std::endl;
-    //     std::cout << CYAN << "____________________ Copy constructor test ____________________" << RESET << std::endl;
-    //     try {
-    //         Bureaucrat toto("toto", 42);
-    //         std::cout << std::endl;
-
-    //         std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-    //         std::cout << CYAN <<  "Copy constructing a Bureaucrat" << RESET << std::endl;
-    //         Bureaucrat tata(toto);
-    //         std::cout << std::endl;
-
-    //         std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-    //         std::cout << CYAN <<  "Assigning a bureaucrat to another one" << RESET << std::endl;
-    //         std::cout << CYAN <<  "Only the grade can be copied" << RESET << std::endl;
-    //         Bureaucrat tutu;
-    //         Bureaucrat another("High_ranked_bureaucrat", 1);
-    //         
-    //         std::cout << std::endl;
-    //         tutu = another;
-    //         std::cout << std::endl;
-
-    //     } catch (std::exception &e) {
-    //         std::cerr << RED << e.what() << RESET << std::endl;
-    //     }
-    // }
     {
         std::cout << std::endl;
-        std::cout << CYAN << "____________________ Form test ____________________" << RESET << std::endl;
+        std::cout << CYAN << "____________________ Shrubbery Form test ____________________" << RESET << std::endl;
         try {
             std::cout << CYAN <<  "2 bureaucrats are at work, a high rank and toto" << RESET << std::endl;
-            Bureaucrat toto("Toto", 42);
+            Bureaucrat toto("Toto", 150);
             Bureaucrat high_ranked_bureaucrat("High_ranked_bureaucrat", 1);
             std::cout << std::endl;
 
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-            std::cout << CYAN <<  "A default form appears on the desk" << RESET << std::endl;
-            ShrubberyCreationForm a_shrubbery_form;
+            std::cout << CYAN <<  "A default shrubbery form appears on the desk" << RESET << std::endl;
+            ShrubberyCreationForm a_shrubbery_form("A_beautiful_home");
 
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
             std::cout << CYAN <<  "Toto tries to sign with a too low grade" << RESET << std::endl;
             toto.signForm(a_shrubbery_form);
             std::cout << std::endl;
 
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "High_ranked_bureaucrat tries to execute the unsigned Form" << std::endl;
+            a_shrubbery_form.execute(high_ranked_bureaucrat);
+
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-            std::cout << CYAN <<  "A High_ranked_bureaucrat can sign it" << RESET << std::endl;
+            std::cout << CYAN <<  "A High_ranked_bureaucrat remembers that it should be signed first" << RESET << std::endl;
             high_ranked_bureaucrat.signForm(a_shrubbery_form);
             std::cout << std::endl;
 
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "High_ranked_bureaucrat tries to execute it again now that it is signed" << std::endl;
+            a_shrubbery_form.execute(high_ranked_bureaucrat);
+
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-            std::cout << CYAN <<  "A High_ranked_bureaucrat can't sign it twice" << RESET << std::endl;
+            std::cout << CYAN <<  "It can't sign it twice" << RESET << std::endl;
             high_ranked_bureaucrat.signForm(a_shrubbery_form);
             std::cout << std::endl;
 
             std::cout << CYAN << "---------------------" << RESET << std::endl;
             std::cout << CYAN << "Toto tries to execute the Form" << std::endl;
             a_shrubbery_form.execute(toto);
-
             std::cout << CYAN << "---------------------" << RESET << std::endl;
-            std::cout << CYAN << "High_ranked_bureaucrat tries to execute the Form" << std::endl;
-            a_shrubbery_form.execute(high_ranked_bureaucrat);
 
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
         }
-        // try {
-        //     std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-        //     std::cout << CYAN <<  "A special form, properly set, appears on the desk" << RESET << std::endl;
-        //     AForm form("Pretty secure form", "Target 1", 10, 20);
-        // } catch (std::exception &e){
-        //     std::cerr << RED << e.what() << RESET << std::endl;
-        // }
-        // try {
-        //     std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-        //     std::cout << CYAN <<  "A special form, with a too high grade to sign, appears on the desk" << RESET << std::endl;
-        //     AForm form("Pretty secure form", "Target", 0, 20);
-        // } catch (std::exception &e){
-        //     std::cerr << RED << e.what() << RESET << std::endl;
-        // }
-        // try {
-        //     std::cout << CYAN <<  "--------------------" << RESET << std::endl;
-        //     std::cout << CYAN <<  "A special form, with a too low grade to sign, appears on the desk" << RESET << std::endl;
-        //     AForm form("Pretty secure form", "Target", 10000, 20);
-        // } catch (std::exception &e){
-        //     std::cerr << RED << e.what() << RESET << std::endl;
-        // }
     }
+    {
+        std::cout << std::endl;
+        std::cout << std::endl;
+        std::cout << RED << "______________________________________________________________________" << RESET << std::endl;
+        std::cout << std::endl;
+        std::cout << CYAN << "____________________ Robotomy Form test ____________________" << RESET << std::endl;
+        try {
+            std::cout << CYAN <<  "2 bureaucrats are at work, a high rank and toto" << RESET << std::endl;
+            Bureaucrat toto("Toto", 42);
+            Bureaucrat tata("Tata", 150);
+            Bureaucrat high_ranked_bureaucrat("High_ranked_bureaucrat", 1);
+            std::cout << std::endl;
 
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A default Robotomy form appears on the desk" << RESET << std::endl;
+            RobotomyRequestForm a_Robotomy_form("Toto");
+            std::cout << std::endl;
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "Toto tries to sign with a good enough grade" << RESET << std::endl;
+            toto.signForm(a_Robotomy_form);
+            std::cout << std::endl;
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A High_ranked_bureaucrat tries to sign the already signed form" << RESET << std::endl;
+            high_ranked_bureaucrat.signForm(a_Robotomy_form);
+            std::cout << std::endl;
+
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "High_ranked_bureaucrat wants to robotomize Toto" << std::endl;
+            a_Robotomy_form.execute(high_ranked_bureaucrat);
+            std::cout << std::endl;
+
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "Toto tries to execute the Form" << std::endl;
+            a_Robotomy_form.execute(tata);
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+
+        } catch (std::exception &e) {
+            std::cerr << RED << e.what() << RESET << std::endl;
+        }
+    }
+    {
+        std::cout << std::endl;
+        std::cout << std::endl;
+        std::cout << RED << "______________________________________________________________________" << RESET << std::endl;
+        std::cout << std::endl;
+        std::cout << CYAN << "____________________ PresidentialPardon Form test ____________________" << RESET << std::endl;
+        try {
+            std::cout << CYAN <<  "2 bureaucrats are at work, a high rank and toto" << RESET << std::endl;
+            Bureaucrat toto("Toto", 150);
+            Bureaucrat high_ranked_bureaucrat("High_ranked_bureaucrat", 1);
+            std::cout << std::endl;
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A default Presidential Pardon form appears on the desk" << RESET << std::endl;
+            PresidentialPardonForm a_Presidential_Pardon_Form("An_innocent");
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "Toto tries to sign with a too low grade" << RESET << std::endl;
+            toto.signForm(a_Presidential_Pardon_Form);
+            std::cout << std::endl;
+
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "High_ranked_bureaucrat tries to execute the unsigned Form" << std::endl;
+            a_Presidential_Pardon_Form.execute(high_ranked_bureaucrat);
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "A High_ranked_bureaucrat signs it" << RESET << std::endl;
+            high_ranked_bureaucrat.signForm(a_Presidential_Pardon_Form);
+            std::cout << std::endl;
+
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "High_ranked_bureaucrat tries to execute it again now that it is signed" << std::endl;
+            a_Presidential_Pardon_Form.execute(high_ranked_bureaucrat);
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "It can't sign it twice" << RESET << std::endl;
+            high_ranked_bureaucrat.signForm(a_Presidential_Pardon_Form);
+            std::cout << std::endl;
+
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "Toto tries to execute the Form lol" << std::endl;
+            a_Presidential_Pardon_Form.execute(toto);
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+
+        } catch (std::exception &e) {
+            std::cerr << RED << e.what() << RESET << std::endl;
+        }
+    }
 }
 
