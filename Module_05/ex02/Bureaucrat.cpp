@@ -60,14 +60,14 @@ void            Bureaucrat::decrementGrade(){
 }
 
 
-void            Bureaucrat::signForm(Form &form) {
+void            Bureaucrat::signForm(AForm &form) {
     if (form.getSignature() == true) {
         std::cout << name_ << " cannot sign twice the same form named: " << form.getName() << std::endl;
     }
     else {
         try {
             form.beSigned(*this);
-        } catch (Form::GradeTooLowException &e) { 
+        } catch (AForm::GradeTooLowException &e) { 
             std::cout << RED << std::endl << "-> "<< e.what() << " <-" << RESET << std::endl;
             std::cout <<  name_ << " does not have the permission to sign with a bureaucrat's grade of: " << this->grade_ << std::endl;
         }

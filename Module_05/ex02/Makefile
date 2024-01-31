@@ -4,7 +4,12 @@ CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
 SRC     		=	main.cpp \
 					Bureaucrat.cpp \
-					Form.cpp \
+					AForm.cpp \
+					PresidentialPardonForm.cpp \
+					RobotomyRequestForm.cpp \
+					ShrubberyCreationForm.cpp \
+					
+
 
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 
