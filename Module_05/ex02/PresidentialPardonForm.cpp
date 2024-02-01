@@ -28,3 +28,9 @@ void PresidentialPardonForm::execute(const Bureaucrat &executor) const {
     else 
         std::cerr << RESET << "You want to pardon " << target_ << " ? Get your Presidential Pardon form signed first" << std::endl;
 }
+
+PresidentialPardonForm & PresidentialPardonForm::operator=(const PresidentialPardonForm &other) {
+    if (this != &other)
+        AForm::operator=(other);
+    return (*this) ;
+}

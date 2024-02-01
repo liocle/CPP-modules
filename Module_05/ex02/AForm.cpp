@@ -32,7 +32,8 @@ AForm::AForm(const AForm &other) : name_(other.name_), signed_flag_(false), grad
 };
 
 AForm & AForm::operator=(const AForm &other){
-    signed_flag_ = other.signed_flag_;
+    if (this != &other)
+        signed_flag_ = other.signed_flag_;
     return (*this);
 };
 

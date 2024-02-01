@@ -20,6 +20,7 @@ int main(void){
             std::cout << CYAN <<  "A default shrubbery form appears on the desk" << RESET << std::endl;
             ShrubberyCreationForm a_shrubbery_form("A_beautiful_home");
 
+
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
             std::cout << CYAN <<  "Toto tries to sign with a too low grade" << RESET << std::endl;
             toto.signForm(a_shrubbery_form);
@@ -34,6 +35,12 @@ int main(void){
             high_ranked_bureaucrat.signForm(a_shrubbery_form);
             std::cout << std::endl;
 
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "Assigning the signed form to an unsigned form" << RESET << std::endl;
+            ShrubberyCreationForm another_shrubbery;
+            another_shrubbery = a_shrubbery_form;
+            std::cout << another_shrubbery << std::endl;
+            
             std::cout << CYAN << "---------------------" << RESET << std::endl;
             std::cout << CYAN << "High_ranked_bureaucrat tries to execute it again now that it is signed" << std::endl;
             a_shrubbery_form.execute(high_ranked_bureaucrat);

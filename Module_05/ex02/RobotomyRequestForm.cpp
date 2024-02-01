@@ -29,3 +29,9 @@ void RobotomyRequestForm::execute(const Bureaucrat &executor) const {
     else
         std::cerr <<  RESET << "You want to Robotomize << " << target_ << " ? Get your Robotomy form signed first" << std::endl;
 }
+
+RobotomyRequestForm & RobotomyRequestForm::operator=(const RobotomyRequestForm &other) {
+    if (this != &other)
+        AForm::operator=(other);
+    return (*this) ;
+}

@@ -62,3 +62,9 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
     else 
         std::cerr << RESET << "You want a shrubbery in target: " << target_ << "? Get your Shrubbery form signed first" << std::endl;
 }
+
+ShrubberyCreationForm & ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other) {
+    if (this != &other)
+        AForm::operator=(other);
+    return (*this) ;
+}
