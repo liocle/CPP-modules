@@ -27,12 +27,14 @@ AForm * Intern::makeRobotomyRequestForm(const std::string target) {
 }
 
 
-AForm * Intern::makeForm(std::string FormName, std::string target) {
-    AForm *formCreators[] = {
-        Intern::makePresidentialPardonForm(target),
-        Intern::makeShrubberyCreationForm(target),
-        Intern::makeRobotomyRequestForm(target)
+AForm * Intern::makeForm(std::string FormName, const std::string target) {
+    AForm *formCreator[] = {
+        makePresidentialPardonForm(target),
+        makeShrubberyCreationForm(target),
+        makeRobotomyRequestForm(target)
     }; 
+
+    const int AmountOfForms = sizeof(formCreator) / sizeof(formCreator[0]);
 
     std::string availableFormName[] = {
         "PresidentialPardonForm",
@@ -40,9 +42,9 @@ AForm * Intern::makeForm(std::string FormName, std::string target) {
         "RobotomyRequestForm"
     };
 
-    for (unsigned int i = 0; i < (sizeof(formCreators) / sizeof(formCreators[0])); i++ ) {
+    for (unsigned int i = 0; i < (sizeof(formCreator) / sizeof(formCreator[0])); i++ ) {
         if (FormName == availableFormName[i]) {
-            return (formCreators[i]);
+            return (formCreator[i]);
         }
     }
 
