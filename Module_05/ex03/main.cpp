@@ -99,10 +99,58 @@ int main(void){
         try {
             std::cout << CYAN <<  "An Intern commes up" << RESET << std::endl;
             Intern another_intern;
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            Bureaucrat high_ranked_bureaucrat("High_ranked_bureaucrat", 1);
+            std::cout << std::endl;
 
             std::cout << CYAN <<  "--------------------" << RESET << std::endl;
             std::cout << CYAN <<  "The Intern is distracted and mispells shrubbery" << RESET << std::endl;
             AForm *a_form = another_intern.makeForm("ShruberyCreationForm", "Home_Sweet_home");
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "The form wont be signed..." << RESET << std::endl;
+            high_ranked_bureaucrat.signForm(*a_form);
+            std::cout << std::endl;
+
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "... nor executed since a mispelled Form throws  an exception" << std::endl;
+            a_form->execute(high_ranked_bureaucrat);
+
+            delete a_form;
+        } catch (std::exception &e) {
+            std::cerr << RED << e.what() << RESET << std::endl;
+        }
+    }
+    {
+        std::cout << std::endl;
+        std::cout << CYAN << "____________________ Copy constructor and assignment operator test ____________________" << RESET << std::endl;
+        try {
+            std::cout << CYAN <<  "An Intern commes up" << RESET << std::endl;
+            Intern another_intern;
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "It helps to copy construct another one" << RESET << std::endl;
+            Intern lol(another_intern);
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "An Intern pointer is assigned an Intern" << RESET << std::endl;
+            Intern *toto = &lol;
+
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            Bureaucrat high_ranked_bureaucrat("High_ranked_bureaucrat", 1);
+            std::cout << std::endl;
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "The pointer Intern wants a shrubbery" << RESET << std::endl;
+            AForm *a_form = toto->makeForm("ShrubberyCreationForm", "Home_Sweet_home");
+
+            std::cout << CYAN <<  "--------------------" << RESET << std::endl;
+            std::cout << CYAN <<  "The form can be signed..." << RESET << std::endl;
+            high_ranked_bureaucrat.signForm(*a_form);
+            std::cout << std::endl;
+
+            std::cout << CYAN << "---------------------" << RESET << std::endl;
+            std::cout << CYAN << "... and executed" << std::endl;
+            a_form->execute(high_ranked_bureaucrat);
 
             delete a_form;
         } catch (std::exception &e) {

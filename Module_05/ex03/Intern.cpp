@@ -1,15 +1,21 @@
 
 #include "Intern.h"
 
-Intern::Intern() {}
+Intern::Intern() {
+    std::cout << GREEN << "Intern constructor called" << RESET << std::endl;
+}
 
-Intern::~Intern() {}
+Intern::~Intern() {
+    std::cout << GREEN << "Intern destructor called" << RESET << std::endl;
+}
 
 Intern::Intern(const Intern &other) {
+    std::cout << GREEN << "Intern copy constructor called" << RESET << std::endl;
     *this = other;
 }
 
 Intern &Intern::operator=(const Intern &other) {
+    std::cout << GREEN << "Intern operator assignment called" << RESET << std::endl;
     (void)other;
     return *this;
 }
@@ -57,7 +63,7 @@ AForm * Intern::makeForm(std::string FormName, const std::string target) {
             return (makeRobotomyRequestForm(target));
         default:
             std::cerr << RED << "Error: Unknown form name '" << FormName << "'" << RESET << std::endl;
-            return  nullptr;
+            throw std::runtime_error("Error: Attempt to use a nullptr");
     } 
  
 }
