@@ -35,12 +35,13 @@ AForm * Intern::makeForm(std::string FormName, const std::string target) {
         "ShrubberyCreationForm",    // Form 1
         "RobotomyRequestForm"       // Form 2
     };
-    const int AmountOfForms = sizeof(availableFormName) / sizeof(availableFormName[0]);
-    unsigned short  form_number;
+    const int numberOfForms = sizeof(availableFormName) / sizeof(availableFormName[0]);
+    unsigned short  form_number = numberOfForms; // Setting form number to a non existing Form  number
 
-    for (unsigned int i = 0; i < AmountOfForms; i++ ) {
+    for (unsigned int i = 0; i < numberOfForms; i++ ) {
         if (FormName == availableFormName[i]) {
             form_number = i;
+            break;
         }
     }
 
@@ -51,7 +52,6 @@ AForm * Intern::makeForm(std::string FormName, const std::string target) {
         case 1:
             std::cout << LIGHT_BLUE << "Intern creates a ShrubberyCreationForm" << RESET << std::endl;
             return (makeShrubberyCreationForm(target)) ;
-            break;
         case 2:
             std::cout << LIGHT_BLUE << "Intern creates a RobotomyRequestForm" << RESET << std::endl;
             return (makeRobotomyRequestForm(target));
