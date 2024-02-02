@@ -30,6 +30,7 @@ int main(void){
             std::cout << CYAN << "---------------------" << RESET << std::endl;
             std::cout << CYAN << "High_ranked_bureaucrat executes it" << std::endl;
             a_form->execute(high_ranked_bureaucrat);
+            delete a_form;
 
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
@@ -57,6 +58,8 @@ int main(void){
             std::cout << CYAN << "---------------------" << RESET << std::endl;
             std::cout << CYAN << "High_ranked_bureaucrat executes it" << std::endl;
             a_form->execute(high_ranked_bureaucrat);
+            
+            delete a_form;
 
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
@@ -85,6 +88,7 @@ int main(void){
             std::cout << CYAN << "High_ranked_bureaucrat executes it" << std::endl;
             a_form->execute(high_ranked_bureaucrat);
 
+            delete a_form;
         } catch (std::exception &e) {
             std::cerr << RED << e.what() << RESET << std::endl;
         }

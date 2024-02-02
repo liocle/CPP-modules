@@ -28,27 +28,36 @@ AForm * Intern::makeRobotomyRequestForm(const std::string target) {
 
 
 AForm * Intern::makeForm(std::string FormName, const std::string target) {
-    AForm *formCreator[] = {
-        makePresidentialPardonForm(target),
-        makeShrubberyCreationForm(target),
-        makeRobotomyRequestForm(target)
-    }; 
 
-    const int AmountOfForms = sizeof(formCreator) / sizeof(formCreator[0]);
 
     std::string availableFormName[] = {
-        "PresidentialPardonForm",
-        "ShrubberyCreationForm",
-        "RobotomyRequestForm"
+        "PresidentialPardonForm",   // Form 0
+        "ShrubberyCreationForm",    // Form 1
+        "RobotomyRequestForm"       // Form 2
     };
+    const int AmountOfForms = sizeof(availableFormName) / sizeof(availableFormName[0]);
+    unsigned short  form_number;
 
-    for (unsigned int i = 0; i < (sizeof(formCreator) / sizeof(formCreator[0])); i++ ) {
+    for (unsigned int i = 0; i < AmountOfForms; i++ ) {
         if (FormName == availableFormName[i]) {
-            return (formCreator[i]);
+            form_number = i;
         }
     }
 
-    std::cerr << RED << "Error: Unknown form name '" << FormName << "'" << RESET << std::endl;
+    switch (form_number) {
+        case 0:
+            std::cout << LIGHT_BLUE << "Intern creates a PresidentialPardonForm" << RESET << std::endl;
+            return (makePresidentialPardonForm(target));
+        case 1:
+            std::cout << LIGHT_BLUE << "Intern creates a ShrubberyCreationForm" << RESET << std::endl;
+            return (makeShrubberyCreationForm(target)) ;
+            break;
+        case 2:
+            std::cout << LIGHT_BLUE << "Intern creates a RobotomyRequestForm" << RESET << std::endl;
+            return (makeRobotomyRequestForm(target));
+        default:
+            std::cerr << RED << "Error: Unknown form name '" << FormName << "'" << RESET << std::endl;
+            return  nullptr;
+    } 
  
-    return  nullptr;
 }
