@@ -1,6 +1,6 @@
 #include "PresidentialPardonForm.h"
 
-PresidentialPardonForm::PresidentialPardonForm() : AForm("A Presidential Pardon form", 72, 45, "Innocent_Guy"), target_("Innocent_Guy") {
+PresidentialPardonForm::PresidentialPardonForm() : AForm("A Presidential Pardon form", 25, 5, "Innocent_Guy"), target_("Innocent_Guy") {
     std::cout << LIGHT_GREEN << "Default PresidentialPardonForm constructor was called" << RESET << std::endl;
 }
 
@@ -8,7 +8,7 @@ PresidentialPardonForm::~PresidentialPardonForm () {
     std::cout << LIGHT_GREEN << "PresidentialPardonForm destructed oke" << RESET << std::endl;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string target) : AForm("A Presidential Pardon form", 72, 45, target), target_(target) {
+PresidentialPardonForm::PresidentialPardonForm(const std::string target) : AForm("A Presidential Pardon form", 25, 5, target), target_(target) {
     std::cout << LIGHT_GREEN << "PresidentialPardonForm constructor was called for target: " << target << RESET << std::endl;
 
 }
