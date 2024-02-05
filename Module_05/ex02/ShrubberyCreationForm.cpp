@@ -21,6 +21,7 @@ ShrubberyCreationForm::ShrubberyCreationForm( const ShrubberyCreationForm &other
 void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
     if (this->getSignature() == true) {
         if (executor.getGrade() <= this->getGradeToExecute()) {
+            std::cout << RESET << executor.getName() << " executed " << getName() << std::endl;
             std::ofstream file(target_ + "_shrubbery", std::ios::app);
             if (!file) {
                 std::cerr << "File could not be created" << std::endl;

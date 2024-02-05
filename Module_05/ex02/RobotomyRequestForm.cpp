@@ -21,6 +21,7 @@ RobotomyRequestForm::RobotomyRequestForm( const RobotomyRequestForm &other) : AF
 void RobotomyRequestForm::execute(const Bureaucrat &executor) const {
     if (this->getSignature() == true) {
         if (executor.getGrade() <= this->getGradeToExecute()) {
+            std::cout << RESET << executor.getName() << " executed " << getName() << std::endl;
             std::cout << RESET << "A drilling noise starts to be heard... at last " << target_ << " got finaly robotomized" << std::endl;
         }
         else 
