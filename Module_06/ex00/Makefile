@@ -35,6 +35,9 @@ debug:	all
 lldb_g: CFLAGS += -g
 lldb_g: all
 
+test:
+	./test_conversion.sh
+
 re: 	fclean all
 
 .PHONY: all clean fclean debug lldb re
