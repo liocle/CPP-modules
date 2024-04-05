@@ -1,53 +1,139 @@
 #include "ScalarConverter.h"
 #include <iostream>
-#include <sstream>
 #include <limits>
 
 void ScalarConverter::convert(const std::string& literal) {
-    double value;
-    std::istringstream iss(literal);
-    if (!(iss >> value)) {
-        std::cerr << "Error: Invalid input" << std::endl;
+    if (isCharLiteral(literal)) {
+        char value = literal[1];
+        printChar(value);
+        printInt(value);
+        printFloat(value);
+        printDouble(value);
+    } else if (isIntLiteral(literal)) {
+        int value = std::stoi(literal);
+        printChar(value);
+        printInt(value);
+        printFloat(value);
+        printDouble(value);
+    } else if (isFloatLiteral(literal) || isSpecialFloatLiteral(literal)) {
+        float value = std::stof(literal);
+        printChar(value);
+        printInt(value);
+        printFloat(value);
+        printDouble(value);
+    } else {  // Default to double
+        double value = std::stod(literal);
+        printChar(value);
+        printInt(value);
+        printFloat(value);
+        printDouble(value);
+    }
+}
+
+// Helper methods to detect literal types
+bool ScalarConverter::isCharLiteral(const std::string& s) {
+    return s.length() == 3 && s.front() == '\'' && s.back() == '\'';
+}
+
+bool ScalarConverter::isIntLiteral(const std::string& s) {
+    try {
+        std::size_t pos;
+        (void)std::stoi(s, &pos);
+        return pos == s.length();
+    } catch (...) {
+        return false;
+    }
+}
+
+bool ScalarConverter::isFloatLiteral(const std::string& s) {
+    return s.find('.') != std::string::npos || s.find('f') != std::string::npos;
+}
+
+bool ScalarConverter::isSpecialFloatLiteral(const std::string& s) {
+    return s == "-inff" || s == "+inff" || s == "nanf";
+}
+
+void ScalarConverter::printChar(char value) {
+    if (std::isprint(value))
+        std::cout << "char:\t'" << value << "'\n";
+    else
+        std::cout << "char:\tNon displayable\n";
+}
+
+void ScalarConverter::printChar(int value) {
+    if (value >= std::numeric_limits<char>::min() && value <= std::numeric_limits<char>::max() && std::isprint(static_cast<char>(value)))
+        std::cout << "char:\t'" << static_cast<char>(value) << "'\n";
+    else
+        std::cout << "char:\timpossible\n";
+}
+
+void ScalarConverter::printChar(float value) {
+    if (std::isnormal(value) && value >= std::numeric_limits<char>::min() && value <= std::numeric_limits<char>::max() &&
+        std::isprint(static_cast<char>(value)))
+        std::cout << "char:\t'" << static_cast<char>(value) << "'\n";
+    else
+        std::cout << "char:\timpossible\n";
+}
+
+void ScalarConverter::printChar(double value) {
+    if (std::isnormal(value) && value >= std::numeric_limits<char>::min() && value <= std::numeric_limits<char>::max() &&
+        std::isprint(static_cast<char>(value)))
+        std::cout << "char:\t'" << static_cast<char>(value) << "'\n";
+    else
+        std::cout << "char:\timpossible\n";
+}
+
+void ScalarConverter::printInt(int value) {
+    std::cout << "int:\t" << value << "\n";
+}
+
+void ScalarConverter::printInt(float value) {
+    if (!std::isfinite(value)) { // Ensure not to convert non-finite values (NaN, +/-inf)
+        std::cout << "int:\timpossible\n";
         return;
     }
-
-    toChar(value);
-    toInt(value);
-    toFloat(value);
-    toDouble(value);
+    float rounded = std::round(value); // Round to nearest integer representation to minimize conversion loss
+    if (rounded < static_cast<float>(std::numeric_limits<int>::min()) || rounded > static_cast<float>(std::numeric_limits<int>::max())) { // Check conversion limites preventing overflow / underflow
+        std::cout << "int:\timpossible\n";
+    } else {
+        std::cout << "int:\t" << static_cast<int>(rounded) << "\n";
+    }
 }
 
-void ScalarConverter::toChar(double value) {
-    char c = static_cast<char>(value);
-    if (isPrintable(c))
-        std::cout << "char: '" << c << "'" << std::endl;
-    else
-        std::cout << "char: Non displayable or impossible" << std::endl;
+void ScalarConverter::printInt(double value) {
+    if (!std::isfinite(value)) {
+        std::cout << "int:\timpossible\n"; // Ensure not to convert non-finite values (NaN, +/-inf)
+        return;
+    }
+    double rounded = std::round(value); // Round to nearest integer representation to minimize conversion loss
+    if (rounded < static_cast<double>(std::numeric_limits<int>::min()) || rounded > static_cast<double>(std::numeric_limits<int>::max())) { // Check conversion limites preventing overflow / underflow
+        std::cout << "int:\timpossible\n";
+    } else {
+        std::cout << "int:\t" << static_cast<int>(rounded) << "\n";
+    }
 }
 
-void ScalarConverter::toInt(double value) {
-    if (value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max() || std::isnan(value))
-        std::cout << "int: impossible" << std::endl;
-    else
-        std::cout << "int: " << static_cast<int>(value) << std::endl;
+void ScalarConverter::printFloat(int value) {
+    std::cout << std::fixed << std::setprecision(1) << "float:\t" << static_cast<float>(value) << "f\n";
 }
 
-void ScalarConverter::toFloat(double value) {
-    if (isSpecialFloat(value))
-        std::cout << "float: " << static_cast<float>(value) << "f" << std::endl;
-    else
-        std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
+void ScalarConverter::printFloat(float value) {
+    std::cout << "float:\t" << value << "f\n";
 }
 
-void ScalarConverter::toDouble(double value) {
-    std::cout << "double: " << std::fixed << std::setprecision(1) << value << std::endl;
+void ScalarConverter::printFloat(double value) {
+    std::cout << "float:\t" << static_cast<float>(value) << "f\n";
 }
 
-bool ScalarConverter::isPrintable(char c) {
-    return c >= 32 && c <= 126;
+void ScalarConverter::printDouble(int value) {
+    std::cout << std::fixed << std::setprecision(1) << "double:\t" << static_cast<double>(value) << "\n";
 }
 
-bool ScalarConverter::isSpecialFloat(double value) {
-    return std::isinf(value) || std::isnan(value);
+void ScalarConverter::printDouble(float value) {
+    std::cout << "double:\t" << static_cast<double>(value) << "\n";
+}
+
+void ScalarConverter::printDouble(double value) {
+    std::cout << "double:\t" << value << "\n";
 }
 

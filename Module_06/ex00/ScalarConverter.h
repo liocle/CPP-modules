@@ -1,33 +1,47 @@
-#ifndef SCALARCONVERTER_HPP
-#define SCALARCONVERTER_HPP
+#ifndef SCALARCONVERTER_H
+#define SCALARCONVERTER_H
 
-#include <string>
-#include <iostream>
-#include <iomanip>
-#include <limits>
-#include <cstdlib>
 #include <cerrno>
 #include <cmath>
+#include <cstdlib>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <string>
 
 class ScalarConverter {
-public:
+   public:
     static void convert(const std::string& literal);
 
-private:
+   private:
     /* Preventing instantiation */
-    ScalarConverter() = delete; 
-    ScalarConverter(ScalarConverter const &source) = delete;
-    
-    ScalarConverter &operator=(ScalarConverter const &source) = delete;
+    ScalarConverter() = delete;
+    ScalarConverter(ScalarConverter const& source) = delete;
+
+    ScalarConverter& operator=(ScalarConverter const& source) = delete;
     ~ScalarConverter();
 
-    static void toChar(double value);
-    static void toInt(double value);
-    static void toFloat(double value);
-    static void toDouble(double value);
-    static bool isPrintable(char c);
-    static bool isSpecialFloat(double value);
+    static bool isCharLiteral(const std::string& s);
+    static bool isIntLiteral(const std::string& s);
+    static bool isFloatLiteral(const std::string& s);
+    static bool isSpecialFloatLiteral(const std::string& s);
+
+    static void printChar(char value);
+    static void printChar(int value);
+    static void printChar(float value);
+    static void printChar(double value);
+    
+    static void printInt(int value);
+    static void printInt(float value);
+    static void printInt(double value);
+
+    static void printFloat(int value);
+    static void printFloat(float value);
+    static void printFloat(double value);
+
+    static void printDouble(int value);
+    static void printDouble(float value);
+    static void printDouble(double value);
 };
 
-#endif // SCALARCONVERTER_HPP
-
+#endif  // SCALARCONVERTER_H

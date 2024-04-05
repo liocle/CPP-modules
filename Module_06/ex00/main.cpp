@@ -1,10 +1,11 @@
 #include <iostream>
 #include "ScalarConverter.h"
+#include "Colors.h"
 
 int main(int argc, char** argv) {
 
     if (argc != 2) {
-        std::cout << "Use: ./convert argument_to_be_converted" << std::endl;
+        std::cout << RED << "Use: ./convert argument_to_be_converted" << RESET << std::endl;
         return (0);
     }
     std::string input = argv[1];
@@ -14,9 +15,8 @@ int main(int argc, char** argv) {
     }
     try {
         ScalarConverter::convert(input);
-    } catch (const std::exception &e) {
-        std::cout << "Exception caught: " << e.what() << std::endl;
-
-}
+    } catch (const std::exception& e) {
+        std::cout << RED << "Exception caught: " << e.what() << RESET << std::endl;
+    }
     return 0;
 }
