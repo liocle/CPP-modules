@@ -1,5 +1,6 @@
 ### Regular expression used to sanitize Numeric Input
 
+This regex is used to validate numeric inputs, including integers, floating-point numbers, numbers in scientific notation, and special values like "nan", "inf", and "infinity". 
 ```
 bool ScalarConverter::isValidNumericInput(const std::string& s) {
     // Regular expression to match a valid numeric input (including scientific notation and special floats)
@@ -9,7 +10,8 @@ bool ScalarConverter::isValidNumericInput(const std::string& s) {
 }
 ```
 
-Explanation by Component
+Explanation by component:
+
 * ^: Matches the start of the string. Ensures that what follows is at the very beginning. 
 * [+-]?:
     * []: Defines a character class, matching any one character inside the brackets.

@@ -39,7 +39,7 @@ void ScalarConverter::convert(const std::string& literal) {
     }
 
     if (isCharLiteral(literal)) {
-        char value = literal[1]; // Assumes the format 'x' where x is the character
+        char value = literal[1];  // Assumes the format 'x' where x is the character
         printChar(value);
         printInt(value);
         printFloat(value);
@@ -66,7 +66,12 @@ void ScalarConverter::convert(const std::string& literal) {
 }
 
 /**
- * Checks if the input string represents a valid numeric input.
+ * @brief Checks if the input string represents a valid numeric input.
+ *
+ * @detail Validate numeric inputs, including integers, floating-point numbers, numbers 
+ * in scientific notation, and special values like "nan", "inf", and "infinity".
+ * Refer to Regex.md for details about how this regex function works.
+ * Encapsulates validdNumericRegex() inside isValidNumericInput().
  * 
  * @param s The input string to validate.
  * @return True if the string is a valid numeric input, false otherwise.
@@ -74,11 +79,13 @@ void ScalarConverter::convert(const std::string& literal) {
 bool ScalarConverter::isValidNumericInput(const std::string& s) {
     // Regular expression to match a valid numeric input (including scientific notation and special floats)
     static const std::regex validNumericRegex(R"(^[+-]?(?:(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?|nanf?|inff?|infinity)$)",
-                                              std::regex_constants::icase);
-    return std::regex_match(s, validNumericRegex);
+                                              std::regex_constants::icase); // flag allow case insensitive matches 
+    return std::regex_match(s, validNumericRegex); // filters input string 
 }
 
-// Helper methods to detect literal types
+/**
+ * Detect literal type
+ */
 bool ScalarConverter::isCharLiteral(const std::string& s) {
     return s.length() == 3 && s.front() == '\'' && s.back() == '\'';
 }
@@ -101,6 +108,11 @@ bool ScalarConverter::isSpecialFloatLiteral(const std::string& s) {
     return s == "-inff" || s == "+inff" || s == "nanf";
 }
 
+/**
+ * Print Char helper function...
+ *
+ * directly from char or converted from int, float and double data types.
+ */
 void ScalarConverter::printChar(char value) {
     if (std::isprint(value))
         std::cout << "char:\t'" << value << "'\n";
@@ -131,6 +143,11 @@ void ScalarConverter::printChar(double value) {
         std::cout << "char:\timpossible\n";
 }
 
+/**
+ * Print Int helper function...
+ * 
+ * directly from int or converted from float and double data types.
+ */
 void ScalarConverter::printInt(int value) {
     std::cout << "int:\t" << value << "\n";
 }
@@ -163,6 +180,11 @@ void ScalarConverter::printInt(double value) {
     }
 }
 
+/**
+ * Print Float helper function...
+ * 
+ * directly from float or converted from int and double data types.
+ */
 void ScalarConverter::printFloat(int value) {
     std::cout << std::fixed << std::setprecision(1) << "float:\t" << static_cast<float>(value) << "f\n";
 }
@@ -183,6 +205,11 @@ void ScalarConverter::printFloat(double value) {
     }
 }
 
+/**
+ * Print Double helper function...
+ * 
+ * directly from double or converted from int and float data types.
+ */
 void ScalarConverter::printDouble(int value) {
     std::cout << std::fixed << std::setprecision(1) << "double:\t" << static_cast<double>(value) << "\n";
 }
@@ -202,3 +229,4 @@ void ScalarConverter::printDouble(double value) {
         std::cout << "double:\t" << value << "\n";
     }
 }
+
