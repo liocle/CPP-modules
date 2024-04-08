@@ -33,7 +33,7 @@ void ScalarConverter::convert(const std::string& literal) {
         try {
             testValue = std::stod(literal);
         } catch (...) {
-            std::cout << RED << " -> out of range\n" << std::endl;
+            std::cout << RED << " -> out of range" << std::endl;
             std::cout << "char:\timpossible\n";
             std::cout << "int:\timpossible\n";
             std::cout << "float:\timpossible\n";
@@ -43,7 +43,7 @@ void ScalarConverter::convert(const std::string& literal) {
         }
 
         if (!std::isfinite(testValue)) {  // Checks for +inf, -inf, nan which are results of extreme exponents
-            std::cout << GREEN << " -> char\n" << std::endl;
+            std::cout << GREEN << " -> char" << std::endl;
             printChar(testValue);
             printInt(testValue);
             printFloat(testValue);
@@ -55,14 +55,14 @@ void ScalarConverter::convert(const std::string& literal) {
 
     if (isCharLiteral(literal)) {
         char value = literal[1];  // Assumes the format 'x' where x is the character
-        std::cout << MAGENTA << " -> char\n" << std::endl;
+        std::cout << MAGENTA << " -> char" << std::endl;
         printChar(value);
         printInt(value);
         printFloat(value);
         printDouble(value);
         std::cout << RESET;
     } else if (isIntLiteral(literal)) {
-        std::cout << BLUE << " -> int\n" << std::endl;
+        std::cout << BLUE << " -> int" << std::endl;
         int value = std::stoi(literal);
         printChar(value);
         printInt(value);
@@ -72,14 +72,14 @@ void ScalarConverter::convert(const std::string& literal) {
     } else if (isFloatLiteral(literal) || isSpecialFloatLiteral(literal)) {
         try {
             float value = std::stof(literal);
-            std::cout << LIGHT_BLUE << " -> float\n" << std::endl;
+            std::cout << LIGHT_BLUE << " -> float" << std::endl;
             printChar(value);
             printInt(value);
             printFloat(value);
             printDouble(value);
         } catch (...) {
             double value = std::stod(literal);
-            std::cout << LIGHT_YELLOW << " -> double\n" << std::endl;
+            std::cout << LIGHT_YELLOW << " -> double" << std::endl;
             printChar(value);
             printInt(value);
             printFloat(value);
@@ -88,7 +88,7 @@ void ScalarConverter::convert(const std::string& literal) {
         std::cout << RESET;
     } else {  // Assuming the input is valid and numeric, default to double
         double value = std::stod(literal);
-        std::cout << LIGHT_YELLOW << " -> double\n" << std::endl;
+        std::cout << LIGHT_YELLOW << " -> double" << std::endl;
         printChar(value);
         printInt(value);
         printFloat(value);
