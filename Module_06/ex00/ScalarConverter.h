@@ -25,6 +25,7 @@ class ScalarConverter {
     static bool isIntLiteral(const std::string& s);
     static bool isFloatLiteral(const std::string& s);
     static bool isSpecialFloatLiteral(const std::string& s);
+    static bool isDoubleLiteral(const std::string& s);
     static bool isValidNumericInput(const std::string& s);
 
     static void printChar(char value);

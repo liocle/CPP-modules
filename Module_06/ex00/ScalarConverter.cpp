@@ -21,57 +21,89 @@
  */
 void ScalarConverter::convert(const std::string& literal) {
 
+    // Check for input validity and returns if check fails
     if (!isValidNumericInput(literal) && !isCharLiteral(literal)) {
-        std::cout << BLUE << "Error: Invalid input. Non-numeric string provided." << RESET << std::endl;
+        std::cout << RED << "Error: Invalid input. Non-numeric string provided." << RESET << std::endl;
         return;
     }
 
-    // Extreme large/small value check for scientific notation
+    // Check for scientific notation
     if (literal.find('e') != std::string::npos || literal.find('E') != std::string::npos) {
-        double testValue = std::stod(literal);
+        double testValue;
+        try {
+            testValue = std::stod(literal);
+        } catch (...) {
+            std::cout << RED << " -> out of range\n" << std::endl;
+            std::cout << "char:\timpossible\n";
+            std::cout << "int:\timpossible\n";
+            std::cout << "float:\timpossible\n";
+            std::cout << "double:\timpossible\n";
+            std::cout << RESET << std::endl;
+            return;
+        }
+
         if (!std::isfinite(testValue)) {  // Checks for +inf, -inf, nan which are results of extreme exponents
+            std::cout << GREEN << " -> char\n" << std::endl;
             printChar(testValue);
             printInt(testValue);
             printFloat(testValue);
             printDouble(testValue);
+            std::cout << RESET;
             return;
         }
     }
 
     if (isCharLiteral(literal)) {
         char value = literal[1];  // Assumes the format 'x' where x is the character
+        std::cout << MAGENTA << " -> char\n" << std::endl;
         printChar(value);
         printInt(value);
         printFloat(value);
         printDouble(value);
+        std::cout << RESET;
     } else if (isIntLiteral(literal)) {
+        std::cout << BLUE << " -> int\n" << std::endl;
         int value = std::stoi(literal);
         printChar(value);
         printInt(value);
         printFloat(value);
         printDouble(value);
+        std::cout << RESET;
     } else if (isFloatLiteral(literal) || isSpecialFloatLiteral(literal)) {
-        float value = std::stof(literal);
-        printChar(value);
-        printInt(value);
-        printFloat(value);
-        printDouble(value);
+        try {
+            float value = std::stof(literal);
+            std::cout << LIGHT_BLUE << " -> float\n" << std::endl;
+            printChar(value);
+            printInt(value);
+            printFloat(value);
+            printDouble(value);
+        } catch (...) {
+            double value = std::stod(literal);
+            std::cout << LIGHT_YELLOW << " -> double\n" << std::endl;
+            printChar(value);
+            printInt(value);
+            printFloat(value);
+            printDouble(value);
+        }
+        std::cout << RESET;
     } else {  // Assuming the input is valid and numeric, default to double
         double value = std::stod(literal);
+        std::cout << LIGHT_YELLOW << " -> double\n" << std::endl;
         printChar(value);
         printInt(value);
         printFloat(value);
         printDouble(value);
     }
+    std::cout << RESET;
 }
 
 /**
  * @brief Checks if the input string represents a valid numeric input.
  *
  * @detail Validate numeric inputs, including integers, floating-point numbers, numbers 
- * in scientific notation, and special values like "nan", "inf", and "infinity".
+ * in scientific notation, and special values like "nan", "inf", and "infinity" case insensitively.
  * Refer to Regex.md for details about how this regex function works.
- * Encapsulates validdNumericRegex() inside isValidNumericInput().
+ * This funciton encapsulates validdNumericRegex() inside isValidNumericInput().
  * 
  * @param s The input string to validate.
  * @return True if the string is a valid numeric input, false otherwise.
@@ -79,8 +111,8 @@ void ScalarConverter::convert(const std::string& literal) {
 bool ScalarConverter::isValidNumericInput(const std::string& s) {
     // Regular expression to match a valid numeric input (including scientific notation and special floats)
     static const std::regex validNumericRegex(R"(^[+-]?(?:(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?|nanf?|inff?|infinity)$)",
-                                              std::regex_constants::icase); // flag allow case insensitive matches 
-    return std::regex_match(s, validNumericRegex); // filters input string 
+                                              std::regex_constants::icase);  // flag allow case insensitive matches
+    return std::regex_match(s, validNumericRegex);                           // filters input string
 }
 
 /**
@@ -101,7 +133,10 @@ bool ScalarConverter::isIntLiteral(const std::string& s) {
 }
 
 bool ScalarConverter::isFloatLiteral(const std::string& s) {
-    return s.find('.') != std::string::npos || s.find('f') != std::string::npos;
+    if (s.find('.') != std::string::npos || s.find('f') != std::string::npos)
+        return true;
+    else
+        return false;
 }
 
 bool ScalarConverter::isSpecialFloatLiteral(const std::string& s) {
@@ -229,4 +264,3 @@ void ScalarConverter::printDouble(double value) {
         std::cout << "double:\t" << value << "\n";
     }
 }
-

@@ -35,7 +35,7 @@ debug:	all
 lldb_g: CFLAGS += -g
 lldb_g: all
 
-test:
+test: all
 	./test_conversion.sh
 
 re: 	fclean all
