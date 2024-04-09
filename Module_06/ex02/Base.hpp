@@ -2,7 +2,7 @@
 #define BASE_HPP
 
 class Base {
-public:
+   public:
     virtual ~Base() {}
 };
 

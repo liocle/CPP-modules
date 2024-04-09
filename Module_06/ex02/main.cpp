@@ -15,7 +15,7 @@ Base* generate(void) {
         case 2:
             return new C();
     }
-    return nullptr;  // Just to avoid compiler warning
+    return nullptr;  // To avoid compiler warning
 }
 
 void identify(Base* p) {
