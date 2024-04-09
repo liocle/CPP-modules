@@ -3,7 +3,8 @@ CFLAGS  		= 	-Wall -Werror -Wextra -std=c++11
 CFLAGS_CONV			=  
 CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
-SRC     		=	main.cpp
+SRC     		=	main.cpp \
+					Serializer.cpp	
 
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 
