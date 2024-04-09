@@ -28,22 +28,22 @@ class ScalarConverter {
     static bool isDoubleLiteral(const std::string& s);
     static bool isValidNumericInput(const std::string& s);
 
-    static void printChar(char value);
-    static void printChar(int value);
-    static void printChar(float value);
-    static void printChar(double value);
+    static void printChar(const char value);
+    static void printChar(const int value);
+    static void printChar(const float value);
+    static void printChar(const double value);
     
-    static void printInt(int value);
-    static void printInt(float value);
-    static void printInt(double value);
+    static void printInt(const int value);
+    static void printInt(const float value);
+    static void printInt(const double value);
 
-    static void printFloat(int value);
-    static void printFloat(float value);
-    static void printFloat(double value);
+    static void printFloat(const int value);
+    static void printFloat(const float value);
+    static void printFloat(const double value);
 
-    static void printDouble(int value);
-    static void printDouble(float value);
-    static void printDouble(double value);
+    static void printDouble(const int value);
+    static void printDouble(const float value);
+    static void printDouble(const double value);
 };
 
 #endif  // SCALARCONVERTER_H

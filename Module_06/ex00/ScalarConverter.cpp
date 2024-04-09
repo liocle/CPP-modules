@@ -78,21 +78,43 @@ void ScalarConverter::convert(const std::string& literal) {
             printFloat(value);
             printDouble(value);
         } catch (...) {
-            double value = std::stod(literal);
+            double value;
+            try {
+                value = std::stod(literal);
+                std::cout << LIGHT_YELLOW << " -> double, caught from stof" << std::endl;
+                printChar(value);
+                printInt(value);
+                printFloat(value);
+                printDouble(value);
+            } catch (...) {
+                std::cout << RED << " -> out of range" << std::endl;
+                std::cout << "char:\timpossible\n";
+                std::cout << "int:\timpossible\n";
+                std::cout << "float:\timpossible\n";
+                std::cout << "double:\timpossible\n";
+                std::cout << RESET << std::endl;
+                return;
+            }
+        }
+        std::cout << RESET;
+    } else {  // Assuming the input is valid and numeric, default to double
+        double value;
+        try {
+            value = std::stod(literal);
             std::cout << LIGHT_YELLOW << " -> double" << std::endl;
             printChar(value);
             printInt(value);
             printFloat(value);
             printDouble(value);
+        } catch (...) {
+            std::cout << RED << " -> out of range" << std::endl;
+            std::cout << "char:\timpossible\n";
+            std::cout << "int:\timpossible\n";
+            std::cout << "float:\timpossible\n";
+            std::cout << "double:\timpossible\n";
+            std::cout << RESET << std::endl;
+            return;
         }
-        std::cout << RESET;
-    } else {  // Assuming the input is valid and numeric, default to double
-        double value = std::stod(literal);
-        std::cout << LIGHT_YELLOW << " -> double" << std::endl;
-        printChar(value);
-        printInt(value);
-        printFloat(value);
-        printDouble(value);
     }
     std::cout << RESET;
 }
@@ -148,21 +170,21 @@ bool ScalarConverter::isSpecialFloatLiteral(const std::string& s) {
  *
  * directly from char or converted from int, float and double data types.
  */
-void ScalarConverter::printChar(char value) {
+void ScalarConverter::printChar(const char value) {
     if (std::isprint(value))
         std::cout << "char:\t'" << value << "'\n";
     else
         std::cout << "char:\tNon displayable\n";
 }
 
-void ScalarConverter::printChar(int value) {
+void ScalarConverter::printChar(const int value) {
     if (value >= std::numeric_limits<char>::min() && value <= std::numeric_limits<char>::max() && std::isprint(static_cast<char>(value)))
         std::cout << "char:\t'" << static_cast<char>(value) << "'\n";
     else
         std::cout << "char:\timpossible\n";
 }
 
-void ScalarConverter::printChar(float value) {
+void ScalarConverter::printChar(const float value) {
     if (std::isnormal(value) && value >= std::numeric_limits<char>::min() && value <= std::numeric_limits<char>::max() &&
         std::isprint(static_cast<char>(value)))
         std::cout << "char:\t'" << static_cast<char>(value) << "'\n";
@@ -170,7 +192,7 @@ void ScalarConverter::printChar(float value) {
         std::cout << "char:\timpossible\n";
 }
 
-void ScalarConverter::printChar(double value) {
+void ScalarConverter::printChar(const double value) {
     if (std::isnormal(value) && value >= std::numeric_limits<char>::min() && value <= std::numeric_limits<char>::max() &&
         std::isprint(static_cast<char>(value)))
         std::cout << "char:\t'" << static_cast<char>(value) << "'\n";
@@ -183,11 +205,11 @@ void ScalarConverter::printChar(double value) {
  * 
  * directly from int or converted from float and double data types.
  */
-void ScalarConverter::printInt(int value) {
+void ScalarConverter::printInt(const int value) {
     std::cout << "int:\t" << value << "\n";
 }
 
-void ScalarConverter::printInt(float value) {
+void ScalarConverter::printInt(const float value) {
     if (!std::isfinite(value)) {  // Ensure not to convert non-finite values (NaN, +/-inf)
         std::cout << "int:\timpossible\n";
         return;
@@ -201,7 +223,7 @@ void ScalarConverter::printInt(float value) {
     }
 }
 
-void ScalarConverter::printInt(double value) {
+void ScalarConverter::printInt(const double value) {
     if (!std::isfinite(value)) {
         std::cout << "int:\timpossible\n";  // Ensure not to convert non-finite values (NaN, +/-inf)
         return;
@@ -220,11 +242,11 @@ void ScalarConverter::printInt(double value) {
  * 
  * directly from float or converted from int and double data types.
  */
-void ScalarConverter::printFloat(int value) {
+void ScalarConverter::printFloat(const int value) {
     std::cout << std::fixed << std::setprecision(1) << "float:\t" << static_cast<float>(value) << "f\n";
 }
 
-void ScalarConverter::printFloat(float value) {
+void ScalarConverter::printFloat(const float value) {
     if (value == static_cast<int>(value)) {
         std::cout << std::fixed << std::setprecision(1) << "float:\t" << static_cast<float>(value) << "f\n";
     } else {
@@ -232,7 +254,7 @@ void ScalarConverter::printFloat(float value) {
     }
 }
 
-void ScalarConverter::printFloat(double value) {
+void ScalarConverter::printFloat(const double value) {
     if (value == static_cast<int>(value)) {
         std::cout << std::fixed << std::setprecision(1) << "float:\t" << static_cast<float>(value) << "f\n";
     } else {
@@ -245,11 +267,11 @@ void ScalarConverter::printFloat(double value) {
  * 
  * directly from double or converted from int and float data types.
  */
-void ScalarConverter::printDouble(int value) {
+void ScalarConverter::printDouble(const int value) {
     std::cout << std::fixed << std::setprecision(1) << "double:\t" << static_cast<double>(value) << "\n";
 }
 
-void ScalarConverter::printDouble(float value) {
+void ScalarConverter::printDouble(const float value) {
     if (value == static_cast<int>(value)) {
         std::cout << std::fixed << std::setprecision(1) << "double:\t" << static_cast<double>(value) << "\n";
     } else {
@@ -257,7 +279,7 @@ void ScalarConverter::printDouble(float value) {
     }
 }
 
-void ScalarConverter::printDouble(double value) {
+void ScalarConverter::printDouble(const double value) {
     if (value == static_cast<int>(value)) {
         std::cout << std::fixed << std::setprecision(1) << "double:\t" << static_cast<double>(value) << "\n";
     } else {
