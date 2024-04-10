@@ -132,9 +132,9 @@ void ScalarConverter::convert(const std::string& literal) {
  */
 bool ScalarConverter::isValidNumericInput(const std::string& s) {
     // Regular expression to match a valid numeric input (including scientific notation and special floats)
-    static const std::regex validNumericRegex(R"(^[+-]?(?:(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?|nanf?|inff?|infinity)$)",
-                                              std::regex_constants::icase);  // flag allow case insensitive matches
-    return std::regex_match(s, validNumericRegex);                           // filters input string
+    static const std::regex validNumericRegex(R"(^[+-]?(?:(?:\d+\.?\d*|\.\d+|\d+\.|\d|\d+\.+\d*f|\.\d+f|\d+\.|\d+f)(?:[eE][+-]?\d+)?|nanf?|inff?|infinity)$)",
+    std::regex_constants::icase);  // flag allow case insensitive matches
+return std::regex_match(s, validNumericRegex);                               // filters input string
 }
 
 /**
@@ -155,7 +155,7 @@ bool ScalarConverter::isIntLiteral(const std::string& s) {
 }
 
 bool ScalarConverter::isFloatLiteral(const std::string& s) {
-    if (s.find('.') != std::string::npos || s.find('f') != std::string::npos)
+    if (s.find('f') != std::string::npos)
         return true;
     else
         return false;
