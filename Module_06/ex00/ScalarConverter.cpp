@@ -132,7 +132,7 @@ void ScalarConverter::convert(const std::string& literal) {
  */
 bool ScalarConverter::isValidNumericInput(const std::string& s) {
     // Regular expression to match a valid numeric input (including scientific notation and special floats)
-    static const std::regex validNumericRegex(R"(^[+-]?(?:(?:\d+\.?\d*|\.\d+|\d+\.|\d|\d+\.+\d*f|\.\d+f|\d+\.|\d+f)(?:[eE][+-]?\d+)?|nanf?|inff?|infinity)$)",
+    static const std::regex validNumericRegex(R"(^[+-]?(?:(?:\d+\.?\d*|\.\d+|\d+\.|\d|\d+\.\d*f|\.\d+f|\d+\.|\d+f)(?:[eE][+-]?\d+)?|nanf?|inff?|infinity)$)",
     std::regex_constants::icase);  // flag allow case insensitive matches
 return std::regex_match(s, validNumericRegex);                               // filters input string
 }
