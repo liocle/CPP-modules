@@ -6,7 +6,7 @@ SRC     		=	main.cpp \
 
 OBJ 		    = 	$(SRC:%.cpp=%.o)
 
-NAME		    = 	whatever
+NAME		    = 	iter
 
 all: $(NAME)
 
