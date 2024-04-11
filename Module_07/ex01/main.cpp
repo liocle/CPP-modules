@@ -11,22 +11,20 @@ int main(void) {
   {
     int num_array[] = {0, 1, 2, 3, 4};
 
-    std::cout << "-- Original num array:" << std::endl;
+    std::cout << "[Type 1]: Original num array:" << std::endl;
     iter(num_array, sizeof(num_array) / sizeof(int), &printElement<int>);
-    std::cout << "\n-- Incrementing num array --" << std::endl;
+    std::cout << "\n-- Incrementing and printing resulting num array --" << std::endl;
     iter(num_array, sizeof(num_array) / sizeof(int), &incrementElement<int>);
-    std::cout << "\n-- Incremented num array:" << std::endl;
     iter(num_array, sizeof(num_array) / sizeof(int), &printElement<int>);
   }
 
   {
     std::string string_array[] = {"str1", "str2", "str3"};
 
-    std::cout << "-- Original string array:" << std::endl;
+    std::cout << "\n\n[Type 2]: Original string array:" << std::endl;
     iter(string_array, sizeof(string_array) / sizeof(std::string), &printElement<std::string>);
-    std::cout << "\n-- Incrementing string array --" << std::endl;
+    std::cout << "\n-- Incrementing string array = Concatenates existing string element with new char equivalent of ASCII value:" << std::endl;
     iter(string_array, sizeof(string_array) / sizeof(std::string), &incrementElement<std::string>);
-    std::cout << "\n-- Incremented string array = Concatenating existing string element with incremented ASCII value:" << std::endl;
     iter(string_array, sizeof(string_array) / sizeof(std::string), &printElement<std::string>);
   }
 }
