@@ -46,4 +46,6 @@ int main(void) {
 
     std::cout << "\nSeek exisiting multiple value 10 in vector" << std::endl;
     findInContainer(myVector, 10);
+
+    return 0;
 }
