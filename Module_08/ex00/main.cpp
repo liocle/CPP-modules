@@ -10,11 +10,10 @@ void findInContainer(T& container, int value) {
 
     try {
         typename T::iterator it = easyfind(container, value);
-        std::cout << "Found: " << *it  << "at slot " << std::endl;
-    } catch (const std::exception & e) {
+        std::cout << "Found: " << *it << " at slot " << std::distance(container.begin(), it) << std::endl;
+    } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
     }
-
 }
 
 int main(void) {
