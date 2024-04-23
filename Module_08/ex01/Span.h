@@ -17,9 +17,12 @@ class Span {
     Span(unsigned int N);
     ~Span();
 
-    void addNumber(unsigned int number);
-    unsigned int shortestSpan() const;
+    void addNumber(int number);
+    unsigned int shortestSpan();
     unsigned int longestSpan() const;
+
+    template<typename Iterator>
+    void addRange(Iterator begin, Iterator end);
 };
 
 #endif  // SPAN_H

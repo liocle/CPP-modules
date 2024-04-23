@@ -3,7 +3,6 @@ CFLAGS  		= 	-Wall -Werror -Wextra -std=c++11 -Wpedantic
 CFLAGS_DEBUG 	=	-fsanitize=address,undefined
 
 SRC     		=	main.cpp \
-					Span.h \
 					Span.cpp
 
 OBJ 		    = 	$(SRC:%.cpp=%.o)
