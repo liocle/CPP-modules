@@ -59,7 +59,7 @@ void testDequeCharacteristics() {
 
     // Use iterator to access elements like a deque
     int i = 1;
-    std::cout << "Mutant iterator displays:\t\t\t";
+    std::cout << "Dereferenced mutant iterator displays: ";
     for (auto it = stack.begin(); it != stack.end(); ++it, ++i) {
         std::cout << *it << " ";
         if (it + 1 == stack.end()) {
@@ -71,7 +71,7 @@ void testDequeCharacteristics() {
 
     // Use reverse iterator
     auto rit = stack.rbegin();
-    std::cout << "\nMutant reverse iterator points at \"end\":\t" << *rit << std::endl;
+    std::cout << "\n*Mutant reverse iterator points at \"end\":\t" << *rit << std::endl;
     ++rit;
     std::cout << "Incrementing reverse iterator at rbegin() + 1:\t" << *rit << std::endl;
     displayMstackInfo(stack, "stack after being iterated through");
