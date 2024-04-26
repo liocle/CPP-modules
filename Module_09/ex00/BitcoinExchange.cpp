@@ -20,9 +20,9 @@ BitcoinExchange::BitcoinExchange(const std::string& filename) {
 }
 
 double BitcoinExchange::getClosestPrice(const std::string& date) {
-    auto it = priceData_.lower_bound(date);
+    auto it = priceData_.lower_bound(date); // Returns an iterator pointing to the first elemenet that is not less than (i.e. >= to) key.
     if (it != priceData_.begin() && it->first != date) {
-        --it;
+        --it; // if key != date, iterate to previous key value
     }
     return it->second;
 }
@@ -50,7 +50,7 @@ bool BitcoinExchange::validateValue(const std::string& valueString) {
     float value = 0;
     std::istringstream ss(valueString);
 
-    // std::cout << "valueString: \"" << valueString << "\", value: \"" << value << "\"";
+
     if (!(ss >> value)){
         return false;
     }
@@ -59,9 +59,11 @@ bool BitcoinExchange::validateValue(const std::string& valueString) {
     if (ss >> extra) {
         return false; // Extra characters present after the number
     }
-    std::cout << RED << "value is: " << value << RESET << std::endl;
-    if (value >= 0.0f || value <= 1000.0f) {
-        return true; 
+
+    std::cout << "Extra char: \"" << extra <<+ "\", valueString: \"" << valueString << "\", value: \"" << value << "\"\n";
+
+    if (value < 0.0f || value > 1000.0f) {
+        return false; 
     }
-    return false;
+    return true;
 }
