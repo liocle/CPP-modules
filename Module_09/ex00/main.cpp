@@ -36,35 +36,41 @@ int main(int argc, char** argv) {
     }
 
     std::string line, date, valueString;
-    double value;
+    int value;
     BitcoinExchange exchange("./data.csv");
 
-    while (getline(infile, line)) {
-        std::istringstream ss(line);
-        if (getline(ss, date, '|') && getline(ss, valueString)) {
-            trim(date);
-            trim(valueString);
-            if (!exchange.validateDate(date)) {
-                std::cerr << CYAN << "Error: bad date format => " << RESET << line << std::endl;
-                continue;
-            }
-            std::istringstream valueStream(valueString);
-            if (!(valueStream >> value)) {
-                std::cerr << BLUE << "Error: value out of range." << RESET << std::endl;
-                continue;
-            }
-            if (!valueStream.eof()) {
-                std::cerr << YELLOW << "Error: bad value format" << RESET << std::endl;
-                continue;
-            }
-            double rate = exchange.getClosestPrice(date);
-            std::cout << date << " => " << std::fixed << std::setprecision(2) << value << " = " << (value * rate) << std::endl;
-        } else {
-            trim(line);
-            if (!line.empty() && !(line.find("date") && !(line.find("value")))) {
-                std::cerr << GREEN << "Error: bad input => " << RESET << line << "\n";
+    getline(infile, line);
+    if (line.find("date | value") != std::string::npos) {
+        while (getline(infile, line)) {
+            std::istringstream ss(line);
+            if (getline(ss, date, '|') && getline(ss, valueString)) {
+                trim(date);
+                trim(valueString);
+                if (!exchange.validateDate(date)) {
+                    std::cerr << CYAN << "Error: bad date format => " << RESET << line << std::endl;
+                    continue;
+                }
+                // std::istringstream valueStream(valueString);
+                if (exchange.validateValue(valueString) == false) {
+                    std::cerr << BLUE << "Error: value out of range." << RESET << std::endl;
+                    continue;
+                }
+                std::istringstream valueStream(valueString);
+                valueStream >> value;
+                if (!valueStream.eof()) {
+                    std::cerr << YELLOW << "Error: bad value format" << RESET << std::endl;
+                    continue;
+                }
+                double rate = exchange.getClosestPrice(date);
+                std::cout << date << " => " << value << std::fixed << std::setprecision(2) << " = " << (value * rate) << std::endl;
+            } else {
+                trim(line);
+                if (!line.empty()) {
+                    std::cerr << GREEN << "Error: bad input => " << RESET << line << "\n";
+                }
             }
         }
     }
+
     return 0;
 }

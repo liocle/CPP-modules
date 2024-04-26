@@ -57,10 +57,9 @@ bool BitcoinExchange::validateValue(const std::string& valueString) {
 
     char extra;
     if (ss >> extra) {
+        std::cout << RED << "here" << RESET << std::endl;
         return false; // Extra characters present after the number
     }
-
-    std::cout << "Extra char: \"" << extra <<+ "\", valueString: \"" << valueString << "\", value: \"" << value << "\"\n";
 
     if (value < 0.0f || value > 1000.0f) {
         return false; 
