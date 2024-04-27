@@ -50,14 +50,12 @@ bool BitcoinExchange::validateValue(const std::string& valueString) {
     float value = 0;
     std::istringstream ss(valueString);
 
-
     if (!(ss >> value)){
         return false;
     }
 
     char extra;
     if (ss >> extra) {
-        std::cout << RED << "here" << RESET << std::endl;
         return false; // Extra characters present after the number
     }
 

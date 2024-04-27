@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     }
 
     std::string line, date, valueString;
-    int value;
+    float value;
     BitcoinExchange exchange("./data.csv");
 
     getline(infile, line);
@@ -47,26 +47,27 @@ int main(int argc, char** argv) {
                 trim(date);
                 trim(valueString);
                 if (!exchange.validateDate(date)) {
-                    std::cerr << CYAN << "Error: bad date format => " << RESET << line << std::endl;
+                std::cerr << CYAN << "Error, usage: \"YYYY-MM-DD | value\" =>\t" << "\"" << line << "\"" << RESET << std::endl;
                     continue;
                 }
-                // std::istringstream valueStream(valueString);
                 if (exchange.validateValue(valueString) == false) {
-                    std::cerr << BLUE << "Error: value out of range." << RESET << std::endl;
+                    std::cerr << BLUE << "Error: Accepted value range [0, 1000]:\t" <<  "\"" <<  valueString << "\"" << RESET << std::endl;
                     continue;
                 }
                 std::istringstream valueStream(valueString);
                 valueStream >> value;
                 if (!valueStream.eof()) {
-                    std::cerr << YELLOW << "Error: bad value format" << RESET << std::endl;
+                    std::cerr << YELLOW << "Error: Accepted range [0, 1000], got:\t" << "\"" << valueString << "\"" << RESET <<  std::endl;
                     continue;
                 }
                 double rate = exchange.getClosestPrice(date);
-                std::cout << date << " => " << value << std::fixed << std::setprecision(2) << " = " << (value * rate) << std::endl;
+                std::cout << date << " =>\t\t\t\t" << value << std::fixed << std::setprecision(2) << " =\t" << (value * rate) << std::endl;
             } else {
                 trim(line);
-                if (!line.empty()) {
-                    std::cerr << GREEN << "Error: bad input => " << RESET << line << "\n";
+                if (line.find("##") != std::string::npos) {
+                    std::cerr << RED << "\nTEST SECTION: " << line << "\n" << RESET;
+                } else if (!line.empty()) {
+                std::cerr << CYAN << "Error, usage: \"YYYY-MM-DD | value\" =>\t" << "\"" << line << "\"" << RESET << std::endl;
                 }
             }
         }
