@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
                     continue;
                 }
                 double rate = exchange.getClosestPrice(date);
-                std::cout << date << " =>\t\t\t\t" << value << std::fixed << std::setprecision(2) << " =\t" << (value * rate) << std::endl;
+                std::cout << date << " =>\t\t\t\t" << value << std::fixed << std::setprecision(2) << " = " << (value * rate) << std::endl;
             } else {
                 trim(line);
                 if (line.find("##") != std::string::npos) {
