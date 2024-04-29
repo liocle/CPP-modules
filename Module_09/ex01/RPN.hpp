@@ -1,9 +1,8 @@
 #ifndef RPN_HPP
-#define RPN_HPP
+# define RPN_HPP
 
 #include <stdexcept>
 #include <string>
-#include <stack>
 
 class RPN {
 private:
@@ -21,4 +20,4 @@ public:
   };
 };
 
-#endif
+#endif // RPN_HPP
