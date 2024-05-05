@@ -42,13 +42,13 @@ int main(int argc, char *argv[]) {
 
     std::cout << "Time to process a range of " << inputVector.size() << " elements with std::vector: " << vectorTime.count() << " us" << std::endl;
 
-    // Sort using list
-    auto startList = std::chrono::high_resolution_clock::now();
-    auto sortedList = PmergeMe::mergeInsertSortList(inputList);
-    auto endList = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::micro> listTime = endList - startList;
-    std::cout << " test " << std::endl;
-    std::cout << "Time to process a range of " << inputList.size() << " elements with std::list: " << listTime.count() << " us" << std::endl;
+    // // Sort using list
+    // auto startList = std::chrono::high_resolution_clock::now();
+    // auto sortedList = PmergeMe::mergeInsertSortList(inputList);
+    // auto endList = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double, std::micro> listTime = endList - startList;
+    // std::cout << " test " << std::endl;
+    // std::cout << "Time to process a range of " << inputList.size() << " elements with std::list: " << listTime.count() << " us" << std::endl;
 
     // Display sorted data from vector
     std::cout << "After: ";
