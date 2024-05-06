@@ -67,7 +67,7 @@ void PmergeMe::binaryInsertSmallerValues(std::vector<std::pair<int, int>>& vecto
     j++;  // lets move to second pair of vectorOfPairs
 
     //fill up sorted larger pair members to mainChain
-    for(size_t i = j; i <= vectorOfPairs.size(); ++i) {
+    for(size_t i = j; i < vectorOfPairs.size(); ++i) {
         mainChain.push_back(vectorOfPairs[i].first);
     }
     
