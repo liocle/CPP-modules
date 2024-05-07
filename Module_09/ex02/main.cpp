@@ -1,10 +1,15 @@
+#include "PmergeMe.hpp"
+#include <algorithm>
+#include <iostream>
 #include <chrono>
 #include <cstdlib>
-#include <cstring>
-#include <iostream>
-#include <list>
 #include <vector>
-#include "PmergeMe.hpp"
+#include <list>
+#include <numeric>  // For std::accumulate
+
+bool isSorted(const std::vector<int>& data) {
+    return std::is_sorted(data.begin(), data.end());
+}
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -15,26 +20,21 @@ int main(int argc, char* argv[]) {
     std::vector<int> inputVector;
     std::list<int> inputList;
 
-    // Parse command line arguments and check for valid positive integers
+    // Parse command line arguments and check for valid integers
     for (int i = 1; i < argc; ++i) {
         char* p;
         long converted = strtol(argv[i], &p, 10);
-        if (*p || converted < 1) {
+        if (*p || converted < 1 || converted > static_cast<long>(std::numeric_limits<int>::max())) {
             std::cout << "Error: Invalid input. Please provide positive integers only.\n";
             return 1;
         }
-        if (converted > static_cast<long>(std::numeric_limits<int>::max())) {
-            std::cout << "Error: Invalid input. Please provide positive integers only.\n";
-            return 1;
-        }
-        inputVector.push_back(converted);
-        inputList.push_back(converted);
+        inputVector.push_back(static_cast<int>(converted));
+        inputList.push_back(static_cast<int>(converted));
     }
 
-    // Display unsorted data
-    std::cout << "Before: ";
-    for (int num : inputVector) {
-        std::cout << num << " ";
+    std::cout << "Processing " << inputVector.size() << " elements: ";
+    for (size_t number: inputVector) {
+        std::cout << number << " ";
     }
     std::cout << std::endl;
 
@@ -44,23 +44,33 @@ int main(int argc, char* argv[]) {
     auto endVector = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::micro> vectorTime = endVector - startVector;
 
-    std::cout << "Time to process a range of " << inputVector.size() << " elements with std::vector: " << vectorTime.count() << " us"
-              << std::endl;
+    std::cout << "Time to process: " << vectorTime.count() << " us\n";
+    bool sortedCheck = isSorted(sortedVector);
+    std::cout << "Is the list sorted? " << (sortedCheck ? "Yes" : "No") << std::endl;
 
-    // // Sort using list
-    // auto startList = std::chrono::high_resolution_clock::now();
-    // auto sortedList = PmergeMe::mergeInsertSortList(inputList);
-    // auto endList = std::chrono::high_resolution_clock::now();
-    // std::chrono::duration<double, std::micro> listTime = endList - startList;
-    // std::cout << " test " << std::endl;
-    // std::cout << "Time to process a range of " << inputList.size() << " elements with std::list: " << listTime.count() << " us" << std::endl;
+    // Statistics and integrity checks
+    std::cout << "Input list size: " << inputVector.size() << std::endl;
+    std::cout << "Sorted list size: " << sortedVector.size() << std::endl;
 
-    // Display sorted data from vector
-    std::cout << "After: ";
-    for (int num : sortedVector) {
-        std::cout << num << " ";
+    int sumInput = std::accumulate(inputVector.begin(), inputVector.end(), 0);
+    int sumSorted = std::accumulate(sortedVector.begin(), sortedVector.end(), 0);
+    std::cout << "Sum of input list: " << sumInput << std::endl;
+    std::cout << "Sum of sorted list: " << sumSorted << std::endl;
+
+    if (sumInput == sumSorted && inputVector.size() == sortedVector.size()) {
+        std::cout << "No numbers were dropped or changed during sorting." << std::endl;
+    } else {
+        std::cout << "Error: Data mismatch detected!" << std::endl;
     }
-    std::cout << std::endl;
+
+    if (inputVector.size() < 30) {
+        std::cout << "Sorted list: ";
+        for (int num : sortedVector) {
+            std::cout << num << " ";
+        }
+        std::cout << std::endl;
+    }
 
     return 0;
 }
+
