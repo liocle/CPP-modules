@@ -15,7 +15,7 @@ class PmergeMe {
     static std::vector<int> mergeInsertSortVector(const std::vector<int>& arr);
 
    private:
-    static void mergeInsertPairsLargerValues(std::vector<std::pair<int, int>> &vectorOfPairs, unsigned int left, unsigned int right);
+    static void mergeInsertPairsLargerValues(std::vector<std::pair<int, int>> &vectorOfPairs, unsigned int left, unsigned int right, SortContext context);
     static void binaryInsertSmallerValues(std::vector<std::pair<int, int>>& vectorOfPairs, std::vector<int>& mainChain, SortContext context);
 };
 
