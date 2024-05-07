@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     for (int i = 1; i < argc; ++i) {
         char* p;
         long converted = strtol(argv[i], &p, 10);
-        if (*p || converted < 1 || converted > static_cast<long>(std::numeric_limits<int>::max())) {
+        if (*p || converted < 0 || converted > static_cast<long>(std::numeric_limits<int>::max())) {
             std::cout << "Error: Invalid input. Please provide positive integers only.\n";
             return 1;
         }
@@ -52,8 +52,8 @@ int main(int argc, char* argv[]) {
     std::cout << "Input list size: " << inputVector.size() << std::endl;
     std::cout << "Sorted list size: " << sortedVector.size() << std::endl;
 
-    int sumInput = std::accumulate(inputVector.begin(), inputVector.end(), 0);
-    int sumSorted = std::accumulate(sortedVector.begin(), sortedVector.end(), 0);
+    size_t sumInput = std::accumulate(inputVector.begin(), inputVector.end(), 0);
+    size_t sumSorted = std::accumulate(sortedVector.begin(), sortedVector.end(), 0);
     std::cout << "Sum of input list: " << sumInput << std::endl;
     std::cout << "Sum of sorted list: " << sumSorted << std::endl;
 
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Error: Data mismatch detected!" << std::endl;
     }
 
-    if (inputVector.size() < 30) {
+    if (inputVector.size() < 50) {
         std::cout << "Sorted list: ";
         for (int num : sortedVector) {
             std::cout << num << " ";
