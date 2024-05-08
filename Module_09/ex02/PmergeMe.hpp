@@ -18,7 +18,7 @@ class PmergeMe {
    private:
     PmergeMe() = delete;
     ~PmergeMe() = delete;
-    PmergeMe operator=(const PmergeMe& source) = delete;
+    PmergeMe& operator=(const PmergeMe& source) = delete;
     PmergeMe(const PmergeMe& source) = delete;
 
     template <typename T>

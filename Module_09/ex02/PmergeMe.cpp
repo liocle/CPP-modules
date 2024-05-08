@@ -74,8 +74,9 @@ void PmergeMe::binaryInsertSmallerValues(T& pairs, K& mainChain, SortContext& co
 
     mainChain.push_back(pairs[j].second);  // second member of first pair is known to be smaller than first member
     mainChain.push_back(pairs[j].first);
-    j++;  // move to second pair
+    j++;  // first pair hanlded
 
+    // Ford and Johnson requires sorted larger pair valued to fill main chain
     for (size_t i = j; i < pairs.size(); ++i) {
         mainChain.push_back(pairs[i].first);
     }
@@ -92,10 +93,12 @@ void PmergeMe::binaryInsertSmallerValues(T& pairs, K& mainChain, SortContext& co
         }
     }
 
+    // Ford and Johnson require after reaching half of the pairs to insert last unpaired value if existing
     if (context.hasOddLastElement == true) {
         binaryInsert(mainChain, context.oddLastElement, context);
     }
 
+    // Ford and Johnson insert each paired second member from last pair back to middle pair
     for (size_t k = pairs.size() - 1; k > (pairs.size() - 1) / 2; --k) {
         binaryInsert(mainChain, pairs[k].second, context);
     }

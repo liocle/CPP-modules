@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
     std::cout << YELLOW << "Vector time to process:\t" << RESET << vectorTime.count() << " us\n" << RESET;
     std::cout << "Comparison made:\t" << contextVector.comparisons << std::endl;
 
-    // Sort using list
+    // Sort using deque
     SortContext contextDeque;
     auto startDeque = std::chrono::high_resolution_clock::now();
     auto sortedDeque = PmergeMe::mergeInsertSort(inputDeque, contextDeque);
@@ -73,8 +73,8 @@ int main(int argc, char* argv[]) {
     std::cout << "Input vector size:	" << inputVector.size() << std::endl;
     std::cout << "Sorted vector size:	" << sortedVector.size() << std::endl;
 
-    size_t sumInputVector = std::accumulate(inputVector.begin(), inputVector.end(), 0);
-    size_t sumSortedVector = std::accumulate(sortedVector.begin(), sortedVector.end(), 0);
+    unsigned long long sumInputVector = std::accumulate(inputVector.begin(), inputVector.end(), 0ull, std::plus<unsigned long long>());
+    size_t sumSortedVector = std::accumulate(sortedVector.begin(), sortedVector.end(), 0ull, std::plus<unsigned long long>());
     std::cout << "Sum of input vector:	" << sumInputVector << std::endl;
     std::cout << "Sum of sorted vector:	" << sumSortedVector << std::endl;
     bool sortedCheckVector = isSorted(sortedVector);
@@ -106,17 +106,17 @@ int main(int argc, char* argv[]) {
                   << RESET;
     }
 
-    // ----- Statistics and integrity checks for list -----
-    std::cout << CYAN << "\n----- Statistics and integrity check for list ----\n" << RESET;
-    std::cout << "Input list size:	" << inputDeque.size() << std::endl;
-    std::cout << "Sorted list size:	" << sortedDeque.size() << std::endl;
+    // ----- Statistics and integrity checks for deque -----
+    std::cout << CYAN << "\n----- Statistics and integrity check for deque ----\n" << RESET;
+    std::cout << "Input deque size:	" << inputDeque.size() << std::endl;
+    std::cout << "Sorted deque size:	" << sortedDeque.size() << std::endl;
 
-    size_t sumInputDeque = std::accumulate(inputDeque.begin(), inputDeque.end(), 0);
-    size_t sumSortedDeque = std::accumulate(sortedDeque.begin(), sortedDeque.end(), 0);
-    std::cout << "Sum of input list:	" << sumInputDeque << std::endl;
-    std::cout << "Sum of sorted list:	" << sumSortedDeque << std::endl;
+    size_t sumInputDeque = std::accumulate(inputDeque.begin(), inputDeque.end(), 0ull, std::plus<size_t>());
+    size_t sumSortedDeque = std::accumulate(sortedDeque.begin(), sortedDeque.end(), 0ull, std::plus<size_t>());
+    std::cout << "Sum of input deque:	" << sumInputDeque << std::endl;
+    std::cout << "Sum of sorted deque:	" << sumSortedDeque << std::endl;
     bool sortedCheckDeque = isSorted(sortedDeque);
-    std::cout << "Is the list sorted?\t" << (sortedCheckDeque ? GREEN "Yes" : RED "No") << std::endl;
+    std::cout << "Is the deque sorted?\t" << (sortedCheckDeque ? GREEN "Yes" : RED "No") << std::endl;
 
     if (sumInputDeque == sumSortedDeque && inputVector.size() == sortedVector.size()) {
         std::cout << GREEN << "No numbers were dropped or changed during sorting." << RESET << std::endl;
@@ -124,22 +124,22 @@ int main(int argc, char* argv[]) {
         std::cout << RED << "Error: Data mismatch detected!" << RESET << std::endl;
     }
 
-    // Print unsorted / sorted lists
+    // Print unsorted / sorted deques
     if (inputDeque.size() < maxElementToPrint) {
-        std::cout << "Unsorted list:\t\t";
+        std::cout << "Unsorted deque:\t\t";
         for (size_t number : inputDeque) {
             std::cout << number << " ";
         }
         std::cout << std::endl;
         if (inputDeque.size() < maxElementToPrint) {
-            std::cout << YELLOW << "Sorted list:\t\t" << RESET;
+            std::cout << YELLOW << "Sorted deque:\t\t" << RESET;
             for (int num : sortedDeque) {
                 std::cout << num << " ";
             }
             std::cout << std::endl;
         }
     } else {
-        std::cout << YELLOW << "Currently limitating printing of unsorted and sorted list to " << maxElementToPrint << " elements\n"
+        std::cout << YELLOW << "Currently limitating printing of unsorted and sorted deque to " << maxElementToPrint << " elements\n"
                   << RESET;
     }
 
