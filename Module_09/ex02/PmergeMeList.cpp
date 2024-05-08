@@ -5,7 +5,7 @@
 /**
  * @brief Helper function to perform binary insertion for lists
  */
-void binaryInsertlist(std::list<int>& mainChain, int value) {
+void PmergeMe::listBinaryInsertList(std::list<int>& mainChain, int value) {
     // std::cout << "\t-- Inserting value " << value << " into the main chain" << std::endl;
     auto it = std::lower_bound(mainChain.begin(), mainChain.end(), value);
     mainChain.insert(it, value);
@@ -20,7 +20,7 @@ void binaryInsertlist(std::list<int>& mainChain, int value) {
  * @brief  Helper function for merging sorted pairs of larger values
  *
  */
-void PmergeMe::mergeInsertPairsLargerValues(std::list<std::pair<int, int>>& listOfPairs, SortContext context) {
+void PmergeMe::listMergeInsertPairsLargerValues(std::list<std::pair<int, int>>& listOfPairs, SortContext context) {
     if (listOfPairs.size() <= 1) {  // base case for the recursion
         return;
     }
@@ -31,8 +31,8 @@ void PmergeMe::mergeInsertPairsLargerValues(std::list<std::pair<int, int>>& list
     std::list<std::pair<int, int>> rightHalf(mid, listOfPairs.end());
 
     // Recursively divide and sort both halves
-    mergeInsertPairsLargerValues(leftHalf, context);
-    mergeInsertPairsLargerValues(rightHalf, context);
+    listMergeInsertPairsLargerValues(leftHalf, context);
+    listMergeInsertPairsLargerValues(rightHalf, context);
 
     // Merge two halves
     auto leftIt = leftHalf.begin();
@@ -70,7 +70,7 @@ void PmergeMe::mergeInsertPairsLargerValues(std::list<std::pair<int, int>>& list
  * @brief binary insertion of pairs' second member
  *
  */
-void PmergeMe::binaryInsertSmallerValues(std::list<std::pair<int, int>>& listOfPairs, std::list<int>& mainChain, SortContext context) {
+void PmergeMe::listBinaryInsertSmallerValues(std::list<std::pair<int, int>>& listOfPairs, std::list<int>& mainChain, SortContext context) {
     // std::cout << "\t * Prior Binary insertion, feed main chain starting from first pair\n";
 
     auto pairIt = listOfPairs.begin();
@@ -99,7 +99,7 @@ void PmergeMe::binaryInsertSmallerValues(std::list<std::pair<int, int>>& listOfP
     // std::cout << " <- Expected n = " << listOfPairs.size() + 1 << std::endl;
 
     // Ford and Johnson generalization for first half of list of Demuth five element sorting
-    auto mid = std::next(listOfPairs.begin(), (listOfPairs.size() -1 ) / 2);
+    auto mid = std::next(listOfPairs.begin(), (listOfPairs.size() - 1) / 2);
     for (; pairIt != mid; ++pairIt) {  // until first half of amount of pairs, handle listOfPairs[j+1].second, then listofPairs[j].second.
         auto pairItNext = pairIt;
         pairItNext++;
@@ -110,13 +110,13 @@ void PmergeMe::binaryInsertSmallerValues(std::list<std::pair<int, int>>& listOfP
             // std::cout << "\t###2/2### Problematic insert: j + 1 = " << j + 1
             //           << " (listOfPairs.size() -1 ) / 2 = " << (listOfPairs.size() - 1) / 2 << " current pair.second"
             //           << listOfPairs[j + 1].second << std::endl;
-            binaryInsertlist(mainChain, pairItNext->second);
-            binaryInsertlist(mainChain, pairIt->second);
+            listBinaryInsertList(mainChain, pairItNext->second);
+            listBinaryInsertList(mainChain, pairIt->second);
             pairIt++;
         } else {
             // std::cout << "\t### Problematic insert: j = " << j << " (listOfPairs.size() -1 ) / 2 = " << (listOfPairs.size() - 1) / 2
             //           << " current pair.second" << listOfPairs[j].second << std::endl;
-            binaryInsertlist(mainChain, pairIt->second);
+            listBinaryInsertList(mainChain, pairIt->second);
         }
     }
     // std::cout << "\n\t * Binary inserted remaining first half of pairs' second member to main chain ";
@@ -126,7 +126,7 @@ void PmergeMe::binaryInsertSmallerValues(std::list<std::pair<int, int>>& listOfP
     // std::cout << "\n";
 
     if (context.hasOddLastElement == true) {
-        binaryInsertlist(mainChain, context.oddLastElement);
+        listBinaryInsertList(mainChain, context.oddLastElement);
         // std::cout << "\n\t * Binary inserted oddLastElement: \"" << context.oddLastElement << "\" main chain contains:\n\t   -> ";
         // for (int number : mainChain) {
         //     std::cout << number << " ";
@@ -136,7 +136,7 @@ void PmergeMe::binaryInsertSmallerValues(std::list<std::pair<int, int>>& listOfP
     // std::cout << "\n\t * Binary inserting remaining pairs second member:\n\t ";
     for (size_t k = listOfPairs.size() - 1; k > (listOfPairs.size() - 1) / 2; --k) {
         // std::cout << " (" << listOfPairs[k].first << ", " << listOfPairs[k].second << ") ";
-        binaryInsertlist(mainChain, pairIt->second);
+        listBinaryInsertList(mainChain, pairIt->second);
     }
     // std::cout << "\n\t * Main chain contains now:\n\t   -> ";
     // for (int number : mainChain) {
@@ -161,7 +161,7 @@ std::list<int> PmergeMe::mergeInsertSortList(const std::list<int>& input) {
     auto inputIt = input.begin();
     auto inputItNext = inputIt;
     inputItNext++;
-    for (; inputIt != input.end(); inputIt = std::next(inputIt, 2)) {           // fill pairs with input
+    for (; inputIt != input.end(); inputIt = std::next(inputIt, 2)) {  // fill pairs with input
         if (i + 1 < input.size()) {
             if (*inputIt >= *inputItNext) {  // sort first and second members of pairs, larger values populate first member.
                 listOfPairs.push_back(std::make_pair(*inputIt, *inputItNext));
@@ -174,10 +174,10 @@ std::list<int> PmergeMe::mergeInsertSortList(const std::list<int>& input) {
         }
     }
 
-    mergeInsertPairsLargerValues(listOfPairs, context);
+    listMergeInsertPairsLargerValues(listOfPairs, context);
 
     std::list<int> mainChain;
-    binaryInsertSmallerValues(listOfPairs, mainChain, context);
+    listBinaryInsertSmallerValues(listOfPairs, mainChain, context);
 
     return mainChain;
 }

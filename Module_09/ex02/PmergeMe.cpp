@@ -5,7 +5,7 @@
 /**
  * @brief Helper function to perform binary insertion for vectors
  */
-void binaryInsertVector(std::vector<int>& mainChain, int value) {
+void PmergeMe::vectorBinaryInsertVector(std::vector<int>& mainChain, int value) {
     // std::cout << "\t-- Inserting value " << value << " into the main chain" << std::endl;
     auto it = std::lower_bound(mainChain.begin(), mainChain.end(), value);
     mainChain.insert(it, value);
@@ -20,8 +20,8 @@ void binaryInsertVector(std::vector<int>& mainChain, int value) {
  * @brief  Helper function for merging sorted pairs of larger values
  *
  */
-void PmergeMe::mergeInsertPairsLargerValues(std::vector<std::pair<int, int>>& vectorOfPairs, unsigned int left, unsigned int right,
-                                            SortContext context) {
+void PmergeMe::vectorMergeInsertPairsLargerValues(std::vector<std::pair<int, int>>& vectorOfPairs, unsigned int left, unsigned int right,
+                                                  SortContext context) {
     if (left >= right) {
         return;
     }
@@ -30,8 +30,8 @@ void PmergeMe::mergeInsertPairsLargerValues(std::vector<std::pair<int, int>>& ve
     unsigned int mid = (left + right) / 2;
 
     // Recursively divide and sort both halves
-    mergeInsertPairsLargerValues(vectorOfPairs, left, mid, context);
-    mergeInsertPairsLargerValues(vectorOfPairs, mid + 1, right, context);
+    vectorMergeInsertPairsLargerValues(vectorOfPairs, left, mid, context);
+    vectorMergeInsertPairsLargerValues(vectorOfPairs, mid + 1, right, context);
 
     // Merging sorted pairs by their larger values
     std::vector<std::pair<int, int>> temp;
@@ -74,7 +74,8 @@ void PmergeMe::mergeInsertPairsLargerValues(std::vector<std::pair<int, int>>& ve
  * @brief binary insertion of pairs' second member
  *
  */
-void PmergeMe::binaryInsertSmallerValues(std::vector<std::pair<int, int>>& vectorOfPairs, std::vector<int>& mainChain, SortContext context) {
+void PmergeMe::vectorBinaryInsertSmallerValues(std::vector<std::pair<int, int>>& vectorOfPairs, std::vector<int>& mainChain,
+                                               SortContext context) {
     size_t j = 0;
     // std::cout << "\t * Prior Binary insertion, feed main chain starting from first pair\n";
 
@@ -112,13 +113,13 @@ void PmergeMe::binaryInsertSmallerValues(std::vector<std::pair<int, int>>& vecto
             // std::cout << "\t###2/2### Problematic insert: j + 1 = " << j + 1
             //           << " (vectorOfPairs.size() -1 ) / 2 = " << (vectorOfPairs.size() - 1) / 2 << " current pair.second"
             //           << vectorOfPairs[j + 1].second << std::endl;
-            binaryInsertVector(mainChain, vectorOfPairs[j + 1].second);
-            binaryInsertVector(mainChain, vectorOfPairs[j].second);
+            vectorBinaryInsertVector(mainChain, vectorOfPairs[j + 1].second);
+            vectorBinaryInsertVector(mainChain, vectorOfPairs[j].second);
             j++;
         } else {
             // std::cout << "\t### Problematic insert: j = " << j << " (vectorOfPairs.size() -1 ) / 2 = " << (vectorOfPairs.size() - 1) / 2
             //           << " current pair.second" << vectorOfPairs[j].second << std::endl;
-            binaryInsertVector(mainChain, vectorOfPairs[j].second);
+            vectorBinaryInsertVector(mainChain, vectorOfPairs[j].second);
         }
     }
     // std::cout << "\n\t * Binary inserted remaining first half of pairs' second member to main chain ";
@@ -128,7 +129,7 @@ void PmergeMe::binaryInsertSmallerValues(std::vector<std::pair<int, int>>& vecto
     // std::cout << "\n";
 
     if (context.hasOddLastElement == true) {
-        binaryInsertVector(mainChain, context.oddLastElement);
+        vectorBinaryInsertVector(mainChain, context.oddLastElement);
         // std::cout << "\n\t * Binary inserted oddLastElement: \"" << context.oddLastElement << "\" main chain contains:\n\t   -> ";
         // for (int number : mainChain) {
         //     std::cout << number << " ";
@@ -138,7 +139,7 @@ void PmergeMe::binaryInsertSmallerValues(std::vector<std::pair<int, int>>& vecto
     // std::cout << "\n\t * Binary inserting remaining pairs second member:\n\t ";
     for (size_t k = vectorOfPairs.size() - 1; k > (vectorOfPairs.size() - 1) / 2; --k) {
         // std::cout << " (" << vectorOfPairs[k].first << ", " << vectorOfPairs[k].second << ") ";
-        binaryInsertVector(mainChain, vectorOfPairs[k].second);
+        vectorBinaryInsertVector(mainChain, vectorOfPairs[k].second);
     }
     // std::cout << "\n\t * Main chain contains now:\n\t   -> ";
     // for (int number : mainChain) {
@@ -159,7 +160,6 @@ std::vector<int> PmergeMe::mergeInsertSortVector(const std::vector<int>& input) 
     size_t i = 0;
     SortContext context;  // if input contains odd amount of data, this will be set to the last value, else flagged as non used with INT_MIN
 
-
     std::vector<std::pair<int, int>> vectorOfPairs;  // Declare vector of pairs
     for (; i < input.size(); i += 2) {               // fill pairs with input
         if (i + 1 < input.size()) {
@@ -176,10 +176,10 @@ std::vector<int> PmergeMe::mergeInsertSortVector(const std::vector<int>& input) 
 
     unsigned int vectorStartIndex = 0;
     unsigned int vectorLastIndex = vectorOfPairs.size() - 1;
-    mergeInsertPairsLargerValues(vectorOfPairs, vectorStartIndex, vectorLastIndex, context);
+    vectorMergeInsertPairsLargerValues(vectorOfPairs, vectorStartIndex, vectorLastIndex, context);
 
     std::vector<int> mainChain;
-    binaryInsertSmallerValues(vectorOfPairs, mainChain, context);
+    vectorBinaryInsertSmallerValues(vectorOfPairs, mainChain, context);
 
     return mainChain;
 }

@@ -6,14 +6,16 @@
 #include <vector>
 #include <list>
 #include <numeric>  // For std::accumulate
+#include "Colors.h"
 
-bool isSorted(const std::vector<int>& data) {
+template <typename T> 
+bool isSorted(const T& data) {
     return std::is_sorted(data.begin(), data.end());
 }
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cout << "Error: No numbers provided.\n";
+        std::cout << RED << "Error: No numbers provided.\n" << RESET;
         return 1;
     }
 
@@ -25,14 +27,14 @@ int main(int argc, char* argv[]) {
         char* p;
         long converted = strtol(argv[i], &p, 10);
         if (*p || converted < 0 || converted > static_cast<long>(std::numeric_limits<int>::max())) {
-            std::cout << "Error: Invalid input. Please provide positive integers only.\n";
+            std::cout << RED << "Error: Invalid input. Please provide positive integers only.\n" << RESET;
             return 1;
         }
         inputVector.push_back(static_cast<int>(converted));
         inputList.push_back(static_cast<int>(converted));
     }
 
-    std::cout << "Processing " << inputVector.size() << " elements: ";
+    std::cout << "Processing " << inputVector.size() << " elements:\t";
     for (size_t number: inputVector) {
         std::cout << number << " ";
     }
@@ -43,29 +45,75 @@ int main(int argc, char* argv[]) {
     auto sortedVector = PmergeMe::mergeInsertSortVector(inputVector);
     auto endVector = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::micro> vectorTime = endVector - startVector;
+    std::cout << "Vector time to process:\t" << vectorTime.count() << " us\n";
 
-    std::cout << "Time to process: " << vectorTime.count() << " us\n";
-    bool sortedCheck = isSorted(sortedVector);
-    std::cout << "Is the list sorted? " << (sortedCheck ? "Yes" : "No") << std::endl;
+    // Sort using list
+    auto startList = std::chrono::high_resolution_clock::now();
+    auto sortedList = PmergeMe::mergeInsertSortList(inputList);
+    auto endList = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::micro> listTime = endList - startList;
+    std::cout << "List time to process:\t" << listTime.count() << " us\n";
 
-    // Statistics and integrity checks
-    std::cout << "Input list size: " << inputVector.size() << std::endl;
-    std::cout << "Sorted list size: " << sortedVector.size() << std::endl;
+    //
+    // Statistics and integrity checks for Vector
+    std::cout << CYAN << "\n----- Statistics and integrity check for vector ----\n" << RESET;
+    std::cout << "Input vector size:	" << inputVector.size() << std::endl;
+    std::cout << "Sorted vector size:	" << sortedVector.size() << std::endl;
 
-    size_t sumInput = std::accumulate(inputVector.begin(), inputVector.end(), 0);
-    size_t sumSorted = std::accumulate(sortedVector.begin(), sortedVector.end(), 0);
-    std::cout << "Sum of input list: " << sumInput << std::endl;
-    std::cout << "Sum of sorted list: " << sumSorted << std::endl;
+    size_t sumInputVector = std::accumulate(inputVector.begin(), inputVector.end(), 0);
+    size_t sumSortedVector = std::accumulate(sortedVector.begin(), sortedVector.end(), 0);
+    std::cout << "Sum of input vector:	" << sumInputVector << std::endl;
+    std::cout << "Sum of sorted vector:	" << sumSortedVector << std::endl;
+    bool sortedCheckVector = isSorted(sortedVector);
+    std::cout << "Is the vector sorted? " << (sortedCheckVector ? GREEN "\tYes" : RED "\tNo") << RESET << std::endl;
 
-    if (sumInput == sumSorted && inputVector.size() == sortedVector.size()) {
-        std::cout << "No numbers were dropped or changed during sorting." << std::endl;
+    if (sumInputVector == sumSortedVector && inputVector.size() == sortedVector.size()) {
+        std::cout << GREEN << "No numbers were dropped or changed during sorting." << RESET << std::endl;
     } else {
-        std::cout << "Error: Data mismatch detected!" << std::endl;
+        std::cout << RED << "Error: Data mismatch detected!" << RESET << std::endl;
     }
 
+    std::cout << "Unsorted vector:\t";
+    for (size_t number: inputVector) {
+        std::cout << number << " ";
+    }
+    std::cout << std::endl;
+
     if (inputVector.size() < 50) {
-        std::cout << "Sorted list: ";
+        std::cout << "Sorted vector:\t\t";
         for (int num : sortedVector) {
+            std::cout << num << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    // Statistics and integrity checks for list
+    std::cout << CYAN << "\n----- Statistics and integrity check for list ----\n" << RESET;
+    std::cout << "Input list size:	" << inputList.size() << std::endl;
+    std::cout << "Sorted list size:	" << sortedList.size() << std::endl;
+
+    size_t sumInputList = std::accumulate(inputList.begin(), inputList.end(), 0);
+    size_t sumSortedList = std::accumulate(sortedList.begin(), sortedList.end(), 0);
+    std::cout << "Sum of input list:	" << sumInputList << std::endl;
+    std::cout << "Sum of sorted list:	" << sumSortedList << std::endl;
+    bool sortedCheckList = isSorted(sortedList);
+    std::cout << "Is the list sorted?\t" << (sortedCheckList? GREEN "Yes" : RED "No") << std::endl;
+
+    if (sumInputList == sumSortedList && inputVector.size() == sortedVector.size()) {
+        std::cout << GREEN << "No numbers were dropped or changed during sorting." << RESET << std::endl;
+    } else {
+        std::cout << RED << "Error: Data mismatch detected!" << RESET << std::endl;
+    }
+
+    std::cout << "Unsorted list:\t\t";
+    for (size_t number: inputList) {
+        std::cout << number << " ";
+    }
+    std::cout << std::endl;
+
+    if (inputList.size() < 50) {
+        std::cout << "Sorted list:\t\t";
+        for (int num : sortedList) {
             std::cout << num << " ";
         }
         std::cout << std::endl;
