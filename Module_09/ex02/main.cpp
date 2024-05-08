@@ -1,14 +1,15 @@
-#include "PmergeMe.hpp"
 #include <algorithm>
-#include <iostream>
 #include <chrono>
 #include <cstdlib>
-#include <vector>
-#include <list>
+#include <deque>
+#include <iomanip>
+#include <iostream>
 #include <numeric>  // For std::accumulate
+#include <vector>
 #include "Colors.h"
+#include "PmergeMe.hpp"
 
-template <typename T> 
+template <typename T>
 bool isSorted(const T& data) {
     return std::is_sorted(data.begin(), data.end());
 }
@@ -20,7 +21,7 @@ int main(int argc, char* argv[]) {
     }
 
     std::vector<int> inputVector;
-    std::list<int> inputList;
+    std::deque<int> inputDeque;
 
     // Parse command line arguments and check for valid integers
     for (int i = 1; i < argc; ++i) {
@@ -31,31 +32,43 @@ int main(int argc, char* argv[]) {
             return 1;
         }
         inputVector.push_back(static_cast<int>(converted));
-        inputList.push_back(static_cast<int>(converted));
+        inputDeque.push_back(static_cast<int>(converted));
     }
 
-    std::cout << "Processing " << inputVector.size() << " elements:\t";
-    for (size_t number: inputVector) {
+    std::cout << YELLOW << "Processing " << inputVector.size() << " elements:\t";
+    for (size_t number : inputVector) {
         std::cout << number << " ";
     }
-    std::cout << std::endl;
+    std::cout << RESET << std::endl;
 
     // Sort using vector
+    SortContext contextVector;
     auto startVector = std::chrono::high_resolution_clock::now();
-    auto sortedVector = PmergeMe::mergeInsertSortVector(inputVector);
+    auto sortedVector = PmergeMe::mergeInsertSort(inputVector, contextVector);
     auto endVector = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::micro> vectorTime = endVector - startVector;
-    std::cout << "Vector time to process:\t" << vectorTime.count() << " us\n";
+    std::cout << YELLOW << "Vector time to process:\t" << RESET << vectorTime.count() << " us\n" << RESET;
+    std::cout << "Comparison made:\t" << contextVector.comparisons << std::endl;
 
     // Sort using list
-    auto startList = std::chrono::high_resolution_clock::now();
-    auto sortedList = PmergeMe::mergeInsertSortList(inputList);
-    auto endList = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::micro> listTime = endList - startList;
-    std::cout << "List time to process:\t" << listTime.count() << " us\n";
+    SortContext contextDeque;
+    auto startDeque = std::chrono::high_resolution_clock::now();
+    auto sortedDeque = PmergeMe::mergeInsertSort(inputDeque, contextDeque);
+    auto endDeque = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::micro> dequeTime = endDeque - startDeque;
+    std::cout << YELLOW << "Deque time to process:\t" << RESET << dequeTime.count() << " us\n" << RESET;
+    std::cout << "Comparison made:\t" << contextDeque.comparisons << std::endl;
 
-    //
-    // Statistics and integrity checks for Vector
+    std::cout << "Fastest container:\t";
+    if (vectorTime.count() <= dequeTime.count()) {
+        double speedup = (dequeTime.count() / vectorTime.count() - 1) * 100;
+        std::cout << YELLOW << "vector wins by " << std::fixed << std::setprecision(2) << speedup << "%\n" << RESET;
+    } else {
+        double speedup = (vectorTime.count() / dequeTime.count() - 1) * 100;
+        std::cout << YELLOW << "deque wins by " << std::fixed << std::setprecision(2) << speedup << "%\n" << RESET;
+    }
+
+    // ---- Statistics and integrity checks for Vector ----
     std::cout << CYAN << "\n----- Statistics and integrity check for vector ----\n" << RESET;
     std::cout << "Input vector size:	" << inputVector.size() << std::endl;
     std::cout << "Sorted vector size:	" << sortedVector.size() << std::endl;
@@ -73,52 +86,62 @@ int main(int argc, char* argv[]) {
         std::cout << RED << "Error: Data mismatch detected!" << RESET << std::endl;
     }
 
-    std::cout << "Unsorted vector:\t";
-    for (size_t number: inputVector) {
-        std::cout << number << " ";
+    // Print unsorted / sorted vectors
+    size_t maxElementToPrint = 100;
+    if (inputDeque.size() < maxElementToPrint) {
+        std::cout << "Unsorted vector:\t";
+        for (size_t number : inputVector) {
+            std::cout << number << " ";
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
-
-    if (inputVector.size() < 50) {
-        std::cout << "Sorted vector:\t\t";
+    if (inputVector.size() < maxElementToPrint) {
+        std::cout << YELLOW << "Sorted vector:\t\t" << RESET;
         for (int num : sortedVector) {
             std::cout << num << " ";
         }
         std::cout << std::endl;
+    } else {
+        std::cout << YELLOW << "Currently limitating printing of unsorted and sorted list to " << maxElementToPrint << " elements\n"
+                  << RESET;
     }
 
-    // Statistics and integrity checks for list
+    // ----- Statistics and integrity checks for list -----
     std::cout << CYAN << "\n----- Statistics and integrity check for list ----\n" << RESET;
-    std::cout << "Input list size:	" << inputList.size() << std::endl;
-    std::cout << "Sorted list size:	" << sortedList.size() << std::endl;
+    std::cout << "Input list size:	" << inputDeque.size() << std::endl;
+    std::cout << "Sorted list size:	" << sortedDeque.size() << std::endl;
 
-    size_t sumInputList = std::accumulate(inputList.begin(), inputList.end(), 0);
-    size_t sumSortedList = std::accumulate(sortedList.begin(), sortedList.end(), 0);
-    std::cout << "Sum of input list:	" << sumInputList << std::endl;
-    std::cout << "Sum of sorted list:	" << sumSortedList << std::endl;
-    bool sortedCheckList = isSorted(sortedList);
-    std::cout << "Is the list sorted?\t" << (sortedCheckList? GREEN "Yes" : RED "No") << std::endl;
+    size_t sumInputDeque = std::accumulate(inputDeque.begin(), inputDeque.end(), 0);
+    size_t sumSortedDeque = std::accumulate(sortedDeque.begin(), sortedDeque.end(), 0);
+    std::cout << "Sum of input list:	" << sumInputDeque << std::endl;
+    std::cout << "Sum of sorted list:	" << sumSortedDeque << std::endl;
+    bool sortedCheckDeque = isSorted(sortedDeque);
+    std::cout << "Is the list sorted?\t" << (sortedCheckDeque ? GREEN "Yes" : RED "No") << std::endl;
 
-    if (sumInputList == sumSortedList && inputVector.size() == sortedVector.size()) {
+    if (sumInputDeque == sumSortedDeque && inputVector.size() == sortedVector.size()) {
         std::cout << GREEN << "No numbers were dropped or changed during sorting." << RESET << std::endl;
     } else {
         std::cout << RED << "Error: Data mismatch detected!" << RESET << std::endl;
     }
 
-    std::cout << "Unsorted list:\t\t";
-    for (size_t number: inputList) {
-        std::cout << number << " ";
-    }
-    std::cout << std::endl;
-
-    if (inputList.size() < 50) {
-        std::cout << "Sorted list:\t\t";
-        for (int num : sortedList) {
-            std::cout << num << " ";
+    // Print unsorted / sorted lists
+    if (inputDeque.size() < maxElementToPrint) {
+        std::cout << "Unsorted list:\t\t";
+        for (size_t number : inputDeque) {
+            std::cout << number << " ";
         }
         std::cout << std::endl;
+        if (inputDeque.size() < maxElementToPrint) {
+            std::cout << YELLOW << "Sorted list:\t\t" << RESET;
+            for (int num : sortedDeque) {
+                std::cout << num << " ";
+            }
+            std::cout << std::endl;
+        }
+    } else {
+        std::cout << YELLOW << "Currently limitating printing of unsorted and sorted list to " << maxElementToPrint << " elements\n"
+                  << RESET;
     }
 
     return 0;
 }
-
