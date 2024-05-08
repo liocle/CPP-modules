@@ -2,82 +2,102 @@
 #include <algorithm>
 #include <iostream>
 
-// Helper function to perform binary insertion for vectors
-void binaryInsertVector(std::vector<int>& mainChain, int value) {
+template std::vector<int> PmergeMe::mergeInsertSort<std::vector<int>>(const std::vector<int>&, SortContext&);
+template std::deque<int> PmergeMe::mergeInsertSort<std::deque<int>>(const std::deque<int>&, SortContext&);
+
+/**
+ * @brief Helper function to perform binary insertion for vectors
+ */
+template <typename T>
+void PmergeMe::binaryInsert(T& mainChain, int value, SortContext& context) {
     auto it = std::lower_bound(mainChain.begin(), mainChain.end(), value);
+    context.comparisons++;
     mainChain.insert(it, value);
 }
 
-// // Helper function to perform binary insertion for lists
-// template <typename T>
-// void binaryInsertList(T &container, typename T::value_type value) {
-//   auto it = std::find_if(
-//       container.begin(), container.end(),
-//       [&](const typename T::value_type &elem) { return value < elem; });
-//   container.insert(it, value);
-// }
-
-// Helper function for merging sorted pairs of larger values
-void PmergeMe::mergeInsertPairsLargerValues(std::vector<std::pair<int, int>>& vectorOfPairs, unsigned int left, unsigned int right) {
-    if (left >= right)
+/**
+ * @brief  Helper function for merging sorted pairs of larger values
+ *
+ */
+template <typename T>
+void PmergeMe::mergeInsertPairsLargerValues(T& pairs, unsigned int left, unsigned int right, SortContext& context) {
+    if (left >= right) {
         return;
+    }
 
     // Find the middle point
     unsigned int mid = (left + right) / 2;
 
     // Recursively divide and sort both halves
-    mergeInsertPairsLargerValues(vectorOfPairs, left, mid);
-    mergeInsertPairsLargerValues(vectorOfPairs, mid + 1, right);
+    mergeInsertPairsLargerValues(pairs, left, mid, context);
+    mergeInsertPairsLargerValues(pairs, mid + 1, right, context);
 
     // Merging sorted pairs by their larger values
-    std::vector<std::pair<int, int>> temp;
+    T temp;
     unsigned int i = left, j = mid + 1;
 
     while (i <= mid && j <= right) {
-        if (vectorOfPairs[i].first <= vectorOfPairs[j].first) {
-            temp.push_back(vectorOfPairs[i]);
+        context.comparisons++;
+        if (pairs[i].first <= pairs[j].first) {
+            temp.push_back(pairs[i]);
             ++i;
         } else {
-            temp.push_back(vectorOfPairs[j]);
+            temp.push_back(pairs[j]);
             ++j;
         }
     }
 
     // Append remaining elements from either half
     while (i <= mid) {
-        temp.push_back(vectorOfPairs[i]);
+        temp.push_back(pairs[i]);
         ++i;
     }
 
     while (j <= right) {
-        temp.push_back(vectorOfPairs[j]);
+        temp.push_back(pairs[j]);
         ++j;
     }
 
     // Move sorted pairs back to the original vector
     for (unsigned int k = 0; k < temp.size(); ++k) {
-        vectorOfPairs[left + k] = temp[k];
+        pairs[left + k] = temp[k];
     }
 }
 
-void PmergeMe::binaryInsertSmallerValues(std::vector<std::pair<int, int>>& vectorOfPairs, std::vector<int> &mainChain) {
-    size_t j = 0;                                  // j of the vectorOfPairs
-    mainChain.push_back(vectorOfPairs[j].second);  // second pair member is smaller than first
-    mainChain.push_back(vectorOfPairs[j].first);
-    j++;  // lets move to second pair of vectorOfPairs
+/**
+ * @brief binary insertion of pairs' second member
+ *
+ */
+template <typename T, typename K>
+void PmergeMe::binaryInsertSmallerValues(T& pairs, K& mainChain, SortContext& context) {
+    size_t j = 0;
 
-    //fill up sorted larger pair members to mainChain
-    for(size_t i = j; i < vectorOfPairs.size(); ++i) {
-        mainChain.push_back(vectorOfPairs[i].first);
+    mainChain.push_back(pairs[j].second);  // second member of first pair is known to be smaller than first member
+    mainChain.push_back(pairs[j].first);
+    j++;  // move to second pair
+
+    for (size_t i = j; i < pairs.size(); ++i) {
+        mainChain.push_back(pairs[i].first);
     }
-    
+
     // Ford and Johnson generalization for first half of list of Demuth five element sorting
-    for (;j + 1 <= (vectorOfPairs.size() - 1) / 2; ++j) { // until first half of amount of pairs, handle vectorOfPairs[j+1].second, then vectorofParis[j].second.
-        binaryInsertVector(mainChain, vectorOfPairs[j + 1].second);
-        binaryInsertVector(mainChain, vectorOfPairs[j].second);
+    for (; j <= (pairs.size() - 1) / 2;
+         ++j) {  // until first half of amount of pairs, handle pairs[j+1].second, then vectorofPairs[j].second.
+        if (j + 1 <= (pairs.size() - 1) / 2) {
+            binaryInsert(mainChain, pairs[j + 1].second, context);
+            binaryInsert(mainChain, pairs[j].second, context);
+            j++;
+        } else {
+            binaryInsert(mainChain, pairs[j].second, context);
+        }
     }
-    for(size_t k = vectorOfPairs.size() - 1; k > (vectorOfPairs.size() - 1)/2; --k) {
-        binaryInsertVector(mainChain, vectorOfPairs[k].second);
+
+    if (context.hasOddLastElement == true) {
+        binaryInsert(mainChain, context.oddLastElement, context);
+    }
+
+    for (size_t k = pairs.size() - 1; k > (pairs.size() - 1) / 2; --k) {
+        binaryInsert(mainChain, pairs[k].second, context);
     }
 }
 
@@ -85,72 +105,35 @@ void PmergeMe::binaryInsertSmallerValues(std::vector<std::pair<int, int>>& vecto
   * @brief  Merge-insertion sort for vector
   *
   */
-std::vector<int> PmergeMe::mergeInsertSortVector(const std::vector<int>& input) {
+template <typename T>
+T PmergeMe::mergeInsertSort(const T& input, SortContext& context) {
     if (input.size() <= 1) {
         return input;
     }
 
-    std::vector<std::pair<int, int>> vectorOfPairs;  // Declare vector of pairs
-    for (size_t i = 0; i < input.size(); i += 2) {   // fill pairs with input
-        if (i + 1 <= input.size()) {
-            if (input[i] >= input[i + 1]) {  // sort first and second members of pairs,
-                                             // larger values populate first member.
-                vectorOfPairs.push_back(std::make_pair(input[i], input[i + 1]));
+    size_t i = 0;
+
+    std::vector<std::pair<int, int>> pairs;  // Declare vector of pairs
+    for (; i < input.size(); i += 2) {       // fill pairs with input
+        if (i + 1 < input.size()) {
+            context.comparisons++;
+            if (input[i] >= input[i + 1]) {  // sort first and second members of pairs, larger values populate first member.
+                pairs.push_back(std::make_pair(input[i], input[i + 1]));
             } else {
-                vectorOfPairs.push_back(std::make_pair(input[i + 1], input[i]));
+                pairs.push_back(std::make_pair(input[i + 1], input[i]));
             }
         } else {
-            vectorOfPairs.back().first = input[i];  // if input contains odd number, last value is sorted and
-                                                    // set to first position
+            context.hasOddLastElement = true;
+            context.oddLastElement = input.back();  // if input amount is odd, last input will be handled specifically, as per Ford Johnson
         }
     }
 
-    unsigned int vectorStartIndex = 0;
-    unsigned int vectorLastIndex = vectorOfPairs.size() - 1;
-    mergeInsertPairsLargerValues(vectorOfPairs, vectorStartIndex, vectorLastIndex);
+    unsigned int startIndex = 0;
+    unsigned int lastIndex = pairs.size() - 1;
+    mergeInsertPairsLargerValues(pairs, startIndex, lastIndex, context);
 
-    std::vector<int> mainChain;
-    binaryInsertSmallerValues(vectorOfPairs, mainChain);
-
-    // std::vector<int> sortedAList = mergeInsertSortVector(aList); // Recursive
-    // sort for (const auto &b : bList) {
-    //   binaryInsertVector(sortedAList, b);
-    // }
+    T mainChain;
+    binaryInsertSmallerValues(pairs, mainChain, context);
 
     return mainChain;
 }
-
-// // Merge-insertion sort for list
-// std::list<int> PmergeMe::mergeInsertSortList(const std::list<int> &arr) {
-//   if (arr.size() <= 1) {
-//     return arr;
-//   }
-
-//   std::list<int> aList, bList;
-//   auto it = arr.begin();
-//   while (it != arr.end()) {
-//     auto next = std::next(it);
-//     if (next != arr.end()) {
-//       if (*it < *next) {
-//         bList.push_back(*it);
-//         aList.push_back(*next);
-//         ++next;
-//       } else {
-//         bList.push_back(*next);
-//         aList.push_back(*it);
-//       }
-//       ++it; // Move to the next pair
-//     } else {
-//       aList.push_back(*it); // Odd element
-//     }
-//     it = next;
-//   }
-
-//   std::list<int> sortedAList = mergeInsertSortList(aList); // Recursive sort
-//   for (const auto &b : bList) {
-//     binaryInsertList(sortedAList, b);
-//   }
-//   std::cout << "MergeInsertSortList: test " << std::endl;
-
-//   return sortedAList;
-// }
