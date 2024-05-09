@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <chrono>
+#include <cmath>
 #include <cstdlib>
 #include <deque>
 #include <iomanip>
@@ -12,6 +13,14 @@
 template <typename T>
 bool isSorted(const T& data) {
     return std::is_sorted(data.begin(), data.end());
+}
+
+bool validateComparisons(const size_t actualComparisons, const size_t n) {
+    const double c = 1;  // Adjust based on empirical data or further analysis
+    double expectedComparisons = c * n * std::log2(n);
+    std::cout << "\nMax expected comp.:\t" << (actualComparisons <= expectedComparisons ? GREEN : RED)
+              << static_cast<int>(expectedComparisons);
+    return actualComparisons <= expectedComparisons;
 }
 
 int main(int argc, char* argv[]) {
@@ -28,7 +37,7 @@ int main(int argc, char* argv[]) {
         char* p;
         long converted = strtol(argv[i], &p, 10);
         if (*p || converted < 0 || converted > static_cast<long>(std::numeric_limits<int>::max())) {
-            std::cout << RED << "Error: Invalid input. Please provide positive integers only.\n" << RESET;
+            std::cout << RED << "Error: Invalid input. Please provide positive integers only.\n";
             return 1;
         }
         inputVector.push_back(static_cast<int>(converted));
@@ -48,7 +57,6 @@ int main(int argc, char* argv[]) {
     auto endVector = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::micro> vectorTime = endVector - startVector;
     std::cout << YELLOW << "Vector time to process:\t" << RESET << vectorTime.count() << " us\n" << RESET;
-    std::cout << "Comparison made:\t" << contextVector.comparisons << std::endl;
 
     // Sort using deque
     SortContext contextDeque;
@@ -57,15 +65,24 @@ int main(int argc, char* argv[]) {
     auto endDeque = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::micro> dequeTime = endDeque - startDeque;
     std::cout << YELLOW << "Deque time to process:\t" << RESET << dequeTime.count() << " us\n" << RESET;
-    std::cout << "Comparison made:\t" << contextDeque.comparisons << std::endl;
 
-    std::cout << "Fastest container:\t";
+    // ---- Fastest container assessment ---- 
+    std::cout << CYAN << "\n---- Fastest container ----\n" << RESET;
     if (vectorTime.count() <= dequeTime.count()) {
         double speedup = (dequeTime.count() / vectorTime.count() - 1) * 100;
-        std::cout << YELLOW << "vector wins by " << std::fixed << std::setprecision(2) << speedup << "%\n" << RESET;
+        std::cout << "vector wins by " << std::fixed << std::setprecision(2) << speedup << "%\n";
     } else {
         double speedup = (vectorTime.count() / dequeTime.count() - 1) * 100;
-        std::cout << YELLOW << "deque wins by " << std::fixed << std::setprecision(2) << speedup << "%\n" << RESET;
+        std::cout << "deque wins by " << std::fixed << std::setprecision(2) << speedup << "%\n";
+    }
+
+    // ---- Ford and Johnson comparison, theory vs practice ----
+    if (contextVector.comparisons == contextDeque.comparisons) {
+        std::cout << CYAN << "\n----- Ford and Johnson comparison, theory vs practice ----" << RESET;
+        bool isValid = validateComparisons(contextVector.comparisons, inputVector.size());
+        std::cout << (isValid ? " > " : " < ") << contextDeque.comparisons << " comparisons were needed to sort this input" << "\n" << RESET;
+    } else {
+        std::cout << RED << "\nComparisons between vector and deque do not match\n" << RESET;
     }
 
     // ---- Statistics and integrity checks for Vector ----

@@ -12,7 +12,7 @@ template <typename T>
 void PmergeMe::binaryInsert(T& mainChain, int value, SortContext& context) {
     auto it = std::lower_bound(mainChain.begin(), mainChain.end(), value);
     context.comparisons++;
-    mainChain.insert(it, value);
+    mainChain.insert(it, std::move(value)); // Use std::move to place value without copying
 }
 
 /**
