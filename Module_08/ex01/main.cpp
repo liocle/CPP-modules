@@ -4,15 +4,15 @@
 
 int main(void) {
 
-    std::cout << "--- Check addNumber ---" << std::endl;
+    std::cout << "--- Check addNumber with 0 and negative numbers ---" << std::endl;
     try {
-        Span sp(5);
+        Span sp(3);
         sp.addNumber(-10);
-        sp.addNumber(20);
-        sp.addNumber(20);
-        sp.addNumber(20);
+        sp.addNumber(0);
         sp.addNumber(20);
         std::cout << "Added numbers successfully." << std::endl;
+        std::cout << "Shortest Span: " << sp.shortestSpan() << std::endl;  // Expected: 10
+        std::cout << "Longest Span: " << sp.longestSpan() << std::endl;    // Expected: 30
     } catch (const std::exception& e) {
         std::cout << "Added numbers successfully to Span which now contains:" << std::endl;
     }
@@ -50,13 +50,13 @@ int main(void) {
         std::cout << "Exception caught with insufficient numbers for span:\n" << e.what() << std::endl;
     }
 
-    std::cout << "\n--- Simple test ---" << std::endl;
+    std::cout << "\n--- Subject test ---" << std::endl;
     try {
-        std::vector<int> vec{5,1,9};
-        Span spNormal(3);
-        spNormal.addRange(vec.begin(), vec.end());  
-        std::cout << "Shortest Span: " << spNormal.shortestSpan() << std::endl;  // Expected: 4
-        std::cout << "Longest Span: " << spNormal.longestSpan() << std::endl;    // Expected: 8
+        std::vector<int> vec{6,3,17,9,11};
+        Span spSubject(5);
+        spSubject.addRange(vec.begin(), vec.end());  
+        std::cout << "Shortest Span: " << spSubject.shortestSpan() << std::endl;  // Expected: 4
+        std::cout << "Longest Span: " << spSubject.longestSpan() << std::endl;    // Expected: 8
     } catch (const std::exception& e) {
         std::cout << "Exception caught during normal operations: " << e.what() << std::endl;
     }

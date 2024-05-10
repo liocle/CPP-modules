@@ -1,5 +1,6 @@
 #include "Span.h"
 #include <algorithm>
+#include <iostream>
 
 // Explicit instantiation for common iterator types
 template void Span::addRange<std::vector<int>::iterator>(std::vector<int>::iterator, std::vector<int>::iterator);
@@ -16,14 +17,15 @@ void Span::addNumber(int number) {
     numbers_.push_back(number);
 }
 
-unsigned int Span::shortestSpan() {
+unsigned int Span::shortestSpan() const {
     if (numbers_.size() < 2) {
         throw std::logic_error("Not enough elements for  span calculation");
     }
-    std::sort(numbers_.begin(), numbers_.end());
+    std::vector<int> temp = this->numbers_;
+    std::sort(temp.begin(), temp.end());
     unsigned int minSpan = UINT_MAX;
-    for (unsigned int i = 0; i < numbers_.size() - 1; ++i ) {
-        unsigned int span = numbers_.at(i + 1) - numbers_.at(i);
+    for (unsigned int i = 0; i < temp.size() - 1; ++i ) {
+        unsigned int span = temp.at(i + 1) - temp.at(i);
         if (span < minSpan)
             minSpan = span;
     }

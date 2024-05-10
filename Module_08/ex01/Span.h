@@ -9,19 +9,18 @@ class Span {
     std::vector<int> numbers_;
 
     Span() = delete;
-    Span(const Span &other) = delete;
-    Span &operator=(const Span &other) = delete;
-    
-   public:
+    Span(const Span& other) = delete;
+    Span& operator=(const Span& other) = delete;
 
+   public:
     Span(unsigned int N);
     ~Span();
 
     void addNumber(int number);
-    unsigned int shortestSpan();
+    unsigned int shortestSpan() const;
     unsigned int longestSpan() const;
 
-    template<typename Iterator>
+    template <typename Iterator>
     void addRange(Iterator begin, Iterator end);
 };
 
