@@ -1,5 +1,6 @@
 #include "Colors.h"
 #include "PmergeMe.hpp"
+#include "helper.hpp"
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -10,10 +11,18 @@
 #include <numeric> // For std::accumulate
 #include <vector>
 
+/**
+  * @brief  Returns true if container is sorted
+  */
 template <typename T> bool isSorted(const T &data) {
   return std::is_sorted(data.begin(), data.end());
 }
 
+/**
+  * @brief  Compares the amount of comparison monitored throughout the runtime with
+  * some estimated worst case comparison (n log n) that implement Ford and Johnson
+  * algorithm should outperform
+  */
 bool validateComparisons(const size_t actualComparisons, const size_t n) {
   const double c = 1; // Adjust based on empirical data or further analysis
   double expectedComparisons = c * n * std::log2(n);
@@ -23,6 +32,10 @@ bool validateComparisons(const size_t actualComparisons, const size_t n) {
   return actualComparisons <= expectedComparisons;
 }
 
+/**
+  *  @brief Implement Ford and Johnson algorithm with a Vector and a Deque
+  *  @detailed Parses, sorts and outputs raw data and some benchmark analyzis
+  */
 int main(int argc, char *argv[]) {
   for (int i = 0; i < argc; i++) {
     if (argc < 2 || *argv[i] == '\0') {
@@ -36,7 +49,9 @@ int main(int argc, char *argv[]) {
   std::vector<int> inputVector;
   std::deque<int> inputDeque;
 
-  // Parse command line arguments and check for valid integers
+  /**
+    * Parse command line arguments and check for valid integers
+    */
   for (int i = 1; i < argc; ++i) {
     char *p;
     long converted = strtol(argv[i], &p, 10);
@@ -57,7 +72,9 @@ int main(int argc, char *argv[]) {
   }
   std::cout << RESET << std::endl;
 
-  // Sort using vector
+  /**
+    * Sort using 1st container: VECTOR
+    */
   SortContext contextVector;
   TimingData timingVector;
   timingVector.startOverall = std::chrono::high_resolution_clock::now(); // Main timing start
@@ -69,7 +86,10 @@ int main(int argc, char *argv[]) {
   std::setw(20) << "[ MergeSort time: " << std::setw(8) << timingVector.getMergeSortDuration() << " us ]\t" <<
   std::setw(20) << "[ BinaryInsertion time: " << std::setw(8) << timingVector.getBinaryInsertDuration() << " us ]\n";
 
-  // Sort using deque
+  // 
+  /**
+    * Sort using second container: DEQUE
+    */
   SortContext contextDeque;
   TimingData timingDeque;
   timingDeque.startOverall = std::chrono::high_resolution_clock::now();
@@ -81,7 +101,11 @@ int main(int argc, char *argv[]) {
   std::setw(20) << "[ MergeSort time: " << std::setw(8) << timingDeque.getMergeSortDuration() << " us ]\t" <<
   std::setw(20) << "[ BinaryInsertion time: " << std::setw(8 )<< timingDeque.getBinaryInsertDuration() << " us ]\n";
 
-  // ---- Fastest container assessment ----
+  //
+  /**
+    *  ---- Fastest container assessment ----
+    *  overall time spent and detailed single step timing
+    */
   std::cout << CYAN << "\n---- Fastest container ----\n" << RESET;
   if (timingVector.getOverallDuration() <= timingDeque.getOverallDuration()) {
     double speedupOverall = (timingDeque.getOverallDuration() / timingVector.getOverallDuration() - 1) * 100;
@@ -103,10 +127,12 @@ int main(int argc, char *argv[]) {
               << " % ]\t" << std::setw(20) << "[ BinaryInsertion: " << std::setw(8) << speedupBinaryInsert << " % ]\n";
   }
 
-  // ---- Ford and Johnson comparison, theory vs practice ----
+  /**
+    * ---- Ford and Johnson comparison, expected (< n log n) vs practice ----
+    */
   if (contextVector.comparisons == contextDeque.comparisons) {
     std::cout << CYAN
-              << "\n----- Ford and Johnson comparison, theory vs practice ----"
+              << "\n----- Ford and Johnson comparison, expected (< n log n) vs practice ----"
               << RESET;
     bool isValid =
         validateComparisons(contextVector.comparisons, inputVector.size());
@@ -119,7 +145,9 @@ int main(int argc, char *argv[]) {
               << RESET;
   }
 
-  // ---- Statistics and integrity checks for Vector ----
+  /**
+    * VECTOR: ----- Statistics and integrity checks for vector -----
+    */
   std::cout << CYAN
             << "\n----- Statistics and integrity check for vector ----\n"
             << RESET;
@@ -147,7 +175,10 @@ int main(int argc, char *argv[]) {
     std::cout << RED << "Error: Data mismatch detected!" << RESET << std::endl;
   }
 
-  // Print unsorted / sorted vectors
+  
+  /**
+    * VECTOR: Print unsorted / sorted vectors
+    */
   size_t maxElementToPrint = 100;
   if (inputDeque.size() < maxElementToPrint) {
     std::cout << "Unsorted vector:\t";
@@ -169,7 +200,9 @@ int main(int argc, char *argv[]) {
               << RESET;
   }
 
-  // ----- Statistics and integrity checks for deque -----
+  /**
+    * DEQUE: ----- Statistics and integrity checks for deque -----
+    */
   std::cout << CYAN << "\n----- Statistics and integrity check for deque ----\n"
             << RESET;
   std::cout << "Input deque size:	" << inputDeque.size() << std::endl;
@@ -193,7 +226,10 @@ int main(int argc, char *argv[]) {
     std::cout << RED << "Error: Data mismatch detected!" << RESET << std::endl;
   }
 
-  // Print unsorted / sorted deques
+  
+  /**
+    * DEQUE: Print unsorted / sorted deques
+    */
   if (inputDeque.size() < maxElementToPrint) {
     std::cout << "Unsorted deque:\t\t";
     for (size_t number : inputDeque) {
