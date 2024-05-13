@@ -59,35 +59,48 @@ int main(int argc, char *argv[]) {
 
   // Sort using vector
   SortContext contextVector;
-  auto startVector = std::chrono::high_resolution_clock::now();
-  auto sortedVector = PmergeMe::mergeInsertSort(inputVector, contextVector);
-  auto endVector = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double, std::micro> vectorTime =
-      endVector - startVector;
-  std::cout << YELLOW << "Vector time to process:\t" << RESET
-            << vectorTime.count() << " us\n"
-            << RESET;
+  TimingData timingVector;
+  timingVector.startOverall = std::chrono::high_resolution_clock::now(); // Main timing start
+  auto sortedVector = PmergeMe::mergeInsertSort(inputVector, contextVector, timingVector); // Actual sorting
+  timingVector.endOverall = std::chrono::high_resolution_clock::now(); // main timing stops
+  std::cout << std::fixed << std::setprecision(2) << YELLOW << std::setw(20)
+            << "Vector Overall time:\t" << std::setw(8) << timingVector.getOverallDuration() << " us\t" << RESET << 
+  std::setw(20) << "[ Pairing Sort time: " << std::setw(8) << timingVector.getPairingDuration() << " us ]\t" <<
+  std::setw(20) << "[ MergeSort time: " << std::setw(8) << timingVector.getMergeSortDuration() << " us ]\t" <<
+  std::setw(20) << "[ BinaryInsertion time: " << std::setw(8) << timingVector.getBinaryInsertDuration() << " us ]\n";
 
   // Sort using deque
   SortContext contextDeque;
-  auto startDeque = std::chrono::high_resolution_clock::now();
-  auto sortedDeque = PmergeMe::mergeInsertSort(inputDeque, contextDeque);
-  auto endDeque = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double, std::micro> dequeTime = endDeque - startDeque;
-  std::cout << YELLOW << "Deque time to process:\t" << RESET
-            << dequeTime.count() << " us\n"
-            << RESET;
+  TimingData timingDeque;
+  timingDeque.startOverall = std::chrono::high_resolution_clock::now();
+  auto sortedDeque = PmergeMe::mergeInsertSort(inputDeque, contextDeque, timingDeque);
+  timingDeque.endOverall = std::chrono::high_resolution_clock::now();
+  std::cout << std::fixed << std::setprecision(2) << YELLOW << std::setw(20)
+            << "Deque Overall time:\t" << std::setw(8) << timingDeque.getOverallDuration() << " us\t" << RESET << 
+  std::setw(20) << "[ Pairing Sort time: " << std::setw(8) << timingDeque.getPairingDuration() << " us ]\t" <<
+  std::setw(20) << "[ MergeSort time: " << std::setw(8) << timingDeque.getMergeSortDuration() << " us ]\t" <<
+  std::setw(20) << "[ BinaryInsertion time: " << std::setw(8 )<< timingDeque.getBinaryInsertDuration() << " us ]\n";
 
   // ---- Fastest container assessment ----
   std::cout << CYAN << "\n---- Fastest container ----\n" << RESET;
-  if (vectorTime.count() <= dequeTime.count()) {
-    double speedup = (dequeTime.count() / vectorTime.count() - 1) * 100;
-    std::cout << "vector wins by " << std::fixed << std::setprecision(2)
-              << speedup << "%\n";
+  if (timingVector.getOverallDuration() <= timingDeque.getOverallDuration()) {
+    double speedupOverall = (timingDeque.getOverallDuration() / timingVector.getOverallDuration() - 1) * 100;
+    double speedupPairing = (timingDeque.getPairingDuration() / timingVector.getPairingDuration() - 1) * 100;
+    double speedupMergeSort = (timingDeque.getMergeSortDuration() / timingVector.getMergeSortDuration() - 1) * 100;
+    double speedupBinaryInsert = (timingDeque.getBinaryInsertDuration() / timingVector.getBinaryInsertDuration() - 1) * 100;
+    std::cout << std::fixed << std::setprecision(2) << GREEN << "Vector fastest by:\t" << std::setw(8)
+              << speedupOverall << " % \t" << RESET << std::setw(20) << "[ Pairing: " << std::setw(8) << speedupPairing << " % ]\t"
+              << std::setw(20) << "[ MergeSort:" << std::setw(8) << speedupMergeSort
+              << " % ]\t" << std::setw(20) << "[ BinaryInsertion: " << std::setw(8) << speedupBinaryInsert << " % ]\n";
   } else {
-    double speedup = (vectorTime.count() / dequeTime.count() - 1) * 100;
-    std::cout << "deque wins by " << std::fixed << std::setprecision(2)
-              << speedup << "%\n";
+    double speedupOverall = (timingVector.getOverallDuration() / timingDeque.getOverallDuration() - 1) * 100;
+    double speedupPairing = (timingVector.getPairingDuration() / timingDeque.getPairingDuration() - 1) * 100;
+    double speedupMergeSort = (timingVector.getMergeSortDuration() / timingDeque.getMergeSortDuration() - 1) * 100;
+    double speedupBinaryInsert = (timingVector.getBinaryInsertDuration() / timingDeque.getBinaryInsertDuration() - 1) * 100;
+    std::cout << std::fixed << std::setprecision(2) << GREEN << "Deque fastest by:\t" << std::setw(8)
+              << speedupOverall << " % \t" << RESET << std::setw(20) << "[ Pairing: " << std::setw(8) << speedupPairing << " % ]\t"
+              << std::setw(20) << "[ MergeSort:" << std::setw(8) << speedupMergeSort
+              << " % ]\t" << std::setw(20) << "[ BinaryInsertion: " << std::setw(8) << speedupBinaryInsert << " % ]\n";
   }
 
   // ---- Ford and Johnson comparison, theory vs practice ----

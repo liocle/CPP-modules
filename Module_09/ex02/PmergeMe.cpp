@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <iostream>
 
-template std::vector<int> PmergeMe::mergeInsertSort<std::vector<int>>(const std::vector<int>&, SortContext&);
-template std::deque<int> PmergeMe::mergeInsertSort<std::deque<int>>(const std::deque<int>&, SortContext&);
+template std::vector<int> PmergeMe::mergeInsertSort<std::vector<int>>(const std::vector<int>&, SortContext&, TimingData&);
+template std::deque<int> PmergeMe::mergeInsertSort<std::deque<int>>(const std::deque<int>&, SortContext&, TimingData&);
 
 /**
  * @brief Helper function to perform binary insertion for vectors
@@ -109,7 +109,7 @@ void PmergeMe::binaryInsertSmallerValues(T& pairs, K& mainChain, SortContext& co
   *
   */
 template <typename T>
-T PmergeMe::mergeInsertSort(const T& input, SortContext& context) {
+T PmergeMe::mergeInsertSort(const T& input, SortContext& context, TimingData& timing) {
     if (input.size() <= 1) {
         return input;
     }
@@ -117,6 +117,7 @@ T PmergeMe::mergeInsertSort(const T& input, SortContext& context) {
     size_t i = 0;
 
     std::vector<std::pair<int, int>> pairs;  // Declare vector of pairs
+    timing.startPairingSort = std::chrono::high_resolution_clock::now();
     for (; i < input.size(); i += 2) {       // fill pairs with input
         if (i + 1 < input.size()) {
             context.comparisons++;
@@ -130,13 +131,18 @@ T PmergeMe::mergeInsertSort(const T& input, SortContext& context) {
             context.oddLastElement = input.back();  // if input amount is odd, last input will be handled specifically, as per Ford Johnson
         }
     }
+    timing.endPairingSort = std::chrono::high_resolution_clock::now();
 
     unsigned int startIndex = 0;
     unsigned int lastIndex = pairs.size() - 1;
+    timing.startMergeSort = std::chrono::high_resolution_clock::now();
     mergeInsertPairsLargerValues(pairs, startIndex, lastIndex, context);
+    timing.endMergeSort = std::chrono::high_resolution_clock::now();
 
     T mainChain;
+    timing.startBinaryInsert = std::chrono::high_resolution_clock::now();
     binaryInsertSmallerValues(pairs, mainChain, context);
+    timing.endBinaryInsert = std::chrono::high_resolution_clock::now();
 
     return mainChain;
 }
