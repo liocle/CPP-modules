@@ -3,6 +3,7 @@
 
 #include <deque>
 #include <vector>
+#include <cstddef>
 
 struct SortContext {
     bool hasOddLastElement = false;
