@@ -5,18 +5,38 @@
 #include "BitcoinExchange.hpp"
 #include "Colors.h"
 
+/**
+ * @brief Lambda expression checking for any white spaces 
+ * 
+ * @return Non-zero if character is a whitespace char, zero otherwise.
+ */
 auto isNotSpace = [](char c) {
     return !isspace(c);
 };
 
+/**
+ * @brief Trims leading whitespace characters from a string.
+ * 
+ * @param s The string to trim.
+ */
 static void ltrim(std::string& s) {
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), isNotSpace));
 }
 
+/**
+ * @brief Trims trailing whitespace characters from a string.
+ * 
+ * @param s The string to trim.
+ */
 static void rtrim(std::string& s) {
     s.erase(std::find_if(s.rbegin(), s.rend(), isNotSpace).base(), s.end());
 }
 
+/**
+ * @brief Trims leading and trailing whitespace characters from a string.
+ * 
+ * @param s The string to trim.
+ */
 static void trim(std::string& s) {
     ltrim(s);
     rtrim(s);
@@ -47,17 +67,20 @@ int main(int argc, char** argv) {
                 trim(date);
                 trim(valueString);
                 if (!exchange.validateDate(date)) {
-                std::cerr << CYAN << "Error, usage: \"YYYY-MM-DD | value\" =>\t" << "\"" << line << "\"" << RESET << std::endl;
+                    std::cerr << CYAN << "Error, usage: \"YYYY-MM-DD | value\" =>\t"
+                              << "\"" << line << "\"" << RESET << std::endl;
                     continue;
                 }
                 if (exchange.validateValue(valueString) == false) {
-                    std::cerr << BLUE << "Error: Accepted value range [0, 1000]:\t" <<  "\"" <<  valueString << "\"" << RESET << std::endl;
+                    std::cerr << BLUE << "Error: Accepted value range [0, 1000]:\t"
+                              << "\"" << valueString << "\"" << RESET << std::endl;
                     continue;
                 }
                 std::istringstream valueStream(valueString);
                 valueStream >> value;
                 if (!valueStream.eof()) {
-                    std::cerr << YELLOW << "Error: Accepted range [0, 1000], got:\t" << "\"" << valueString << "\"" << RESET <<  std::endl;
+                    std::cerr << YELLOW << "Error: Accepted range [0, 1000], got:\t"
+                              << "\"" << valueString << "\"" << RESET << std::endl;
                     continue;
                 }
                 double rate = exchange.getClosestPrice(date);
@@ -67,7 +90,8 @@ int main(int argc, char** argv) {
                 if (line.find("##") != std::string::npos) {
                     std::cerr << RED << "\nTEST SECTION: " << line << "\n" << RESET;
                 } else if (!line.empty()) {
-                std::cerr << CYAN << "Error, usage: \"YYYY-MM-DD | value\" =>\t" << "\"" << line << "\"" << RESET << std::endl;
+                    std::cerr << CYAN << "Error, usage: \"YYYY-MM-DD | value\" =>\t"
+                              << "\"" << line << "\"" << RESET << std::endl;
                 }
             }
         }
